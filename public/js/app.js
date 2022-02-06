@@ -11,7 +11,6 @@ const rateStars = function () {
     })
 }
 let carouselHandler = function () {
-    console.log($("div#carousel-main"))
     $('.owl-carousel').each(function (e) {
         $(this).owlCarousel({
             stagePadding: 50,
