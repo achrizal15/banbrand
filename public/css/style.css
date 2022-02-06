@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600;700&family=Nunito:wght@300;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;600&display=swap");
+.font-family-nunito-sans {
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.font-family-cormorant-garamond {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+section.section-sub-nav {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+section.section-sub-nav a.nav-link {
+  color: black;
+  border-bottom: white solid 2px;
+}
+
+section.section-sub-nav a.nav-link:hover {
+  border-bottom: #222222 solid 2px;
+  transition: color 0.2s;
+}
+
+nav div.d-lg-flex {
+  margin-left: 5.5rem;
+}
+
+@media (max-width: 992px) {
+  nav div.d-lg-flex {
+    margin-left: 0;
+  }
+}
+
+nav div.d-lg-flex a.nav-link {
+  color: #a3a5a7;
+}
+
+@media (max-width: 992px) {
+  nav div.d-lg-flex a.nav-link {
+    padding-left: 0;
+  }
+}
+
+nav div.d-lg-flex a.nav-link:hover {
+  color: white;
+  transition: color 0.2s;
+}
+
+nav div.d-lg-flex .btn-outline-light {
+  border-width: 2px;
+  font-size: 1rem;
+}
+
+.banner-img {
+  background-image: url("/images/banner-banner.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 20vh;
+}
+
+.carousel-wrapper {
+  width: 100%;
+  margin: auto;
+  position: relative;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.owl-carousel .owl-nav {
+  overflow: hidden;
+  height: 0px;
+}
+
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+  background: #5110e9;
+}
+
+.owl-carousel .item {
+  text-align: center;
+}
+
+.owl-carousel .nav-button {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  position: absolute;
+  top: 120px !important;
+}
+
+.owl-carousel .owl-prev.disabled,
+.owl-carousel .owl-next.disabled {
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+.owl-carousel .owl-prev {
+  left: 0;
+}
+
+.owl-carousel .owl-next {
+  right: 0;
+}
+
+.owl-theme .owl-nav [class*=owl-] {
+  color: #161616;
+  font-size: 27px;
+  background: #35353593;
+  border-radius: 100%;
+}
+
+.owl-theme .owl-nav [class*=owl-]:hover {
+  background-color: rgba(27, 27, 27, 0.76);
+}
+
+.owl-carousel .prev-carousel:hover {
+  background-position: 0px -53px;
+}
+
+.owl-carousel .next-carousel:hover {
+  background-position: -24px -53px;
+}
