@@ -25,6 +25,7 @@ class SellerFactory extends Factory
             "logo" => "default.jpg",
             "no_rekening" => $this->faker->bankAccountNumber,
             "is_active" => $this->faker->boolean,
+            "tentang" => $this->faker->text,
             "active_at" => $this->faker->time("Y-m-d H:i:s", "now"),
         ];
     }

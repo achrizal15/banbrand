@@ -25,6 +25,7 @@ class CreateSellersTable extends Migration
             $table->string("no_telp_toko");
             $table->string("logo");
             $table->string("no_rekening");
+            $table->string("tentang");
             $table->boolean("is_active")->default(false);
             $table->boolean("is_ban")->default(false);
             $table->timestamp("active_at")->nullable();

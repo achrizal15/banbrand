@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Seller;
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,5 +17,12 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         Seller::factory(50)->create();
+    Tag::factory(10)->create();
+     $tags=\app\Models\Tag::all();
+     $sellers=\App\Models\Seller::all();
+     
+        foreach ($sellers as $seller) {
+            $seller->tags()->attach($tags->random(rand(1,3)));
+        }
     }
 }

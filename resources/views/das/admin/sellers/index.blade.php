@@ -13,9 +13,9 @@
                         <table class="dataTable table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>LOGO</th>
-                                    <th class="text-nowrap">NAMA TOKO</th>
-                                    <th>PEMILIK</th>
+                                    <th data-priority="1">LOGO</th>
+                                    <th class="text-nowrap" data-priority="2">NAMA TOKO</th>
+                                    <th data-priority="3">PEMILIK</th>
                                     <th class="text-nowrap">NO REKENING</th>
                                     <th class="text-nowrap">NO HANDPHONE</th>
                                     <th class="text-nowrap">NO TELP TOKO</th>
@@ -25,8 +25,8 @@
                             <tbody>
                                 @foreach ($sellers as $seller)
                                     <tr>
-                                        <td><img src="{{ asset('storage/logo-sellers/' . $seller->logo) }}" alt="" width="100px"
-                                                height="100px"></td>
+                                        <td><img src="{{ asset('storage/logo-sellers/' . $seller->logo) }}" alt="" width="60px"
+                                                height="60px"></td>
                                         <td>{{ $seller->nama_toko }}</td>
                                         <td>{{ $seller->nama }}</td>
                                         <td>{{ $seller->no_rekening }}</td>

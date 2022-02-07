@@ -57,7 +57,7 @@ class SellerController extends Controller
      */
     public function show($id)
     {
-        echo $id;
+       return view("das.admin.sellers.show",["title"=>"Seller", "seller"=>Seller::findOrFail($id)]);
     }
 
     /**
