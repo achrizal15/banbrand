@@ -5,7 +5,7 @@
        <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent nav-legacy" data-widget="treeview" role="menu"
            data-accordion="false">
            <li class="nav-item">
-               <a href="#" class="nav-link text-">
+               <a href="{{ route("admin") }}" class="nav-link text-">
                    <i class="nav-icon fas fa-tachometer-alt"></i>
                    <p>
                       Dashboard

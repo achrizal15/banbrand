@@ -6,12 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ isset($title) ? $title : 'BANBRAND' }}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    {{-- meta content base_url --}}
+
     @include("template.das.head_include")
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-mini layout-fixed">
+    <div class="loader">
+        <i class="fas fa-spinner fa-spin loader-icon"></i>
+    </div>
     <div class="wrapper">
         <!-- Navbar -->
+
         <nav class="main-header navbar navbar-expand navbar-dark navbar-teal">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
@@ -80,7 +87,8 @@
         <aside class="main-sidebar elevation-4 sidebar-light-indigo">
             <!-- Brand Logo -->
             <a href="#" class="brand-link navbar-teal">
-                <img src="{{ asset('images/banbrand.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" width="60px"
+                <img src="{{ asset('images/banbrand.png') }}" alt="AdminLTE Logo"
+                    class="brand-image img-circle elevation-3" width="60px"
                     style="opacity: .8">
                 <span class="brand-text text-white">Banbrand</span>
             </a>
@@ -97,20 +105,27 @@
                             <h1 class="m-0 text-dark">{{ $title }}</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
-                            <?php $bread = explode('/', url()->full()); ?>
+                            <?php $bread = explode('/', url()->current());
+                            $bread = array_splice($bread, 3);
+                            $links=[];
+                            ?>
+
                             <ol class="breadcrumb float-sm-right">
 
-                                @foreach ($bread as $item)
-                                    @if ($loop->index <= 2)
-                                        @continue
-                                    @endif
+                                @foreach ($bread as $key => $item)
                                     @if ($loop->last)
-                                        <?php $item = substr($item, 0, strpos($item, '?')); ?>
+                                        <?php
+                                        if (strpos($item, '?') == true) {
+                                            $item = substr($item, 0, strpos($item, '?'));
+                                        } ?>
                                         <li class="breadcrumb-item active">{{ ucwords($item) }}</li>
                                     @else
+                                        <?php
+                                        array_push($links, $item);
+                                        $link = implode($links, '/')  ?>
                                         <li class="breadcrumb-item">
-                                            <a href="/{{ $item }}">{{ ucwords($item) }}</a>
-                                        </li>
+                                            <a href="/{{ $link }}">{{ ucwords($item) }}</a>
+                                        </li>                           
                                     @endif
                                 @endforeach
                             </ol>
@@ -119,10 +134,14 @@
                 </div><!-- /.container-fluid -->
             </div>
 
+
             @yield("content")
         </div>
     </div>
-    @include("template.footer_include")
+    @include("template.das.footer_include")
+    <script>
+
+    </script>
 </body>
 
 </html>

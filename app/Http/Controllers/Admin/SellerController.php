@@ -57,7 +57,8 @@ class SellerController extends Controller
      */
     public function show($id)
     {
-       return view("das.admin.sellers.show",["title"=>"Seller", "seller"=>Seller::findOrFail($id)]);
+   
+       return view("das.admin.sellers.show",["title"=>"Seller", "seller"=>Seller::findOrFail($id)->load("tags")]);
     }
 
     /**
@@ -78,9 +79,18 @@ class SellerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Seller $seller)
     {
-        //
+        if(isset($request->approval)){
+            if($request->approval == "active"){
+                $seller->is_active = 1;
+                echo json_encode( $seller->saveOrFail());
+            }else{
+             echo json_encode($seller->deleteOrFail());
+            } 
+           
+            return;
+        }
     }
 
     /**
@@ -89,8 +99,12 @@ class SellerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Seller $seller)
     {
-        //
+        $seller->is_ban=request("is_ban");
+        $seller->saveOrFail();
+        echo json_encode(   $seller);
+            
+       
     }
 }

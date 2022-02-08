@@ -9,12 +9,12 @@
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-                               <div class="profile-user-img img-fluid img-circle overflow-hidden">
-                                  <img 
-                                      src="{{ asset('storage/logo-sellers/' . $seller->logo) }}"
-                                      alt="User profile picture" width="100px" height="100px">
+                                <div class="profile-user-img img-fluid img-circle overflow-hidden">
+                                    <img
+                                        src="{{ asset('storage/logo-sellers/' . $seller->logo) }}"
+                                        alt="User profile picture" width="100px" height="100px">
 
-                               </div>
+                                </div>
                             </div>
 
                             <h3 class="profile-username text-center">{{ $seller->nama_toko }}</h3>
@@ -60,45 +60,62 @@
 
                             <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
 
-                            <p class="text-muted">
-                                <span class="tag tag-danger">UI Design</span>
-                                <span class="tag tag-success">Coding</span>
-                                <span class="tag tag-info">Javascript</span>
-                                <span class="tag tag-warning">PHP</span>
-                                <span class="tag tag-primary">Node.js</span>
+                            <p class="text-muted ">
+                                @foreach ($seller->tags as $tag)
+                                    @if ($loop->last)
+                                        <span class="badge badge-danger">{{ $tag->nama }}</span>
+                                    @elseif ($loop->index % 2 == 0)
+                                        <span class="badge badge-info">{{ $tag->nama }}</span>
+                                    @else
+                                        <span class="badge badge-warning">{{ $tag->nama }}</span>
+                                    @endif
+                                @endforeach
                             </p>
 
                             <hr>
 
                             <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
 
-                            <p class="text-muted">{{$seller->tentang}}</p>
+                            <p class="text-muted">{{ $seller->tentang }}</p>
                         </div>
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->
+
                 <div class="col-md-9">
                     <div class="card">
-                        <div class="card-header p-2">
-                            <ul class="nav nav-pills">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="pills-activity-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-activity" type="button" role="tab"
-                                        aria-controls="pills-activity" aria-selected="true">Activity</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-timeline-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-timeline" type="button" role="tab"
-                                        aria-controls="pills-timeline" aria-selected="false">Timeline</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-setting-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-setting" type="button" role="tab"
-                                        aria-controls="pills-setting" aria-selected="false">Setting</button>
-                                </li>
-                            </ul>
+                        
+                        <div class="card-header p-2 ">
+                            @if ($seller->is_active)
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="pills-activity-tab" data-bs-toggle="pill"
+                                            data-bs-target="#pills-activity" type="button" role="tab"
+                                            aria-controls="pills-activity" aria-selected="true">Activity</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="pills-timeline-tab" data-bs-toggle="pill"
+                                            data-bs-target="#pills-timeline" type="button" role="tab"
+                                            aria-controls="pills-timeline" aria-selected="false">Timeline</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="pills-setting-tab" data-bs-toggle="pill"
+                                            data-bs-target="#pills-setting" type="button" role="tab"
+                                            aria-controls="pills-setting" aria-selected="false">Setting</button>
+                                    </li>
+                                </ul>
+                            @else
+                                <button id="approval-btn" data-id="{{ $seller->id }}" data-type="active"
+                                    data-url="{{ route('admin.sellers.update', $seller->id) }}"
+                                    class="btn btn-success mr-2">Activate Now</button>
+                                <button id="approval-btn" data-id="{{ $seller->id }}"
+                                    data-url="{{ route('admin.sellers.update',100) }}" data-type="remove"
+                                    class="btn btn-danger">Remove Approval</button>
+                            @endif
+
+
                         </div><!-- /.card-header -->
                         <div class="card-body" id="pills-tabContent">
                             <div class="tab-content">
@@ -107,7 +124,8 @@
                                     <!-- Post -->
                                     <div class="post">
                                         <div class="user-block">
-                                            <img class="img-circle img-bordered-sm"  src="{{ asset("storage/logo-sellers/".$seller->logo )}}"
+                                            <img class="img-circle img-bordered-sm"
+                                                src="{{ asset('storage/logo-sellers/' . $seller->logo) }}"
                                                 alt="user image">
                                             <span class="username">
                                                 <a href="#">Jonathan Burke Jr.</a>
@@ -144,7 +162,8 @@
                                     <!-- Post -->
                                     <div class="post clearfix">
                                         <div class="user-block">
-                                            <img class="img-circle img-bordered-sm" src="{{ asset("storage/logo-sellers/".$seller->logo )}}"
+                                            <img class="img-circle img-bordered-sm"
+                                                src="{{ asset('storage/logo-sellers/' . $seller->logo) }}"
                                                 alt="User Image">
                                             <span class="username">
                                                 <a href="#">Sarah Ross</a>

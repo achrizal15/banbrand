@@ -34,11 +34,16 @@
                                         <td>{{ $seller->no_telp_toko}}</td>
                                         <td class="text-nowrap text-center">
                                             @if ($seller->is_active == 1)
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <a href="{{ route("admin.sellers.show",["seller"=>$seller->id]) }}" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
                                             <button class="btn btn-sm btn-warning text-white"><i class="far fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-ban"></i></button>
+                                            <form class="d-inline" action="{{ route("admin.sellers.destroy",$seller->id) }}" method="post">
+                                                @csrf
+                                                @method("delete")
+                                                <input type="text" name="is_ban" value="1" hidden>
+                                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-ban"></i></button>
+                                            </form>
                                             @else
-                                            <button class="btn btn-sm btn-info"><i class="fas fa-info-circle"></i></button>
+                                            <a href="{{ route("admin.sellers.show",["seller"=>$seller->id]) }}" class="btn btn-sm btn-info"><i class="fas fa-info-circle"></i></a>
                                             @endif
                                     
                                         </td>

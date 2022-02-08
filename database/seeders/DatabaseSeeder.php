@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         Seller::factory(50)->create();
-    Tag::factory(10)->create();
+    $this->call(TagSeeder::class);
      $tags=\app\Models\Tag::all();
      $sellers=\App\Models\Seller::all();
      
