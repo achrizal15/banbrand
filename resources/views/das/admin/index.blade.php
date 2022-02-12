@@ -1,4 +1,4 @@
-@extends("template.das")
+@extends("template.das.main")
 @section("content")
 <div class="content">
     <div class="container-fluid">

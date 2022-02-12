@@ -26,6 +26,11 @@ class SellerFactory extends Factory
             "no_rekening" => $this->faker->bankAccountNumber,
             "is_active" => $this->faker->boolean,
             "tentang" => $this->faker->text,
+            "kode_pos" => $this->faker->postcode,
+            "kota" => $this->faker->city,
+            "kecamatan" => $this->faker->city,
+            "kelurahan" => $this->faker->city,
+            "username" => $this->faker->unique()->userName,
             "active_at" => $this->faker->time("Y-m-d H:i:s", "now"),
         ];
     }

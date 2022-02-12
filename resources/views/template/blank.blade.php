@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ isset($title) ? $title : 'BANBRAND' }}</title>
-    @include("template.head_include")
+    @include("template.das.head_include")
 
 </head>
 
-<body class="bg-light font-family-nunito-sans">
+<body class="bg-light font-family-nunito-sans hold-transition register-page" >
     @yield("content")
-    @include("template.footer_include")
+    @include("template.das.footer_include")
 </body>
 
 </html>

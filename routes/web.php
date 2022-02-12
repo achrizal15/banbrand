@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CustomerController;
 use Illuminate\Support\Facades\Route;
 //import use admin controller
 use App\Http\Controllers\Admin\DashboardController;
@@ -31,5 +32,14 @@ Route::group(["prefix" => "admin"], function () {
         "edit" => "admin.sellers.edit",
         "update" => "admin.sellers.update",
         "destroy" => "admin.sellers.destroy",
+    ]);
+    Route::resource("/customers", CustomerController::class)->names([
+        "index" => "admin.customers.index",
+        "create" => "admin.customers.create",
+        "store" => "admin.customers.store",
+        "show" => "admin.customers.show",
+        "edit" => "admin.customers.edit",
+        "update" => "admin.customers.update",
+        "destroy" => "admin.customers.destroy",
     ]);
 });

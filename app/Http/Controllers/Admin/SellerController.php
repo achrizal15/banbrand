@@ -14,18 +14,18 @@ class SellerController extends Controller
      * @return \Illuminate\Http\Response
      */
     //constructor
-  
+
     public function index()
     {
-        $condition =request()->condition;
+        $condition = request()->condition;
         $sellers = Seller::latest();
         if ($condition == "approval") {
-            $sellers = $sellers->where("is_active",0);
+            $sellers = $sellers->where("is_active", 0);
         } else {
             $sellers = $sellers->where("is_active", 1);
         }
-  
-        return view("das.admin.sellers.index", ["title"=>"Sellers", "sellers"=>$sellers->get()]);
+
+        return view("das.admin.sellers.index", ["title" => "Sellers", "sellers" => $sellers->get()]);
     }
 
     /**
@@ -57,8 +57,8 @@ class SellerController extends Controller
      */
     public function show($id)
     {
-   
-       return view("das.admin.sellers.show",["title"=>"Seller", "seller"=>Seller::findOrFail($id)->load("tags")]);
+
+        return view("das.admin.sellers.show", ["title" => "Seller", "seller" => Seller::findOrFail($id)->load("tags")]);
     }
 
     /**
@@ -79,16 +79,16 @@ class SellerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Seller $seller)
+    public function update(Request $request, Seller $seller)
     {
-        if(isset($request->approval)){
-            if($request->approval == "active"){
+        if (isset($request->approval)) {
+            if ($request->approval == "active") {
                 $seller->is_active = 1;
-                echo json_encode( $seller->saveOrFail());
-            }else{
-             echo json_encode($seller->deleteOrFail());
-            } 
-           
+                echo json_encode($seller->saveOrFail());
+            } else {
+                echo json_encode($seller->deleteOrFail());
+            }
+
             return;
         }
     }
@@ -101,10 +101,13 @@ class SellerController extends Controller
      */
     public function destroy(Seller $seller)
     {
-        $seller->is_ban=request("is_ban");
+        $seller->is_ban = request()->input("is_ban");
         $seller->saveOrFail();
-        echo json_encode(   $seller);
-            
-       
+        $message=request("is_ban") == 1 ? "Banned " : "Unbanned " ;
+        $response = [
+            "message" => "Seller $seller->nama $message Successfully",
+            "url" => route("admin.sellers.index")
+        ];
+        echo json_encode($response);
     }
 }

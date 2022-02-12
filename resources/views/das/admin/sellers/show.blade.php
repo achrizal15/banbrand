@@ -1,4 +1,4 @@
-@extends("template.das")
+@extends("template.das.main")
 @section('content')
     <section class="content">
         <div class="container-fluid">
@@ -111,7 +111,7 @@
                                     data-url="{{ route('admin.sellers.update', $seller->id) }}"
                                     class="btn btn-success mr-2">Activate Now</button>
                                 <button id="approval-btn" data-id="{{ $seller->id }}"
-                                    data-url="{{ route('admin.sellers.update',100) }}" data-type="remove"
+                                    data-url="{{ route('admin.sellers.update',$seller->id) }}" data-type="remove"
                                     class="btn btn-danger">Remove Approval</button>
                             @endif
 

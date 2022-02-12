@@ -17,6 +17,7 @@ class CreateSellersTable extends Migration
             $table->id();
             $table->string("nama");
             $table->string("email");
+            $table->string("username")->unique();
             $table->string("password");
             $table->string("alamat");
             $table->string("no_telp");
@@ -26,6 +27,10 @@ class CreateSellersTable extends Migration
             $table->string("logo");
             $table->string("no_rekening");
             $table->string("tentang");
+            $table->string("kode_pos");
+            $table->string("kota");
+            $table->string("kecamatan");
+            $table->string("kelurahan");
             $table->boolean("is_active")->default(false);
             $table->boolean("is_ban")->default(false);
             $table->timestamp("active_at")->nullable();

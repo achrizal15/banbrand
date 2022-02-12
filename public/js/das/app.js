@@ -5,6 +5,7 @@ const createTable = () => {
   const table = $(".dataTable");
   if (table.length > 0) {
     table.DataTable({
+      "order": [],
       "paging": true,
       "lengthChange": false,
       "ordering": true,
@@ -14,6 +15,59 @@ const createTable = () => {
     })
   }
 }
+//function delete item from datatable
+const deleteItem = () => {
+  const FORM_DELETE_ITEM = $("form#form-delete-item");
+  if (FORM_DELETE_ITEM.length > 0) {
+    FORM_DELETE_ITEM.on("submit", function (e) {
+      e.preventDefault();
+      const url = $(this).attr("action");
+      const remove = $(this).data("remove");
+      const refresh = $(this).data("refresh");
+      const row = $(this).parents("tr");
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: `Yes, delete it!`
+      }).then((result) => {
+        if (result.isConfirmed) {
+          loader("visible");
+          $.ajax({
+            type: "post",
+            url: url,
+            data: { "_token": token, "_method": "DELETE" },
+            dataType: "json",
+            success: function (response) {
+              loader("hidden");
+              $(document).Toasts('create', {
+                class: "bg-success m-2",
+                title: "Success",
+                body: response.message,
+              });
+              if (remove) {
+                row.remove();
+                if (refresh == true) window.location.reload();
+              }
+            },
+            error: function (error) {
+              $(document).Toasts('create', {
+                class: "bg-danger m-2",
+                title: "Error",
+                body: error.statusText + " " + error.responseJSON.message + " </br> Please refresh the page.",
+              })
+              loader("hidden");
+            }
+          });
+        }
+      })
+    })
+  }
+}
+
 //function loader show/hidden
 const loader = (type = "visible") => {
   if (type == "hidden") {
@@ -49,7 +103,6 @@ class ToastMessage {
 
 //function page approval
 const pageApproval = () => {
-
   if ($("#approval-btn").length > 0) {
     //document btn on click
     $(document).on("click", "#approval-btn", function () {
@@ -81,7 +134,7 @@ const pageApproval = () => {
                 body: "Successfully " + type + "d",
               })
               loader("hidden");
-              window.location.reload();
+              window.location = "/admin/sellers?condition=approval"
             },
             error: function (error) {
               $(document).Toasts('create', {
@@ -90,7 +143,7 @@ const pageApproval = () => {
                 body: error.statusText
               })
               loader("hidden");
-            
+
             }
           });
         }
@@ -98,7 +151,55 @@ const pageApproval = () => {
     })
   }
 }
+const pageAprroved = () => {
+  $(document).on("submit", "#seller-banned-form", function (e) {
+    e.preventDefault();
+    const url = $(this).attr("action");
+    //get value from this form
+    const is_ban = $("#seller-banned-form input[name=is_ban]").val();
+    let type = is_ban == 1 ? "unban" : "ban";
+    //sweet alert
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to " + type + " this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        loader("visible");
+        $.ajax({
+          type: "post",
+          url: url,
+          data: { "_token": token, "is_ban": is_ban, "_method": "DELETE" },
+          dataType: "json",
+          success: function (response) {
+            $(document).Toasts('create', {
+              class: "bg-success m-2",
+              title: "Success",
+              body: response.message,
+            })
+            loader("hidden");
+            window.location.reload();
+          },
+          error: function (error) {
+            $(document).Toasts('create', {
+              class: "bg-danger m-2",
+              title: "Error",
+              body: error.statusText + " " + error.responseJSON.message + " </br> Please refresh the page.",
+            })
+            loader("hidden");
+          }
+        });
+      }
+    })
+  })
+}
 $(document).ready(function () {
+  deleteItem();
   pageApproval();
-  createTable()
+  pageAprroved()
+  createTable();
+  console.clear();
 });
