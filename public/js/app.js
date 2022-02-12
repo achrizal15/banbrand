@@ -16,11 +16,13 @@ let carouselHandler = function () {
             stagePadding: 50,
             loop: false,
             margin: 10,
+            merge:true,
             nav: true,
             dots: false,
             navText: ["<div class='nav-button owl-prev text-center'>‹</div>", "<div class='nav-button owl-next'>›</div>"],
             responsive: {
-                0: {
+               0: {
+                    margin:100,
                     items: 1
                 },
                 600: {

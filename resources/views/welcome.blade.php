@@ -1,6 +1,6 @@
 @extends('template.main')
 @section('content')
-    <section class="container mt-5">
+    <section class="container mt-5 bg-white p-4 rounded ">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h3 class="fw-bold">Trending Banners</h3>
             <a href="" class="text-decoration-none fw-bold ">See All <i class="fas fa-chevron-right"
@@ -10,7 +10,7 @@
             <div  class="owl-carousel owl-theme">
                 <div class="item">
                     <div class="card" style="width: 15rem;">
-                        <img src="https://images.unsplash.com/photo-1510797215324-95aa89f43c33?fit=crop&fm=jpg&h=800&q=80&w=1200"
+                        <img src="{{ asset("storage/produk-image/default.png") }}"
                             alt="Picture 1">
                         <div class="card-body text-center">
                             <h5>Spanduk Partai 4x4</h5>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="item">
                     <div class="card" style="width: 15rem;">
-                        <img src="https://images.unsplash.com/photo-1510797215324-95aa89f43c33?fit=crop&fm=jpg&h=800&q=80&w=1200"
+                        <img src="{{ asset("storage/produk-image/default.png") }}"
                             alt="Picture 1">
                         <div class="card-body text-center">
                             <h5>Spanduk Partai 4x4</h5>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="item">
                     <div class="card" style="width: 15rem;">
-                        <img src="https://images.unsplash.com/photo-1510797215324-95aa89f43c33?fit=crop&fm=jpg&h=800&q=80&w=1200"
+                        <img src="{{ asset("storage/produk-image/default.png") }}"
                             alt="Picture 1">
                         <div class="card-body text-center">
                             <h5>Spanduk Partai 4x4</h5>
@@ -52,7 +52,7 @@
                 </div>
                 <div class="item">
                     <div class="card" style="width: 15rem;">
-                        <img src="https://images.unsplash.com/photo-1510797215324-95aa89f43c33?fit=crop&fm=jpg&h=800&q=80&w=1200"
+                        <img src="{{ asset("storage/produk-image/default.png") }}"
                             alt="Picture 1">
                         <div class="card-body text-center">
                             <h5>Spanduk Partai 4x4</h5>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="item">
                     <div class="card" style="width: 15rem;">
-                        <img src="https://images.unsplash.com/photo-1510797215324-95aa89f43c33?fit=crop&fm=jpg&h=800&q=80&w=1200"
+                        <img src="{{ asset("storage/produk-image/default.png") }}"
                             alt="Picture 1">
                         <div class="card-body text-center">
                             <h5>Spanduk Partai 4x4</h5>
@@ -95,7 +95,7 @@
             <div  class="owl-carousel owl-theme">
                 <div class="item">
                     <div class="card" style="width: 15rem;">
-                        <img src="https://images.unsplash.com/photo-1510797215324-95aa89f43c33?fit=crop&fm=jpg&h=800&q=80&w=1200"
+                        <img src="{{ asset("storage/produk-image/default.png") }}"
                             alt="Picture 1">
                         <div class="card-body text-center">
                             <h5>Spanduk Partai 4x4</h5>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="item">
                     <div class="card" style="width: 15rem;">
-                        <img src="https://images.unsplash.com/photo-1510797215324-95aa89f43c33?fit=crop&fm=jpg&h=800&q=80&w=1200"
+                        <img src="{{ asset("storage/produk-image/default.png") }}"
                             alt="Picture 1">
                         <div class="card-body text-center">
                             <h5>Spanduk Partai 4x4</h5>
@@ -123,7 +123,7 @@
                 </div>
                 <div class="item">
                     <div class="card" style="width: 15rem;">
-                        <img src="https://images.unsplash.com/photo-1510797215324-95aa89f43c33?fit=crop&fm=jpg&h=800&q=80&w=1200"
+                        <img src="{{ asset("storage/produk-image/default.png") }}"
                             alt="Picture 1">
                         <div class="card-body text-center">
                             <h5>Spanduk Partai 4x4</h5>
@@ -137,7 +137,7 @@
                 </div>
                 <div class="item">
                     <div class="card" style="width: 15rem;">
-                        <img src="https://images.unsplash.com/photo-1510797215324-95aa89f43c33?fit=crop&fm=jpg&h=800&q=80&w=1200"
+                        <img src="{{ asset("storage/produk-image/default.png") }}"
                             alt="Picture 1">
                         <div class="card-body text-center">
                             <h5>Spanduk Partai 4x4</h5>
@@ -151,7 +151,7 @@
                 </div>
                 <div class="item">
                     <div class="card" style="width: 15rem;">
-                        <img src="https://images.unsplash.com/photo-1510797215324-95aa89f43c33?fit=crop&fm=jpg&h=800&q=80&w=1200"
+                        <img src="{{ asset("storage/produk-image/default.png") }}"
                             alt="Picture 1">
                         <div class="card-body text-center">
                             <h5>Spanduk Partai 4x4</h5>

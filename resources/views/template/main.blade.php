@@ -38,7 +38,7 @@
                 </ul>
                 <div class="d-lg-flex">
                     <a href="" class="nav-link link-light">LOGIN</a>
-                    <a href="{{ route("member-registration") }}" type="button" class="btn btn-outline-light fw-bold">SIGN UP</a>
+                    <a href="" type="button" class="btn btn-outline-light fw-bold">SIGN UP</a>
                 </div>
             </div>
         </div>
