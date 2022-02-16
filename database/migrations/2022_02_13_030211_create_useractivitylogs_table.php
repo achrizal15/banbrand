@@ -21,6 +21,7 @@ class CreateUseractivitylogsTable extends Migration
             $table->text("details");
             $table->text("icon");
             $table->text("bg_color");
+            $table->string("status")->default("on");
             $table->timestamps();
         });
     }

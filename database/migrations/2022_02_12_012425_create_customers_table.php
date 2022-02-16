@@ -30,6 +30,7 @@ class CreateCustomersTable extends Migration
             $table->boolean("is_ban")->default(false);
             $table->timestamp("active_at")->nullable();
             $table->timestamp("ban_at")->nullable();
+            $table->string("status")->default("on");
             $table->timestamps();
         });
     }

@@ -34,6 +34,7 @@ class CreateSellersTable extends Migration
             $table->boolean("is_active")->default(false);
             $table->boolean("is_ban")->default(false);
             $table->timestamp("active_at")->nullable();
+            $table->string("status")->default("on");
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTagsTable extends Migration
+class CreatePricePackagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tags', function (Blueprint $table) {
+        Schema::create('price_packages', function (Blueprint $table) {
             $table->id();
             $table->string("nama");
+            $table->text("deskripsi");
+            $table->text("persyaratan");
+            $table->string("harga");
             $table->string("status")->default("on");
             $table->timestamps();
         });
@@ -28,6 +31,6 @@ class CreateTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tags');
+        Schema::dropIfExists('price_packages');
     }
 }

@@ -48,6 +48,35 @@
                     </p>
                 </a>
             </li>
+            <li
+                class="nav-item has-treeview {{ request()->is('admin/products*') || request()->is('admin/categorys*') ? 'menu-open' : 'a' }}">
+                <a href="#"
+                    class="nav-link {{ request()->is('admin/products*') || request()->is('admin/categorys*') ? 'active' : '' }}">
+                    <i class="nav-icon fa-solid fa-boxes-stacked"></i>
+                    <p>
+                        Products
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.products.index') }}"
+                            class="nav-link {{ request()->is('admin/products*') ? 'active' : '' }}">
+                            <i class="nav-icon far fa-folder"></i>
+                            <p>List Products</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.categorys.index') }}"
+                            class="nav-link {{ request()->is('admin/categorys*') ? 'active' : '' }}">
+                            <i class="nav-icon far fa-folder"></i>
+                            <p>Product Category</p>
+                        </a>
+                    </li>
+                </ul>
+
+            </li>
+
 
         </ul>
     </nav>

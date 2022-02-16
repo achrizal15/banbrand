@@ -38,6 +38,12 @@ textarea.parsley-success {
   box-shadow: 0 0 6px #da1634;
 }
 
+input.form-control:focus,
+select.form-control:focus,
+textarea.form-control:focus {
+  box-shadow: none;
+}
+
 input.parsley-error,
 select.parsley-error,
 textarea.parsley-error {

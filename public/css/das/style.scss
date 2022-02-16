@@ -33,11 +33,18 @@ textarea.parsley-success {
 
 // input[type="radio"], input[type="checkbox"],
 .parsley-error>input {
-   border-color: #da1634;
-   &:focus {
+    border-color: #da1634;
+
+    &:focus {
         border-color: #da1634;
         box-shadow: 0 0 6px #da1634;
     }
+}
+
+input.form-control:focus,
+select.form-control:focus,
+textarea.form-control:focus {
+    box-shadow: none;
 }
 
 input.parsley-error,

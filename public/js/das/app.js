@@ -69,11 +69,11 @@ const deleteItem = () => {
 }
 
 //function loader show/hidden
-const loader = (type = "visible") => {
+const loader = (type = "visible",timeOut=1200) => {
   if (type == "hidden") {
     setTimeout(() => {
       $(".loader").css("visibility", "hidden");
-    }, 1000);
+    }, timeOut);
   } else {
     $(".loader").css("visibility", "visible");
   }
@@ -100,7 +100,22 @@ class ToastMessage {
     $("#toast-container").append(this.init());
   }
 }
-
+const toastOption = {
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": true,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "5000",
+  "timeOut": "10000",
+  "extendedTimeOut": "5000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
 //function page approval
 const pageApproval = () => {
   if ($("#approval-btn").length > 0) {
@@ -159,7 +174,7 @@ const formAjax = () => {
       const url = $(this).attr("action");
       const method = $(this).attr("method");
       const data = new FormData($(this)[0]);
-      if($(this).parsley().validate()){
+      if ($(this).parsley().validate()) {
         loader();
         $.ajax({
           type: method,
@@ -169,25 +184,27 @@ const formAjax = () => {
           contentType: false,
           dataType: "json",
           success: function (response) {
-            $(document).Toasts('create', {
-              class: "bg-success m-2",
-              title: "Success",
-              body: response.message,
-            })
+            toastr["success"]( response.message)
+            toastr.options = toastOption;
             loader("hidden");
             window.location = response.url
           },
           error: function (error) {
-            $(document).Toasts('create', {
-              class: "bg-danger m-2",
-              title: "Error",
-              body: error.statusText
-            })
+            let err_message = ""
+            const FIELD_ERROR = error.responseJSON.errors;
+            for (const key in FIELD_ERROR) {
+              if (FIELD_ERROR.hasOwnProperty(key)) {
+                const element = FIELD_ERROR[key];
+                err_message += '<i class="fa-solid fa-circle-small"></i> ' + element[0] + "</br>"
+              }
+            }
+            toastr["error"](err_message)
+            toastr.options = toastOption;
             loader("hidden");
           }
         });
       }
-    
+
     })
   }
 }
@@ -242,7 +259,14 @@ const needValidation = () => {
     form.parsley()
   }
 }
+const switchBootstrap = () => {
+  $("input[data-bootstrap-switch]").each(function () {
+    $(this).bootstrapSwitch('state', $(this).prop('checked'));
+  });
+}
+
 $(document).ready(function () {
+  switchBootstrap()
   formAjax()
   needValidation()
   deleteItem();

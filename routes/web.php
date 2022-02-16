@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\CustomerController;
 use Illuminate\Support\Facades\Route;
-//import use admin controller
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SellerController;
+//import use admin controller
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProductCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,8 +37,24 @@ Route::group(["prefix" => "admin"], function () {
         "update" => "admin.sellers.update",
         "destroy" => "admin.sellers.destroy",
     ]);
-
-
+    Route::resource('/products', ProductController::class)->names([
+        "index" => "admin.products.index",
+        "create" => "admin.products.create",
+        "store" => "admin.products.store",
+        "show" => "admin.products.show",
+        "edit" => "admin.products.edit",
+        "update" => "admin.products.update",
+        "destroy" => "admin.products.destroy",
+    ]);
+    Route::resource("/categorys",ProductCategoryController::class)->names([
+        "index" => "admin.categorys.index",
+        "create" => "admin.categorys.create",
+        "store" => "admin.categorys.store",
+        "show" => "admin.categorys.show",
+        "edit" => "admin.categorys.edit",
+        "update" => "admin.categorys.update",
+        "destroy" => "admin.categorys.destroy",
+    ]);
     Route::resource("/customers", CustomerController::class)->names([
         "index" => "admin.customers.index",
         "create" => "admin.customers.create",

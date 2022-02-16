@@ -18,6 +18,7 @@ class SellerTag extends Migration
               $table->id();
               $table->unsignedBigInteger("seller_id");
               $table->unsignedBigInteger("tag_id");
+              $table->string("status")->default("on");
               $table->timestamps();
          });
     }

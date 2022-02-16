@@ -7,7 +7,7 @@
 <!-- DataTables -->
 <link rel="stylesheet" href="{{ asset('vendor/adminLte/css/ionicons.min.css') }}">
 <link rel="stylesheet" href="{{ asset('vendor/adminLte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('vendor/adminLte/plugins/toastr/toastr.min.css') }}">
+<link rel="stylesheet" href="{{ asset('vendor/toast/toastr.min.css') }}">
 <link rel="stylesheet"
     href="{{ asset('vendor/adminLte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('vendor/adminLte/css/adminlte.css') }}">

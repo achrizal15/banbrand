@@ -58,7 +58,7 @@
 
                             <hr>
 
-                            <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
+                            <strong><i class="fas fa-pencil-alt mr-1"></i> Tags</strong>
 
                             <p class="text-muted ">
                                 @foreach ($seller->tags as $tag)
