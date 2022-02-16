@@ -143,11 +143,51 @@ const pageApproval = () => {
                 body: error.statusText
               })
               loader("hidden");
-
             }
           });
         }
       })
+    })
+  }
+}
+//ajax form dynamic
+const formAjax = () => {
+  const FORM = $(".form-ajax");
+  if (FORM.length > 0) {
+    FORM.submit(function (e) {
+      e.preventDefault();
+      const url = $(this).attr("action");
+      const method = $(this).attr("method");
+      const data = new FormData($(this)[0]);
+      if($(this).parsley().validate()){
+        loader();
+        $.ajax({
+          type: method,
+          url: url,
+          data: data,
+          processData: false,
+          contentType: false,
+          dataType: "json",
+          success: function (response) {
+            $(document).Toasts('create', {
+              class: "bg-success m-2",
+              title: "Success",
+              body: response.message,
+            })
+            loader("hidden");
+            window.location = response.url
+          },
+          error: function (error) {
+            $(document).Toasts('create', {
+              class: "bg-danger m-2",
+              title: "Error",
+              body: error.statusText
+            })
+            loader("hidden");
+          }
+        });
+      }
+    
     })
   }
 }
@@ -156,7 +196,7 @@ const pageAprroved = () => {
     e.preventDefault();
     const url = $(this).attr("action");
     //get value from this form
-    const is_ban = $("#seller-banned-form input[name=is_ban]").val();
+    const is_ban = $(this).find("input[name=is_ban]").val();
     let type = is_ban == 1 ? "unban" : "ban";
     //sweet alert
     Swal.fire({
@@ -196,7 +236,15 @@ const pageAprroved = () => {
     })
   })
 }
+const needValidation = () => {
+  const form = $('.needs-validation')
+  if (form.length > 0) {
+    form.parsley()
+  }
+}
 $(document).ready(function () {
+  formAjax()
+  needValidation()
   deleteItem();
   pageApproval();
   pageAprroved()

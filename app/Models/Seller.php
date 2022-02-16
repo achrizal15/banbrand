@@ -13,4 +13,9 @@ class Seller extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+    //relationships hasmany Useractivitylog
+    public function useractivitylog()
+    {
+        return $this->hasMany(Useractivitylog::class, "user_id", "id");
+    }
 }

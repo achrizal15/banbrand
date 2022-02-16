@@ -17,7 +17,7 @@
                                 </div>
                             </div>
 
-                            <h3 class="profile-username text-center">{{ $customer->nama}}</h3>
+                            <h3 class="profile-username text-center">{{ $customer->nama }}</h3>
 
                             <p class="text-muted text-center">{{ $customer->username }}</p>
 
@@ -47,7 +47,7 @@
                         <!-- /.card-header -->
                         <div class="card-body">
 
-                            <strong><i class="fas fa-map-marker-alt mr-1"></i>Lokasi Toko</strong>
+                            <strong><i class="fas fa-map-marker-alt mr-1"></i>Lokasi</strong>
 
                             <p class="text-muted">{{ $customer->kota }}</p>
 
@@ -56,13 +56,6 @@
 
                             <p class="text-muted">{{ $customer->alamat }}</p>
 
-                            <hr>
-
-                            {{-- <hr>
-
-                            <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-                            <p class="text-muted">{{ $customer->tentang }}</p> --}}
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -72,35 +65,24 @@
 
                 <div class="col-md-9">
                     <div class="card">
-                        
                         <div class="card-header p-2 ">
-                            @if ($customer->is_active)
-                                <ul class="nav nav-pills">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="pills-activity-tab" data-bs-toggle="pill"
-                                            data-bs-target="#pills-activity" type="button" role="tab"
-                                            aria-controls="pills-activity" aria-selected="true">Activity</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-timeline-tab" data-bs-toggle="pill"
-                                            data-bs-target="#pills-timeline" type="button" role="tab"
-                                            aria-controls="pills-timeline" aria-selected="false">Timeline</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-setting-tab" data-bs-toggle="pill"
-                                            data-bs-target="#pills-setting" type="button" role="tab"
-                                            aria-controls="pills-setting" aria-selected="false">Setting</button>
-                                    </li>
-                                </ul>
-                            @else
-                                <button id="approval-btn" data-id="{{ $customer->id }}" data-type="active"
-                                    data-url="{{ route('admin.customers.update', $customer->id) }}"
-                                    class="btn btn-success mr-2">Activate Now</button>
-                                <button id="approval-btn" data-id="{{ $customer->id }}"
-                                    data-url="{{ route('admin.customers.update',$customer->id) }}" data-type="remove"
-                                    class="btn btn-danger">Remove Approval</button>
-                            @endif
-
+                            <ul class="nav nav-pills">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="pills-activity-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-activity" type="button" role="tab"
+                                        aria-controls="pills-activity" aria-selected="true">Activity</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-timeline-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-timeline" type="button" role="tab"
+                                        aria-controls="pills-timeline" aria-selected="false">Timeline</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-setting-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-setting" type="button" role="tab"
+                                        aria-controls="pills-setting" aria-selected="false">Setting</button>
+                                </li>
+                            </ul>
 
                         </div><!-- /.card-header -->
                         <div class="card-body" id="pills-tabContent">
@@ -145,7 +127,7 @@
                                     </div>
                                     <!-- /.post -->
 
-                                  
+
 
                                 </div>
                                 <!-- /.tab-pane -->
@@ -155,96 +137,47 @@
                                         <!-- timeline time label -->
                                         <div class="time-label">
                                             <span class="bg-danger">
-                                                10 Feb. 2014
+                                                {{ date('d M. Y', strtotime($customer->created_at)) }}
                                             </span>
                                         </div>
-                                        <!-- /.timeline-label -->
-                                        <!-- timeline item -->
-                                        <div>
-                                            <i class="fas fa-envelope bg-primary"></i>
 
-                                            <div class="timeline-item">
-                                                <span class="time"><i class="far fa-clock"></i> 12:05</span>
-
-                                                <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email
-                                                </h3>
-
-                                                <div class="timeline-body">
-                                                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                                    weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                                    jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                                    quora plaxo ideeli hulu weebly balihoo...
-                                                </div>
-                                                <div class="timeline-footer">
-                                                    <a href="#" class="btn btn-primary btn-sm">Read more</a>
-                                                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- END timeline item -->
-                                        <!-- timeline item -->
                                         <div>
                                             <i class="fas fa-user bg-info"></i>
 
                                             <div class="timeline-item">
-                                                <span class="time"><i class="far fa-clock"></i> 5 mins
-                                                    ago</span>
+                                                <span class="time"><i class="far fa-clock"></i>
+                                                    {{ time_elapsed_string($customer->created_at) }}</span>
 
-                                                <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted
-                                                    your friend request
+                                                <h3 class="timeline-header border-0"><a href="#">{{ $customer->nama }}</a>
+                                                    membuat akun baru
                                                 </h3>
                                             </div>
                                         </div>
                                         <!-- END timeline item -->
                                         <!-- timeline item -->
-                                        <div>
-                                            <i class="fas fa-comments bg-warning"></i>
+                                        @if ($customer->is_active == 1)
+                                            <div>
+                                                <i class="fas fa-solid fa-user-check bg-warning"></i>
 
-                                            <div class="timeline-item">
-                                                <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                    ago</span>
+                                                <div class="timeline-item">
+                                                    <span class="time"><i class="far fa-clock"></i> 27 mins
+                                                        ago</span>
 
-                                                <h3 class="timeline-header"><a href="#">Jay White</a> commented on your
-                                                    post</h3>
+                                                    <h3 class="timeline-header"><a href="#">Jay White</a> commented on your
+                                                        post</h3>
 
-                                                <div class="timeline-body">
-                                                    Take me to your leader!
-                                                    Switzerland is small and neutral!
-                                                    We are more like Germany, ambitious and misunderstood!
-                                                </div>
-                                                <div class="timeline-footer">
-                                                    <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- END timeline item -->
-                                        <!-- timeline time label -->
-                                        <div class="time-label">
-                                            <span class="bg-success">
-                                                3 Jan. 2014
-                                            </span>
-                                        </div>
-                                        <!-- /.timeline-label -->
-                                        <!-- timeline item -->
-                                        <div>
-                                            <i class="fas fa-camera bg-purple"></i>
-
-                                            <div class="timeline-item">
-                                                <span class="time"><i class="far fa-clock"></i> 2 days
-                                                    ago</span>
-
-                                                <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos
-                                                </h3>
-
-                                                <div class="timeline-body">
-                                                    <img src="http://placehold.it/150x100" alt="...">
-                                                    <img src="http://placehold.it/150x100" alt="...">
-                                                    <img src="http://placehold.it/150x100" alt="...">
-                                                    <img src="http://placehold.it/150x100" alt="...">
+                                                    <div class="timeline-body">
+                                                        Take me to your leader!
+                                                        Switzerland is small and neutral!
+                                                        We are more like Germany, ambitious and misunderstood!
+                                                    </div>
+                                                    <div class="timeline-footer">
+                                                        <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- END timeline item -->
+                                        @endif
+
                                         <div>
                                             <i class="far fa-clock bg-gray"></i>
                                         </div>
@@ -256,38 +189,17 @@
                                     aria-labelledby="pills-setting-tab">
                                     <form class="form-horizontal">
                                         <div class="form-group row">
-                                            <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                                            <label for="inputNew Password" class="col-sm-2 col-form-label">New
+                                                Password</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="inputName"
-                                                    placeholder="Name">
+                                                <input type="password" class="form-control" id="inputSkills">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                                            <label for="inputNew Password" class="col-sm-2 col-form-label">Re
+                                                Password</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="inputEmail"
-                                                    placeholder="Email">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputName2"
-                                                    placeholder="Name">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
-                                            <div class="col-sm-10">
-                                                <textarea class="form-control" id="inputExperience"
-                                                    placeholder="Experience"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputSkills"
-                                                    placeholder="Skills">
+                                                <input type="password" class="form-control" id="inputSkills">
                                             </div>
                                         </div>
                                         <div class="form-group row">

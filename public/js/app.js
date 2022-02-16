@@ -10,6 +10,8 @@ const rateStars = function () {
         })
     })
 }
+//funtion date to time ago
+
 let carouselHandler = function () {
     $('.owl-carousel').each(function (e) {
         $(this).owlCarousel({

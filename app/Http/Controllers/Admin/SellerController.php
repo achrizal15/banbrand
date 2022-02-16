@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Seller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Useractivitylog;
+use Illuminate\Support\Facades\Hash;
 
 class SellerController extends Controller
 {
@@ -57,8 +59,7 @@ class SellerController extends Controller
      */
     public function show($id)
     {
-
-        return view("das.admin.sellers.show", ["title" => "Seller", "seller" => Seller::findOrFail($id)->load("tags")]);
+        return view("das.admin.sellers.show", ["title" => "Seller", "seller" => Seller::findOrFail($id)->load(["tags", "useractivitylog"])]);
     }
 
     /**
@@ -84,15 +85,39 @@ class SellerController extends Controller
         if (isset($request->approval)) {
             if ($request->approval == "active") {
                 $seller->is_active = 1;
+                Useractivitylog::create([
+                    "user_id" => $seller->id,
+                    "activity" => "Actived",
+                    "details" => "Aktivasi akun telah disetujui oleh admin.",
+                    "ip" => request()->ip(),
+                    "icon" =>"fa-solid fa-check",
+                    "bg_color" => "bg-info"
+                ]);
                 echo json_encode($seller->saveOrFail());
             } else {
                 echo json_encode($seller->deleteOrFail());
             }
-
             return;
         }
     }
-
+    public function password_reset(Request $request, Seller $seller)
+    {
+        $seller->password = Hash::make($request->password);
+        $seller->saveOrFail();
+        $response = [
+            "message" => "Seller $seller->nama Reset Password Successfully",
+            "url" => route("admin.sellers.show",$seller->id)
+        ];
+        Useractivitylog::create([
+            "user_id" => $seller->id,
+            "activity" => "Reset password",
+            "details" => $response["message"],
+            "ip" => request()->ip(),
+            "icon" =>"fa-solid fa-key-skeleton",
+            "bg_color" => "bg-primary"
+        ]);
+        echo json_encode($response);
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -103,11 +128,19 @@ class SellerController extends Controller
     {
         $seller->is_ban = request()->input("is_ban");
         $seller->saveOrFail();
-        $message=request("is_ban") == 1 ? "Banned " : "Unbanned " ;
+        $message = $seller->is_ban == 1 ? "Banned " : "Unbanned ";
         $response = [
             "message" => "Seller $seller->nama $message Successfully",
             "url" => route("admin.sellers.index")
         ];
+        Useractivitylog::create([
+            "user_id" => $seller->id,
+            "activity" => $message,
+            "details" => $response["message"],
+            "ip" => request()->ip(),
+            "icon" => request("is_ban") == 1 ? "fa-solid fa-shield-slash" : "fa-solid fa-shield-check",
+            "bg_color" => request("is_ban") == 1 ? "bg-danger" : "bg-warning"
+        ]);
         echo json_encode($response);
     }
 }

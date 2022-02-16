@@ -1,7 +1,9 @@
-<script src="{{ asset("js/bootstrap/bootstrapv5.min.js") }}"></script>
 <script src="{{ asset("vendor/owlcarousel/owl.carousel.min.js") }}"></script>
+<script src="{{ asset("js/bootstrap/bootstrapv5.min.js") }}"></script>
 <script src="{{ asset("vendor/rateYo/jquery.rateyo.js") }}"></script>
 <script src="{{ asset("vendor/sweetAlert/swal.js") }}"></script>
+{{-- PARSLEY VALIDATION --}}
+<script src="{{ asset("vendor/parsley/parsley.min.js") }}"></script>
 <!-- DataTables -->
 <script src="{{asset("vendor/adminLte/plugins/datatables/jquery.dataTables.min.js")}}"></script>
 <script src="{{asset("vendor/adminLte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js")}}"></script>

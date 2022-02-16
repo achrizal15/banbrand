@@ -24,6 +24,8 @@ Route::get('/', function () {
 Route::group(["prefix" => "admin"], function () {
     //route get admin controller
     Route::get("/", [DashboardController::class, "index"])->name("admin");
+    //route sellers
+    Route::put("/sellers/pw-reset/{seller}", [SellerController::class, "password_reset"])->name("admin.sellers.pw-reset");
     Route::resource("/sellers", SellerController::class)->names([
         "index" => "admin.sellers.index",
         "create" => "admin.sellers.create",
@@ -33,6 +35,8 @@ Route::group(["prefix" => "admin"], function () {
         "update" => "admin.sellers.update",
         "destroy" => "admin.sellers.destroy",
     ]);
+
+
     Route::resource("/customers", CustomerController::class)->names([
         "index" => "admin.customers.index",
         "create" => "admin.customers.create",

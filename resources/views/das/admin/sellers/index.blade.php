@@ -43,7 +43,7 @@
                                                     method="post">
                                                     @csrf
                                                     @method("delete")
-                                                    <input type="text" name="is_ban" value="{{ $seller->is_ban == 1 ? 0 : 1 }}"
+                                                    <input type="text" name="is_ban" value="{{ $seller->is_ban ? 0 : 1 }}"
                                                         hidden>
                                                     <button type="submit" class="btn btn-sm btn-danger">
                                                         @if ($seller->is_ban == 1)
