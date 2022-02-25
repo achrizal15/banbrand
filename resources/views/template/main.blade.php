@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,9 +19,9 @@
             </button>
             <div class="collapse navbar-collapse fs-6 fw-bold" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto">
-    
+
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Become a Seller</a>
+                        <a class="nav-link active" href="{{ route("login","sellers") }}">Become a Seller</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -45,19 +46,20 @@
     </nav>
     <section class="section-sub-nav shadow">
         <nav class="nav container-fluid sub-nav">
-            <a class="nav-link active" aria-current="page" href="#">Banner</a>
-            <a class="nav-link" href="#">Print Document</a>
-            <a class="nav-link" href="#">Sticker</a>
+            @foreach ($kategori as $value)
+                <a class="nav-link active" aria-current="page" href="#">{{ $value->nama }}</a>
+            @endforeach
         </nav>
     </section>
     <section class="banner-img">
         <div class="jumbotron jumbotron-fluid ">
-           <div class="container-fluid">
-             <h1 class="display-4 pt-3 text-center font-family-cormorant-garamond">BANNER</h1>
-           </div>
-         </div>
-     </section>
-    
+            <div class="container-fluid">
+                <h1 class="display-4 pt-3 text-center font-family-cormorant-garamond">
+                    {{ isset($subtitle) ? $subtitle : 'WELCOME' }}</h1>
+            </div>
+        </div>
+    </section>
+
     @yield("content")
     @include("template.footer_include")
 </body>

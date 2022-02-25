@@ -12,6 +12,7 @@
 <script src="{{ asset('vendor/toast/toastr.min.js') }}"></script>
 <!-- Bootstrap Switch -->
 <script src="{{ asset('vendor/adminLte/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}"></script>
+<script src="{{ asset('vendor/adminLte/plugins/summernote/summernote-lite.min.js') }}"></script>
 {{-- TEMPLATES --}}
 <script src="{{ asset('vendor/adminLte/js/adminlte.min.js') }}"></script>
 {{-- MY SCRIPT --}}

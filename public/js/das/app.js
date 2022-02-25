@@ -69,7 +69,7 @@ const deleteItem = () => {
 }
 
 //function loader show/hidden
-const loader = (type = "visible",timeOut=1200) => {
+const loader = (type = "visible", timeOut = 1200) => {
   if (type == "hidden") {
     setTimeout(() => {
       $(".loader").css("visibility", "hidden");
@@ -184,7 +184,7 @@ const formAjax = () => {
           contentType: false,
           dataType: "json",
           success: function (response) {
-            toastr["success"]( response.message)
+            toastr["success"](response.message)
             toastr.options = toastOption;
             loader("hidden");
             window.location = response.url
@@ -264,8 +264,37 @@ const switchBootstrap = () => {
     $(this).bootstrapSwitch('state', $(this).prop('checked'));
   });
 }
-
+const summernoteHandler = function () {
+  if ($("#summernote").length > 0) {
+    $('#summernote').summernote({
+      placeholder: 'Tuliskan sesuatu',
+      tabsize: 2,
+      height: 120,
+      toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'underline', 'clear']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['table', ['table']],
+        // ['insert', ['link', 'picture', 'video']],
+        ['view', ['fullscreen', 'codeview']]
+      ]
+    });
+  }
+}
+const categoryPage = function () {
+  if ($("#table-category").length > 0) {
+    $(document).on("click", "#btn-deskripsi-category", function () {
+      let kategori = $(this).data("category");
+      $("#deskripsiModal #deskripsiModalLabel").text(kategori.nama)
+      $("#deskripsiModal .modal-body").html(kategori.deskripsi)
+  
+    })
+  }
+}
 $(document).ready(function () {
+  categoryPage()
+  summernoteHandler()
   switchBootstrap()
   formAjax()
   needValidation()
@@ -275,3 +304,4 @@ $(document).ready(function () {
   createTable();
   console.clear();
 });
+

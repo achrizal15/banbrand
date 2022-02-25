@@ -10,7 +10,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <a href="{{ route('admin.categorys.create') }}" class="btn btn-primary">Tambah</a>
-                        <table class="dataTable table table-bordered table-hover">
+                        <table class="dataTable table table-bordered table-hover" id="table-category">
                             <thead>
                                 <tr>
                                     <th data-priority="1">NAMA</th>
@@ -26,7 +26,7 @@
                                         <td>{{ $category->nama }}</td>
                                         <td><a href="">VIEW(12)</a></td>
                                         <td ><p class="text-truncate" style="max-width: 300px;">{{ $category->deskripsi }}adsajdjas a dsajdiaaaaaaaaaaaaaaaaa Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa, sunt ducimus mollitia quibusdam, earum ad odit accusantium deleniti corporis incidunt tempore dicta quod, quas laboriosam! Velit modi accusantium corporis quisquam. </p> 
-                                          <a href="">Show All</a>
+                                          <a href="#" data-bs-toggle="modal" id="btn-deskripsi-category" data-bs-target="#deskripsiModal" data-category="{{ $category }}">Show All</a>
                                        </td>
                                         <td>{{ $category->status }}</td>
                                         <td class="text-nowrap text-center">
@@ -53,4 +53,21 @@
         </div>
         <!-- /.row -->
     </section>
+    {{-- modal --}}
+    <div class="modal fade" id="deskripsiModal" tabindex="-1" aria-labelledby="deskripsiModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deskripsiModalLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+    
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 @endsection

@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductCategoryController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\WelcomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +21,9 @@ use App\Http\Controllers\Admin\ProductCategoryController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class,"index"])->name("welcome");
+Route::get("/login/{params}",[AuthController::class,"index"])->name("login");
+Route::get("/register/{params}",[AuthController::class,"register"])->name("register");
 //route get admin controller
 Route::group(["prefix" => "admin"], function () {
     //route get admin controller
@@ -65,3 +67,4 @@ Route::group(["prefix" => "admin"], function () {
         "destroy" => "admin.customers.destroy",
     ]);
 });
+

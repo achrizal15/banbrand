@@ -95,3 +95,8 @@ textarea.parsley-error:focus {
   height: 100%;
   border-radius: 50%;
 }
+
+.register-layout {
+  height: 100vh;
+  padding-top: 10rem;
+}
