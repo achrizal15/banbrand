@@ -22,7 +22,11 @@
 
     }
 }
-
+input.form-control:focus,
+select.form-control:focus,
+textarea.form-control:focus {
+    box-shadow: none;
+}
 input.parsley-success,
 select.parsley-success,
 textarea.parsley-success {
@@ -41,11 +45,7 @@ textarea.parsley-success {
     }
 }
 
-input.form-control:focus,
-select.form-control:focus,
-textarea.form-control:focus {
-    box-shadow: none;
-}
+
 
 input.parsley-error,
 select.parsley-error,
@@ -98,8 +98,9 @@ textarea.parsley-error {
         border-radius: 50%;
     }
 }
-.register-layout{
-   //height full screen
+
+.register-layout {
+    //height full screen
     height: 100vh;
     padding-top: 10rem;
 }

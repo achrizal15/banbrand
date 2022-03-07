@@ -8,6 +8,7 @@
 <script src="{{asset("vendor/adminLte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js")}}"></script>
 {{-- TEMPLATES --}}
 <script src="{{ asset("vendor/adminLte/js/adminlte.min.js") }}"></script>
+<script src="{{ asset("js/stepper.js") }}"></script>
+<script src="{{ asset('vendor/parsley/parsley.min.js') }}"></script>
 {{-- MY SCRIPT --}}
 <script src="{{ asset("js/app.js") }}"></script>
-<script src="{{ asset("js/das/app.js") }}"></script>

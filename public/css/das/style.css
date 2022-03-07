@@ -21,6 +21,12 @@
   align-items: center;
 }
 
+input.form-control:focus,
+select.form-control:focus,
+textarea.form-control:focus {
+  box-shadow: none;
+}
+
 input.parsley-success,
 select.parsley-success,
 textarea.parsley-success {
@@ -36,12 +42,6 @@ textarea.parsley-success {
 .parsley-error > input:focus {
   border-color: #da1634;
   box-shadow: 0 0 6px #da1634;
-}
-
-input.form-control:focus,
-select.form-control:focus,
-textarea.form-control:focus {
-  box-shadow: none;
 }
 
 input.parsley-error,

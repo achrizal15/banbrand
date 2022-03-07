@@ -4,5 +4,6 @@
 <link rel="stylesheet" href="{{ asset('vendor/owlcarousel/assets/owl.carousel.min.css') }}">
 <link rel="stylesheet" href="{{ asset('vendor/owlcarousel/assets/owl.theme.default.min.css') }}">
 <link rel="stylesheet" href="{{ asset('vendor/rateYo/jquery.rateyo.css') }}">
+<link rel="stylesheet" href="{{ asset('css/stepper.css') }}">
 <!-- DataTables -->
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">

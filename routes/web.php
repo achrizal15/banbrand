@@ -24,6 +24,7 @@ use App\Http\Controllers\WelcomeController;
 Route::get('/', [WelcomeController::class,"index"])->name("welcome");
 Route::get("/login/{params}",[AuthController::class,"index"])->name("login");
 Route::get("/register/{params}",[AuthController::class,"register"])->name("register");
+Route::post("/create/{params}",[AuthController::class,"create"])->name("createaccount");
 //route get admin controller
 Route::group(["prefix" => "admin"], function () {
     //route get admin controller

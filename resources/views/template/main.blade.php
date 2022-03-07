@@ -55,7 +55,7 @@
         <div class="jumbotron jumbotron-fluid ">
             <div class="container-fluid">
                 <h1 class="display-4 pt-3 text-center font-family-cormorant-garamond">
-                    {{ isset($subtitle) ? $subtitle : 'WELCOME' }}</h1>
+                    {{ isset($subtitle) ? strtoupper($subtitle): 'WELCOME' }}</h1>
             </div>
         </div>
     </section>
