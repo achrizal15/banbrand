@@ -389,7 +389,7 @@ const pageAprroved = () => {
         const url = $(this).attr("action");
         //get value from this form
         const is_ban = $(this).find("input[name=is_ban]").val();
-        let type = is_ban == 1 ? "unban" : "ban";
+        let type = is_ban == 1 ? "ban" : "unban";
         //sweet alert
         Swal.fire({
             title: 'Are you sure?',

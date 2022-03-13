@@ -48,57 +48,48 @@ class AuthController extends Controller
         }
         $response = [];
         if ($params == "sellers") {
-            $response =   $this->create_sellers();
+            request()->validate([
+                "username" => "required|unique:sellers,username",
+                "email" => "required|email|unique:sellers",
+                "password" => "required|min:3",
+            ]);
+            $logo = "default.jpg";
+            if (request()->hasFile('logo')) {
+                request()->file("logo")->store("public/logo-sellers");
+                $logo = request()->file("logo")->hashName();
+            }
+            $kota = explode("|", request()->kota)[0];
+            $kecamatan = explode("|", request()->kecamatan)[0];
+            $kelurahan = explode("|", request()->kelurahan)[0];
+            $sellers=new Seller;
+            $sellers->nama = request()->input("nama-penjual");
+            $sellers->username = request()->username;
+            $sellers->email = request()->email;
+            $sellers->password = Hash::make(request()->password);
+            $sellers->nama_toko=request()->input("nama-toko");
+            $sellers->logo = $logo;
+            $sellers->alamat = request()->input("alamat-penjual");
+            $sellers->kota = $kota;
+            $sellers->kecamatan = $kecamatan;
+            $sellers->kelurahan = $kelurahan;
+            $sellers->kode_pos=request()->input("kode-pos");
+            $sellers->alamat_toko=request()->input("alamat_toko");
+            $sellers->no_telp = request()->input("no-handphone");
+            $sellers->no_telp_toko =request()->input("no-toko");
+            $sellers->no_rekening =request()->input("no-rekening");
+            $sellers->bank_id= request()->bank;
+            $sellers->save();
+         
+            $response = [
+                "message" => "Akun berhasil dibuat.",
+                "url" => route("login", "sellers"),
+            ];
         }
         echo json_encode($response);
     }
-    private function create_sellers()
-    {
-        request()->validate([
-            "username" => "unique:users",
-            "email" => "required|email|unique:sellers",
-            "password" => "required|min:3",
-        ]);
-        $logo = "default.jpg";
-        if (request()->hasFile('logo')) {
-            request()->file("logo")->store("public/logo-sellers");
-            $logo = request()->file("logo")->hashName();
-        }
-        $username = request()->username ? request()->username : request()->input("nama-penjual") . "-" . date("YmdHis");
-        $kota = explode("|", request()->kota)[0];
-        $kecamatan = explode("|", request()->kecamatan)[0];
-        $kelurahan = explode("|", request()->kelurahan)[0];
-        Seller::create([
-            "nama" => request()->input("nama-penjual"),
-            "email" => request()->input("email"),
-            "nama_toko" => request()->input("nama-toko"),
-            "kode_pos" => request()->input("kode-pos"),
-            "username" => $username,
-            "alamat_toko" => request()->input("alamat_toko"),
-            "kota" => $kota,
-            "kecamatan" => $kecamatan,
-            "kelurahan" => $kelurahan,
-            "password" => Hash::make(request()->input("password")),
-            "alamat" => request()->input("alamat-penjual"),
-            "no_telp_toko" => request()->input("no-toko"),
-            "no_telp" => request()->input("no-handphone"),
-            "no_rekening" => request()->input("no-rekening"),
-            "bank_id" => request()->input("bank"),
-            "logo" => $logo,
-        ]);
-        $response = [
-            "message" => "Akun berhasil dibuat.",
-            "url" => route("login", "sellers"),
-        ];
-        $seller = Seller::where("email", request()->email)->first();
-        Useractivitylog::create([
-            "user_id" => $seller->id,
-            "activity" => "Reset password",
-            "details" => $response["message"],
-            "ip" => request()->ip(),
-            "icon" => "fa-solid fa-user-plus",
-            "bg_color" => "bg-primary"
-        ]);
-        return $response;
-    }
+    // private function create_sellers()
+    // {
+    
+    //     return $response;
+    // }
 }

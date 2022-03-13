@@ -30,7 +30,7 @@
                         </ul>
 
                         <div class="tab-content" style="margin-bottom: 10px" >
-                            <form id="form-register-seller" method="POST"  enctype="multipart/form-data"
+                            <form id="form-register-seller" method="POST"  class="form-ajax" enctype="multipart/form-data"
                                 action="{{ route('createaccount', 'sellers') }}" novalidate>
                                 @csrf
                                 @method("POST")
@@ -149,9 +149,9 @@
                                 <div id="step-3" class="tab-pane" role="tabpanel" style="margin: 0 18px 0 18px">
                                     <div class="row mt-3">
                                         <div class="col-md-6">
-                                            <label class="form-label">Username <small>(Opsional)</small></label>
+                                            <label class="form-label">Username</label>
                                             <input tabindex="-1" data-parsley-group="block-3" type="text" name="username"
-                                                value=""
+                                             required
                                                 class="form-control mb-3">
                                         </div>
                                         <div class="col-md-6 mb-3">
