@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- meta content base_url --}}
 
-    @include("template.das.head_include")
+    @include("template.head_include")
     
 </head>
 

@@ -10,9 +10,12 @@
 </head>
 
 <body class="bg-light font-family-nunito-sans">
+    <div class="loader">
+        <i class="fas fa-spinner fa-spin loader-icon"></i>
+    </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient py-3 sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">BANBRAND</a>
+            <a class="navbar-brand" href="/">BANBRAND</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -52,7 +55,7 @@
         </nav>
     </section>
     <section class="banner-img">
-        <div class="jumbotron jumbotron-fluid ">
+        <div class=" ">
             <div class="container-fluid">
                 <h1 class="display-4 pt-3 text-center font-family-cormorant-garamond">
                     {{ isset($subtitle) ? strtoupper($subtitle): 'WELCOME' }}</h1>

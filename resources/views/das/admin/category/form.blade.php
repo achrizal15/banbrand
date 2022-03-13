@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form class="form-ajax needs-validation" action="{{ $url }}"
+                        <form class="form-ajax needs-validation" novalidate action="{{ $url }}"
                             method="POST">
                             @csrf
                             @if (isset($category))

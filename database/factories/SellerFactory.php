@@ -30,6 +30,7 @@ class SellerFactory extends Factory
             "kota" => $this->faker->city,
             "kecamatan" => $this->faker->city,
             "kelurahan" => $this->faker->city,
+            "bank_id"=>$this->faker->numberBetween(1,20),
             "username" => $this->faker->unique()->userName,
             "active_at" => $this->faker->time("Y-m-d H:i:s", "now"),
         ];

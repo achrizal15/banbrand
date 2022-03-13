@@ -18,4 +18,8 @@ class Seller extends Model
     {
         return $this->hasMany(Useractivitylog::class, "user_id", "id");
     }
+    public function bank()
+    {
+        return $this->hasOne(Bank::class,"bank_id");
+    }
 }

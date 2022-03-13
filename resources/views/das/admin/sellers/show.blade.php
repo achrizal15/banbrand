@@ -287,7 +287,7 @@
                                 <!-- /.tab-pane -->
                                 <div class="tab-pane fade" id="pills-setting" role="tabpanel"
                                     aria-labelledby="pills-setting-tab">
-                                    <form novalidate method="POST" action="{{ route("admin.sellers.pw-reset",$seller->id) }}" class="form-ajax">
+                                    <form novalidate method="POST" action="{{ route("admin.sellers.pw-reset",$seller->id) }}" class="form-ajax needs-validation">
                                         @csrf
                                         @method("put")
                                         <div class="row mb-3">

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Bank;
 use App\Models\Customers;
 use App\Models\Seller;
 use App\Models\Tag;
@@ -17,14 +18,15 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        Seller::factory(50)->create();
+        Seller::factory(10)->create();
         $this->call(TagSeeder::class);
+        $this->call(BankSeeder::class);
         $tags = \app\Models\Tag::all();
         $sellers = \App\Models\Seller::all();
         Customers::factory(100)->create();
-
         foreach ($sellers as $seller) {
             $seller->tags()->attach($tags->random(rand(1, 3)));
         }
+       
     }
 }

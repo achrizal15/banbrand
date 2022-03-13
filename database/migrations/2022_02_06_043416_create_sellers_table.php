@@ -26,7 +26,8 @@ class CreateSellersTable extends Migration
             $table->string("no_telp_toko");
             $table->string("logo");
             $table->string("no_rekening");
-            $table->string("tentang");
+            $table->unsignedBigInteger("bank_id");
+            $table->string("tentang")->nullable();
             $table->string("kode_pos");
             $table->string("kota");
             $table->string("kecamatan");
