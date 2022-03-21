@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Seller\DashboardController as SellerDashboardController;
 use App\Http\Controllers\WelcomeController;
 
 /*
@@ -21,10 +22,13 @@ use App\Http\Controllers\WelcomeController;
 |
 */
 
-Route::get('/', [WelcomeController::class,"index"])->name("welcome");
-Route::get("/login/{params}",[AuthController::class,"index"])->name("login");
-Route::get("/register/{params}",[AuthController::class,"register"])->name("register");
-Route::post("/create/{params}",[AuthController::class,"create"])->name("createaccount");
+Route::get('/', [WelcomeController::class, "index"])->name("welcome");
+Route::get("/login/{params}", [AuthController::class, "index"])->name("login");
+Route::get("/register/{params}", [AuthController::class, "register"])->name("register");
+Route::post("/create/{params}", [AuthController::class, "create"])->name("createaccount");
+Route::group(["prefix" => "sellers"], function () {
+    Route::get("/", [SellerDashboardController::class, "index"])->name("sellers");
+});
 //route get admin controller
 Route::group(["prefix" => "admin"], function () {
     //route get admin controller
@@ -49,7 +53,7 @@ Route::group(["prefix" => "admin"], function () {
         "update" => "admin.products.update",
         "destroy" => "admin.products.destroy",
     ]);
-    Route::resource("/categorys",ProductCategoryController::class)->names([
+    Route::resource("/categorys", ProductCategoryController::class)->names([
         "index" => "admin.categorys.index",
         "create" => "admin.categorys.create",
         "store" => "admin.categorys.store",
@@ -68,4 +72,3 @@ Route::group(["prefix" => "admin"], function () {
         "destroy" => "admin.customers.destroy",
     ]);
 });
-

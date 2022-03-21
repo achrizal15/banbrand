@@ -1,4 +1,4 @@
-@extends("template.das.main")
+@extends("template.das.admin.main")
 @section('content')
     <section class="content">
         <div class="row">

@@ -93,7 +93,7 @@
                     style="opacity: .8">
                 <span class="brand-text text-white">Banbrand</span>
             </a>
-
+            
             <!-- Sidebar -->
             @include("template.das.admin.sidebar_admin_include")
             <!-- /.sidebar -->
