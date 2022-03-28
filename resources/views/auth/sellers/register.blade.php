@@ -141,7 +141,7 @@
                                     </div>
                                     <div class="mt-3">
                                         <label class="form-label">Alamat Toko</label>
-                                        <input type="text" name="alamat_toko" data-parsley-group="block-2" class="form-control"></div>
+                                        <input tabindex="-1" type="text" name="alamat_toko" data-parsley-group="block-2" class="form-control"></div>
                                 </fieldset>
                                     <br /><br />
                                     <br /><br />

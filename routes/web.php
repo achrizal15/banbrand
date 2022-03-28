@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Seller\DashboardController as SellerDashboardController;
+use App\Http\Controllers\Seller\ProdukController;
 use App\Http\Controllers\WelcomeController;
 
 /*
@@ -28,6 +29,16 @@ Route::get("/register/{params}", [AuthController::class, "register"])->name("reg
 Route::post("/create/{params}", [AuthController::class, "create"])->name("createaccount");
 Route::group(["prefix" => "sellers"], function () {
     Route::get("/", [SellerDashboardController::class, "index"])->name("sellers");
+    Route::resource("/product", ProdukController::class)->names([
+        'index'=>'sellers.product.index',
+        'create'=>'sellers.product.create',
+        'show'=>'sellers.product.show',
+        'delete'=>'sellers.product.delete',
+        'store'=>'sellers.product.store',
+        'update'=>'sellers.product.update',
+        'edit'=>'sellers.product.edit',
+    ]);
+
 });
 //route get admin controller
 Route::group(["prefix" => "admin"], function () {

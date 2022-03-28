@@ -95,7 +95,7 @@
             </a>
             
             <!-- Sidebar -->
-            @include("template.das.admin.sidebar_admin_include")
+            @include("template.das.seller.sidebar_include")
             <!-- /.sidebar -->
         </aside>
         <div class="content-wrapper">
@@ -139,7 +139,7 @@
             @yield("content")
         </div>
     </div>
-    @include("template.das.footer_include")
+    @include("template.footer_include")
     <script>
 
     </script>

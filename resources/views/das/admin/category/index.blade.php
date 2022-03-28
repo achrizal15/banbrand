@@ -25,7 +25,7 @@
                                     <tr class="text-capitalize">
                                         <td>{{ $category->nama }}</td>
                                         <td><a href="">VIEW(12)</a></td>
-                                        <td ><p class="text-truncate" style="max-width: 300px;">{{ $category->deskripsi }}adsajdjas a dsajdiaaaaaaaaaaaaaaaaa Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa, sunt ducimus mollitia quibusdam, earum ad odit accusantium deleniti corporis incidunt tempore dicta quod, quas laboriosam! Velit modi accusantium corporis quisquam. </p> 
+                                        <td ><p class="text-truncate" style="max-width: 300px;">{{ $category->deskripsi }} </p> 
                                           <a href="#" data-bs-toggle="modal" id="btn-deskripsi-category" data-bs-target="#deskripsiModal" data-category="{{ $category }}">Show All</a>
                                        </td>
                                         <td>{{ $category->status }}</td>

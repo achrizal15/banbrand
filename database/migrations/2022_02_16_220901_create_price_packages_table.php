@@ -19,6 +19,8 @@ class CreatePricePackagesTable extends Migration
             $table->text("deskripsi");
             $table->text("persyaratan");
             $table->string("harga");
+            $table->string("image");
+            $table->string("type");
             $table->string("status")->default("on");
             $table->timestamps();
         });

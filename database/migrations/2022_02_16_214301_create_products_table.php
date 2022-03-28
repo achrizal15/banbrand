@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->string("tag");
             $table->text("persyaratan");
             $table->text("deskripsi");
-            $table->string("gambar");
+            $table->string("thumnail");
             $table->string("status")->default("on");
             $table->timestamps();
         });
