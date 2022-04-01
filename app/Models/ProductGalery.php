@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PricePackage extends Model
+class ProductGalery extends Model
 {
     use HasFactory;
     protected $guarded = ["id"];
-    public function produkgaleries()
+    public function priceproduk()
     {
-        return $this->hasMany(ProductGalery::class, "entity_id");
+        return $this->belongsTo(PricePackage::class);
     }
 }

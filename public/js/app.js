@@ -14,7 +14,7 @@ const rateStars = function () {
 }
 //funtion date to time ago
 
-let carouselHandler = function () {
+const carouselHandler = function () {
     $('.owl-carousel').each(function (e) {
         $(this).owlCarousel({
             stagePadding: 50,
@@ -92,7 +92,7 @@ const inputNumberOnly = () => {
 const registerPage = () => {
     let form_register_seller = $("form#form-register-seller")
     if (form_register_seller.length > 0) {
-    
+
         $.ajax({
             type: "get",
             url: "http://www.emsifa.com/api-wilayah-indonesia/api/regencies/35.json",
@@ -147,7 +147,12 @@ const registerPage = () => {
 
 }
 const initUploadFileDropify = () => {
-    let options = "";
+    let options = {
+        messages: {
+            default: "Drag or Click",
+            remove: "Remove"
+        }
+    };
     if ($(".upload-avatar").length > 0) {
         options = {
             messages: {
@@ -158,6 +163,26 @@ const initUploadFileDropify = () => {
             },
             tpl: {
                 wrap: '<div class="dropify-wrapper circle-image"></div>',
+                loader: '<div class="dropify-loader"></div>',
+                message: '<div class="dropify-message"><span class="file-icon" /> <p>{{ default }}</p></div>',
+                preview: '<div class="dropify-preview"><span class="dropify-render"></span><div class="dropify-infos"><div class="dropify-infos-inner"><p class="dropify-infos-message">{{ replace }}</p></div></div></div>',
+                filename: '<p class="dropify-filename"><span class="file-icon"></span> <span class="dropify-filename-inner"></span></p>',
+                clearButton: '<button type="button" hidden class="dropify-clear">{{ remove }}</button>',
+                errorLine: '<p class="dropify-error">{{ error }}</p>',
+                errorsContainer: '<div class="dropify-errors-container"><ul></ul></div>'
+            }
+        };
+    }
+    if ($(".upload-multiple").length > 0) {
+        options = {
+            messages: {
+                'default': '',
+                'replace': '',
+                'remove': '',
+                'error': ''
+            },
+            tpl: {
+                wrap: '<div class="dropify-wrapper images-multiple-upload"></div>',
                 loader: '<div class="dropify-loader"></div>',
                 message: '<div class="dropify-message"><span class="file-icon" /> <p>{{ default }}</p></div>',
                 preview: '<div class="dropify-preview"><span class="dropify-render"></span><div class="dropify-infos"><div class="dropify-infos-inner"><p class="dropify-infos-message">{{ replace }}</p></div></div></div>',
@@ -347,7 +372,7 @@ const formAjax = () => {
             const data = new FormData($(this)[0]);
             //has class needs-validation
             if ($(this).hasClass("needs-validation")) {
-              $(this). parsley().validate()
+                $(this).parsley().validate()
                 if (!$(this).parsley().isValid()) {
                     return false;
                 }
@@ -375,7 +400,7 @@ const formAjax = () => {
                             err_message += '<i class="fa-solid fa-circle-small"></i> ' + element[0] + "</br>"
                         }
                     }
-                    toastr["error"](err_message)
+                    toastr["error"](err_message != "" ? err_message : error.statusText)
                     toastr.options = toastOption;
                     loader("hidden");
                 }
@@ -467,7 +492,38 @@ const initSelect2 = function () {
         $(".select2").select2();
     }
 }
+const PagePriceProduk = () => {
+    $(document).on("click", "#delete-multi-upload", function () {
+        $(this).parent().remove()
+    })
+    $(document).on("click", ".add-multiple-images", function () {
+        $(this).parent().append(`<div class="upload-group">
+                        <button type="button" id="delete-multi-upload" class="close">x</button>
+                        <input type="file" class="dropify upload-multiple"
+                        name="galerys[]" placeholder="x" data-placeholder="x"/>
+                        </div>`);
+        $('.dropify').dropify({
+            messages: {
+                'default': '',
+                'replace': '',
+                'remove': '',
+                'error': ''
+            },
+            tpl: {
+                wrap: '<div class="dropify-wrapper images-multiple-upload"></div>',
+                loader: '<div class="dropify-loader"></div>',
+                message: '<div class="dropify-message"><span class="file-icon" /> <p>{{ default }}</p></div>',
+                preview: '<div class="dropify-preview"><span class="dropify-render"></span><div class="dropify-infos"><div class="dropify-infos-inner"><p class="dropify-infos-message">{{ replace }}</p></div></div></div>',
+                filename: '<p class="dropify-filename"><span class="file-icon"></span> <span class="dropify-filename-inner"></span></p>',
+                clearButton: '<button type="button" hidden class="dropify-clear">{{ remove }}</button>',
+                errorLine: '<p class="dropify-error">{{ error }}</p>',
+                errorsContainer: '<div class="dropify-errors-container"><ul></ul></div>'
+            }
+        });
+    })
+}
 $(document).ready(function () {
+    PagePriceProduk()
     initSelect2()
     categoryPage()
     summernoteHandler()

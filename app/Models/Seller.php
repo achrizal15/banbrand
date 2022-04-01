@@ -20,6 +20,10 @@ class Seller extends Model
     }
     public function bank()
     {
-        return $this->hasOne(Bank::class,"bank_id");
+        return $this->hasOne(Bank::class, "bank_id");
+    }
+    public function products()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

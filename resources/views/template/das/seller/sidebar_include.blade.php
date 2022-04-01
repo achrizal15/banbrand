@@ -13,7 +13,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('sellers.product') }}"
+                <a href="{{ route('sellers.product.index') }}"
                     class="nav-link {{ request()->is('/sellers/product*') ? 'active' : '' }}">
                     <i class="nav-icon fa-light fa-boxes-stacked"></i>
                     <p>
@@ -22,7 +22,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('sellers.product') }}"
+                <a href="{{ route('sellers.product.index') }}"
                     class="nav-link {{ request()->is('/sellers/product*') ? 'active' : '' }}">
                     <i class="nav-icon fa-light fa-store"></i>
                     <p>

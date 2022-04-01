@@ -9,8 +9,10 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Seller\DashboardController as SellerDashboardController;
+use App\Http\Controllers\Seller\PricePackageController;
 use App\Http\Controllers\Seller\ProdukController;
 use App\Http\Controllers\WelcomeController;
+use App\Models\PricePackage;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,15 +32,18 @@ Route::post("/create/{params}", [AuthController::class, "create"])->name("create
 Route::group(["prefix" => "sellers"], function () {
     Route::get("/", [SellerDashboardController::class, "index"])->name("sellers");
     Route::resource("/product", ProdukController::class)->names([
-        'index'=>'sellers.product.index',
-        'create'=>'sellers.product.create',
-        'show'=>'sellers.product.show',
-        'delete'=>'sellers.product.delete',
-        'store'=>'sellers.product.store',
-        'update'=>'sellers.product.update',
-        'edit'=>'sellers.product.edit',
+        'index' => 'sellers.product.index',
+        'create' => 'sellers.product.create',
+        'destroy' => 'sellers.product.destroy',
+        'store' => 'sellers.product.store',
+        'update' => 'sellers.product.update',
+        'edit' => 'sellers.product.edit',
     ]);
-
+    Route::get("/product/{product}/price", [PricePackageController::class, "index"])->name("product.price");
+    Route::get("/product/{product}/price/action", [PricePackageController::class, "action"])->name("product.price.action");
+    Route::post("/product/price", [PricePackageController::class, "store"])->name("product.price.store");
+    Route::PUT("/product/price/{price}", [PricePackageController::class, "update"])->name("product.price.update");
+    Route::delete("/product/price/{price}",[PricePackageController::class,"destroy"])->name("product.price.destroy");
 });
 //route get admin controller
 Route::group(["prefix" => "admin"], function () {

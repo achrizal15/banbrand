@@ -5,41 +5,44 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <a href="{{ route('sellers.product.create') }}" class="btn btn-primary">Tambah</a>
+                        <a href="{{ route('product.price.action', ['product' => $produk->id]) . '?type=create' }}"
+                            class="btn btn-primary">Tambah</a>
                         <table class="dataTable table table-bordered table-hover" id="table-category">
                             <thead>
                                 <tr>
-                                    <th width="60px" data-priority="1">THUMNAIL</th>
-                                    <th data-priority="2">NAMA</th>
-                                    <th class="text-nowrap" data-priority="2">KATEGORI</th>
-                                    <th width="150px">PRICING</th>
+                                    <th data-priority="1">NAMA</th>
+                                    <th class="text-nowrap">HARGA</th>
+                                    <th width="150px">GALERY</th>
                                     <th class="text-nowrap">STATUS</th>
-                                    <th class="text-nowrap" data-priority="3">ACTION</th>
+                                    <th class="text-nowrap" data-priority="3" width="50px">ACTION</th>
                                 </tr>
                             </thead>
                             <tbody class="text-uppercase">
-                                @foreach ($produks as $p)
+                                @foreach ($price as $p)
                                     <tr>
-                                        <td><img src="{{ asset('storage/produk-image/' . $p->thumnail) }}"
-                                                alt="{{ $p->nama }}"
-                                                width="100px"
-                                                height="100px"></td>
                                         <td>{{ $p->nama }}</td>
-                                        <td>{{ $p->kategori ? $p->kategori->nama : '' }}</td>
-                                        <td><a href="{{ route('product.price', ['product' => $p->id]) }}"
-                                                class="btn btn-default btn-xs">15K - 20K (ADD)</a></td>
+                                        <td>{{ $p->harga }}</td>
+                                        <td>
+                                            @foreach ($p->produkgaleries as $pg)
+                                                <img width="30px" src="{{ asset("storage/produk-image/$pg->nama") }}"
+                                                    alt="">
+                                            @endforeach
+                                        </td>
                                         <td>{{ $p->status }}</td>
                                         <td class="text-nowrap text-center">
-                                            <a href="{{ route('sellers.product.edit', ['product' => $p->id]) }}"
+                                            <a href="{{ route('product.price.action', ['product' => $produk->id]) . '?type=edit&id='.$p->id }}"
                                                 class="btn btn-sm btn-warning"><i class="fas fa-pencil text-white"></i></a>
-                                            <form id="form-delete-item" data-remove="true" data-refresh="true"
-                                                class="d-inline"
-                                                action="{{ route('sellers.product.destroy', $p->id) }}" method="post">
-                                                @csrf
-                                                @method("delete")
-                                                <button type="submit" class="btn btn-sm btn-danger"><i
-                                                        class="fas fa-trash"></i></button>
-                                            </form>
+                                            @if (strtolower($p->nama) != 'custom')
+                                                <form id="form-delete-item" data-remove="true" data-refresh="true"
+                                                    class="d-inline"
+                                                    action="{{ route('product.price.destroy', $p->id) }}" method="post">
+                                                    @csrf
+                                                    @method("delete")
+                                                    <button type="submit" class="btn btn-sm btn-danger"><i
+                                                            class="fas fa-trash"></i></button>
+                                                </form>
+                                            @endif
+
                                         </td>
                                     </tr>
                                 @endforeach

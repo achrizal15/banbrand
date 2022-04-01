@@ -166,11 +166,13 @@ nav div.d-lg-flex {
 
     }
 }
+
 input.form-control:focus,
 select.form-control:focus,
 textarea.form-control:focus {
     box-shadow: none;
 }
+
 input.parsley-success,
 select.parsley-success,
 textarea.parsley-success {
@@ -178,9 +180,11 @@ textarea.parsley-success {
     background-color: #DFF0D8;
     border: 1px solid #D6E9C6;
 }
+
 .circle-image {
     border-radius: 100%;
 }
+
 // input[type="radio"], input[type="checkbox"],
 .parsley-error>input {
     border-color: #da1634;
@@ -250,4 +254,52 @@ textarea.parsley-error {
     height: 100vh;
     padding-top: 10rem;
 }
-    
+
+.add-multiple-images {
+    margin-left: 5px;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    justify-content: center;
+    border: solid rgb(222, 226, 230) 1px;
+    color: rgb(222, 226, 230);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgb(222, 226, 230);
+        color: white;
+    }
+}
+
+.upload-group {
+    position: relative;
+
+    .close {
+        position: absolute;
+        z-index: 999;
+        right: 1px;
+        top: 1px;
+        width: 1em;
+        padding-bottom: 5px;
+        background-color: white !important;
+        text-align: center;
+        color: red;
+        border-radius: 100%;
+        border: 1px solid rgb(222, 226, 230);
+        box-shadow: rgb(222, 226, 230) 0px 5px 5px;
+    }
+}
+
+.images-multiple-upload {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // padding: 15px !important;
+    // line-height: -22px !important;
+    overflow: hidden;
+    margin-left: 5px;
+}

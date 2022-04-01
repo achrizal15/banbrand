@@ -18,8 +18,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger("seller_id");
             $table->unsignedBigInteger("category_id");
             $table->string("nama");
-            $table->string("tag");
-            $table->text("persyaratan");
+            $table->string("tag")->nullable();
             $table->text("deskripsi");
             $table->string("thumnail");
             $table->string("status")->default("on");

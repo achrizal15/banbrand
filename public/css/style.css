@@ -241,3 +241,50 @@ textarea.parsley-error:focus {
   height: 100vh;
   padding-top: 10rem;
 }
+
+.add-multiple-images {
+  margin-left: 5px;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  justify-content: center;
+  border: solid #dee2e6 1px;
+  color: #dee2e6;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.add-multiple-images:hover {
+  background-color: #dee2e6;
+  color: white;
+}
+
+.upload-group {
+  position: relative;
+}
+
+.upload-group .close {
+  position: absolute;
+  z-index: 999;
+  right: 1px;
+  top: 1px;
+  width: 1em;
+  padding-bottom: 5px;
+  background-color: white !important;
+  text-align: center;
+  color: red;
+  border-radius: 100%;
+  border: 1px solid #dee2e6;
+  box-shadow: #dee2e6 0px 5px 5px;
+}
+
+.images-multiple-upload {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-left: 5px;
+}
