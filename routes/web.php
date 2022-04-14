@@ -33,8 +33,9 @@ Route::post("/auth/{params}", [AuthController::class, "auth"])->name("loginAuth"
 Route::get("/logout", [AuthController::class, "logOut"])->name("logOut");
 Route::get("/register/{params}", [AuthController::class, "register"])->name("register");
 Route::post("/create/{params}", [AuthController::class, "create"])->name("createaccount");
-Route::get("/toko/{toko}",[WelcomeController::class, "toko"])->name("toko");
-Route::get("/produk-detail/{produk}",[WelcomeController::class, "produkdetail"])->name("produk-detail");
+Route::get("/toko/{toko}", [WelcomeController::class, "toko"])->name("toko");
+Route::get("/produk-detail/{produk}", [WelcomeController::class, "produkdetail"])->name("produk-detail");
+Route::get("/checkout/{produk}/{price}", [WelcomeController::class, "checkout"])->name("checkout");
 Route::group(["prefix" => "sellers"], function () {
     Route::get("/", [SellerDashboardController::class, "index"])->name("sellers");
     Route::resource("/product", ProdukController::class)->names([

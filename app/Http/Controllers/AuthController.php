@@ -97,7 +97,7 @@ class AuthController extends Controller
     {
         request()->validate([
             "username" => "required|unique:sellers,username",
-            "nama_toko" => "required|unique:sellers,nama_toko",
+            "nama-toko" => "required|unique:sellers,nama_toko",
             "email" => "required|email|unique:sellers",
             "password" => "required|min:3",
         ]);

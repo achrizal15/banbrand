@@ -52,7 +52,7 @@ class PricePackageController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
-            "nama" => "required|unique:price_packages,nama",
+            "nama" => "required",
             "deskripsi" => "required",
             "produk_id" => "required",
             "harga" => "required",
@@ -86,6 +86,7 @@ class PricePackageController extends Controller
     }
     public function update(PricePackage $price, Request $request)
     {
+    
         $option = [
             "nama" => "required",
             "deskripsi" => "required",
@@ -93,9 +94,7 @@ class PricePackageController extends Controller
             "harga" => "required",
             "status"=>"required"
         ];
-        if ($request->nama != $price->nama) {
-            $option["nama"] = "required|unique:price_packages,nama";
-        }
+
 
         if ($request->old_image == null) {
             $option["galerys"] = "required";
