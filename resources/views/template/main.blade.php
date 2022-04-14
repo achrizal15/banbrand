@@ -13,6 +13,7 @@
     <div class="loader">
         <i class="fas fa-spinner fa-spin loader-icon"></i>
     </div>
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient py-3 sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">BANBRAND</a>
@@ -47,13 +48,13 @@
             </div>
         </div>
     </nav>
-    <section class="section-sub-nav shadow">
+    {{-- <section class="section-sub-nav shadow">
         <nav class="nav container-fluid sub-nav">
             @foreach ($kategori as $value)
                 <a class="nav-link active" aria-current="page" href="#">{{ $value->nama }}</a>
             @endforeach
         </nav>
-    </section>
+    </section> --}}
     <section class="banner-img">
         <div class=" ">
             <div class="container-fluid">

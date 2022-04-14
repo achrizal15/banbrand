@@ -408,6 +408,7 @@ const formAjax = () => {
         })
     }
 }
+
 const pageAprroved = () => {
     $(document).on("submit", "#seller-banned-form", function (e) {
         e.preventDefault();
@@ -471,12 +472,16 @@ const summernoteHandler = function () {
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['table', ['table']],
+                ['fontsize', ['fontsize']],
                 // ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview']]
+                // ['view', ['fullscreen', 'codeview']]
             ]
         });
+        $("#summernote").summernote('justifyFull');
     }
+
 }
+
 const categoryPage = function () {
     if ($("#table-category").length > 0) {
         $(document).on("click", "#btn-deskripsi-category", function () {
@@ -495,6 +500,14 @@ const initSelect2 = function () {
 const PagePriceProduk = () => {
     $(document).on("click", "#delete-multi-upload", function () {
         $(this).parent().remove()
+        const id = $(this).data("id");
+        if (id != null) {
+            $.ajax({
+                type: "post",
+                url: `/sellers/product/galery/${id}`,
+                data: { _token: token, _method: "delete" }
+            });
+        }
     })
     $(document).on("click", ".add-multiple-images", function () {
         $(this).parent().append(`<div class="upload-group">

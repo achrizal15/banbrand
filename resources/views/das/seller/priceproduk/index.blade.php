@@ -5,7 +5,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <a href="{{ route('product.price.action', ['product' => $produk->id]) . '?type=create' }}"
+                        <a href="{{ route("sellers.product.index") }}"
+                            class="btn btn-danger">BACK</a>
+                        <a @if(count($price)>=2) hidden @endif href="{{ route('product.price.action', ['product' => $produk->id]) . '?type=create' }}"
                             class="btn btn-primary">Tambah</a>
                         <table class="dataTable table table-bordered table-hover" id="table-category">
                             <thead>
@@ -21,7 +23,7 @@
                                 @foreach ($price as $p)
                                     <tr>
                                         <td>{{ $p->nama }}</td>
-                                        <td>{{ $p->harga }}</td>
+                                        <td>Rp.{{ $p->harga }}</td>
                                         <td>
                                             @foreach ($p->produkgaleries as $pg)
                                                 <img width="30px" src="{{ asset("storage/produk-image/$pg->nama") }}"

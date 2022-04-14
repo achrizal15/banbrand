@@ -1,179 +1,34 @@
 @extends('template.main')
 @section('content')
-    <section class="container mt-5 bg-white p-4 rounded ">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3 class="fw-bold">Trending Banners</h3>
-            <a href="" class="text-decoration-none fw-bold ">See All <i class="fas fa-chevron-right"
-                    style="font-size: 12px"></i></a>
-        </div>
-        <div class="carousel-wrapper">
-            <div  class="owl-carousel owl-theme">
-                <div class="item">
-                    <div class="card" style="width: 15rem;">
-                        <img src="{{ asset("storage/produk-image/default.png") }}"
-                            alt="Picture 1">
-                        <div class="card-body text-center">
-                            <h5>Spanduk Partai 4x4</h5>
-                            <span class="fw-bold ">Rp.150K - Rp.200K</span>
-                            <div class="my-3 justify-content-center d-flex">
-                                <div id="rateYo" data-value="3" data-readonly="true"></div>
-                            </div>
-                            <button class="btn mt-3 btn-outline-dark fw-bold">Order</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="card" style="width: 15rem;">
-                        <img src="{{ asset("storage/produk-image/default.png") }}"
-                            alt="Picture 1">
-                        <div class="card-body text-center">
-                            <h5>Spanduk Partai 4x4</h5>
-                            <span class="fw-bold ">Rp.150K - Rp.200K</span>
-                            <div class="my-3 justify-content-center d-flex">
-                                <div id="rateYo" data-value="4" data-readonly="true"></div>
-                            </div>
-                            <button class="btn mt-3 btn-outline-dark fw-bold">Order</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="card" style="width: 15rem;">
-                        <img src="{{ asset("storage/produk-image/default.png") }}"
-                            alt="Picture 1">
-                        <div class="card-body text-center">
-                            <h5>Spanduk Partai 4x4</h5>
-                            <span class="fw-bold ">Rp.150K - Rp.200K</span>
-                            <div class="my-3 justify-content-center d-flex">
-                                <div id="rateYo" data-value="4" data-readonly="true"></div>
-                            </div>
-                            <button class="btn mt-3 btn-outline-dark fw-bold">Order</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="card" style="width: 15rem;">
-                        <img src="{{ asset("storage/produk-image/default.png") }}"
-                            alt="Picture 1">
-                        <div class="card-body text-center">
-                            <h5>Spanduk Partai 4x4</h5>
-                            <span class="fw-bold ">Rp.150K - Rp.200K</span>
-                            <div class="my-3 justify-content-center d-flex">
-                                <div id="rateYo" data-value="4" data-readonly="true"></div>
-                            </div>
-                            <button class="btn mt-3 btn-outline-dark fw-bold">Order</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="card" style="width: 15rem;">
-                        <img src="{{ asset("storage/produk-image/default.png") }}"
-                            alt="Picture 1">
-                        <div class="card-body text-center">
-                            <h5>Spanduk Partai 4x4</h5>
-                            <span class="fw-bold ">Rp.150K - Rp.200K</span>
-                            <div class="my-3 justify-content-center d-flex">
-                                <div id="rateYo" data-value="2" data-readonly="true"></div>
-                            </div>
-                            <button class="btn mt-3 btn-outline-dark fw-bold">Order</button>
-                        </div>
-                    </div>
-                </div>
+    <section class="container mt-5 bg-white p-4 rounded d-flex flex-wrap gap-4 justify-content-center">
+        @foreach ($produk as $p)
+            @if ($p->status == 'off' || $p->seller->is_ban == 1)
+                @continue
+            @endif
+            <div class="card shadow" style="width: 15rem;">
+                <img src="{{ asset('storage/produk-image/' . $p->thumnail) }}"
+                    alt="Picture 1" height="150">
+                <div class="card-body text-center" style="overflow: hidden">
+                    <span class="d-block" style="white-space: nowrap;overflow: hidden;
+                                    text-overflow: ellipsis;">{{ $p->nama }}</span>
+                    <a href="{{ route('toko', ['toko' => $p->seller_id]) }}"
+                        class="text-bold mb-4 d-block">{{ $p->seller->nama_toko }}</a>
 
-            </div>
-            <div class="owl-theme">
-                <div class="owl-controls">
-                    <div class="custom-nav owl-nav"></div>
+                    <?php $price = []; ?>
+                    @foreach ($p->priceproduk as $pc)
+                        @if ($pc->status == 'on')
+                            <?php $price[] = $pc->harga; ?>
+                        @endif
+                    @endforeach
+                    <span class="fw-bold">{{ rupiah(end($price)) }}
+                        @if (count($price) > 1)
+                            - {{ rupiah($price[0]) }}
+                        @endif
+                    </span>
+                    <br>
+                    <a href="{{ route('produk-detail', ['produk' => $p->id]) }}" class="btn mt-3 btn-outline-dark fw-bold">Order</a>
                 </div>
             </div>
-        </div>
-        <div class="d-flex justify-content-between align-items-center my-3">
-            <h3 class="fw-bold">Trending Banners</h3>
-            <a href="" class="text-decoration-none fw-bold ">See All <i class="fas fa-chevron-right"
-                    style="font-size: 12px"></i></a>
-        </div>
-        <div class="carousel-wrapper">
-            <div  class="owl-carousel owl-theme">
-                <div class="item">
-                    <div class="card" style="width: 15rem;">
-                        <img src="{{ asset("storage/produk-image/default.png") }}"
-                            alt="Picture 1">
-                        <div class="card-body text-center">
-                            <h5>Spanduk Partai 4x4</h5>
-                            <span class="fw-bold ">Rp.150K - Rp.200K</span>
-                            <div class="my-3 justify-content-center d-flex">
-                                <div id="rateYo" data-value="3" data-readonly="true"></div>
-                            </div>
-                            <button class="btn mt-3 btn-outline-dark fw-bold">Order</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="card" style="width: 15rem;">
-                        <img src="{{ asset("storage/produk-image/default.png") }}"
-                            alt="Picture 1">
-                        <div class="card-body text-center">
-                            <h5>Spanduk Partai 4x4</h5>
-                            <span class="fw-bold ">Rp.150K - Rp.200K</span>
-                            <div class="my-3 justify-content-center d-flex">
-                                <div id="rateYo" data-value="4" data-readonly="true"></div>
-                            </div>
-                            <button class="btn mt-3 btn-outline-dark fw-bold">Order</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="card" style="width: 15rem;">
-                        <img src="{{ asset("storage/produk-image/default.png") }}"
-                            alt="Picture 1">
-                        <div class="card-body text-center">
-                            <h5>Spanduk Partai 4x4</h5>
-                            <span class="fw-bold ">Rp.150K - Rp.200K</span>
-                            <div class="my-3 justify-content-center d-flex">
-                                <div id="rateYo" data-value="4" data-readonly="true"></div>
-                            </div>
-                            <button class="btn mt-3 btn-outline-dark fw-bold">Order</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="card" style="width: 15rem;">
-                        <img src="{{ asset("storage/produk-image/default.png") }}"
-                            alt="Picture 1">
-                        <div class="card-body text-center">
-                            <h5>Spanduk Partai 4x4</h5>
-                            <span class="fw-bold ">Rp.150K - Rp.200K</span>
-                            <div class="my-3 justify-content-center d-flex">
-                                <div id="rateYo" data-value="4" data-readonly="true"></div>
-                            </div>
-                            <button class="btn mt-3 btn-outline-dark fw-bold">Order</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="card" style="width: 15rem;">
-                        <img src="{{ asset("storage/produk-image/default.png") }}"
-                            alt="Picture 1">
-                        <div class="card-body text-center">
-                            <h5>Spanduk Partai 4x4</h5>
-                            <span class="fw-bold ">Rp.150K - Rp.200K</span>
-                            <div class="my-3 justify-content-center d-flex">
-                                <div id="rateYo" data-value="2" data-readonly="true"></div>
-                            </div>
-                            <button class="btn mt-3 btn-outline-dark fw-bold">Order</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="owl-theme">
-                <div class="owl-controls">
-                    <div class="custom-nav owl-nav"></div>
-                </div>
-            </div>
-        </div>
-   
+        @endforeach
     </section>
-
-  
-
 @endsection

@@ -27,7 +27,7 @@
                                         <td>{{ $p->nama }}</td>
                                         <td>{{ $p->kategori ? $p->kategori->nama : '' }}</td>
                                         <td><a href="{{ route('product.price', ['product' => $p->id]) }}"
-                                                class="btn btn-default btn-xs">15K - 20K (ADD)</a></td>
+                                                class="btn btn-default btn-xs">ATUR HARGA</a></td>
                                         <td>{{ $p->status }}</td>
                                         <td class="text-nowrap text-center">
                                             <a href="{{ route('sellers.product.edit', ['product' => $p->id]) }}"

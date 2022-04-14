@@ -18,7 +18,7 @@
                                     value="@isset($produk) {{ $produk->nama }} @endisset"
                                     class="form-control" required>
                             </div>
-                            <input type="text" hidden name="seller_id" value="1">
+                            <input type="text" hidden name="seller_id" value="{{ $user->id }}">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Kategori</label>
                                 <select id="select-kategori"
@@ -34,7 +34,7 @@
                                                 <option value="{{ $k->id }}">{{ $k->nama }}</option>
                                             @endif
                                         @else
-                                        <option value="{{ $k->id }}">{{ $k->nama }}</option>
+                                            <option value="{{ $k->id }}">{{ $k->nama }}</option>
                                         @endisset
                                     @endforeach
                                 </select>
@@ -44,7 +44,9 @@
                                 <label class="form-label">Deskripsi & Persyaratan</label>
                                 <textarea id="summernote" name="deskripsi"
                                     rows="10">
-                                @isset($produk) {{ $produk->deskripsi }} @endisset
+                                @isset($produk)
+{{ $produk->deskripsi }}
+@endisset
                                 </textarea>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -55,19 +57,19 @@
 
                             <div class="col-md-6 mb-3">
                                 <input type="checkbox" name="status"
-                                    @isset($produk) @if ($produk->status == 'on') checked @endif @else checked
-                                @endisset data-bootstrap-switch data-off-color="danger"
-                                data-on-color="success">
-                        </div>
-                        <div class="col-md-6 mb-3 mt-5">
-                            <a href="{{ url()->previous() }}" class="btn btn-danger">BACK</a>
-                            <button type="submit"
-                                class="btn btn-primary bg-gradient">SUBMIT</button>
-                        </div>
-                    </form>
+                                    @isset($produk) @if ($produk->status == 'on') checked @endif @else checked @endisset
+                                    data-bootstrap-switch data-off-color="danger"
+                                    data-on-color="success">
+                            </div>
+                            <div class="col-md-6 mb-3 mt-5">
+                                <a href="{{ url()->previous() }}" class="btn btn-danger">BACK</a>
+                                <button type="submit"
+                                    class="btn btn-primary bg-gradient">SUBMIT</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 @endsection

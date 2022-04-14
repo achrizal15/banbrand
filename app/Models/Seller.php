@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class Seller extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+class Seller extends Authenticatable
 {
     use HasFactory;
+    use \Illuminate\Auth\Authenticatable;
     protected $guarded = ["id"];
+    protected $hidden = [
+        'password'
+    ];
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
@@ -24,6 +27,6 @@ class Seller extends Model
     }
     public function products()
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasMany(Product::class);
     }
 }

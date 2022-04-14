@@ -13,4 +13,8 @@ class PricePackage extends Model
     {
         return $this->hasMany(ProductGalery::class, "entity_id");
     }
+    public function produk()
+    {
+        return $this->belongsTo(Product::class, "product_id");
+    }
 }

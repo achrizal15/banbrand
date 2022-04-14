@@ -15,9 +15,11 @@ class ProdukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $produk = Product::latest()->with(["seller", "kategori"])->get();
+        $user =  auth()->guard("sellers")->user();
+        $produk = Product::where("seller_id",$user->id)->with(["seller", "kategori"])->get();
         return view("das.seller.produk.index", ["title" => "Produk", "produks" => $produk]);
     }
 
@@ -28,8 +30,9 @@ class ProdukController extends Controller
      */
     public function create()
     {
+        $user =  auth()->guard("sellers")->user();
         $kategoris = ProductCategory::orderBy("nama", "asc")->get();
-        return view("das.seller.produk.form", ["title" => "Form produk", "url" => route('sellers.product.store'), "kategoris" => $kategoris]);
+        return view("das.seller.produk.form", ["title" => "Form produk", "url" => route('sellers.product.store'), "kategoris" => $kategoris,"user"=>$user]);
     }
 
     /**
@@ -56,7 +59,7 @@ class ProdukController extends Controller
             "produk_id" => $produk->id,
             "deskripsi" => "Pastikan anda mengirim file yang dibutuhkan dengan jelas",
             "harga" => "200000",
-            "status" => "off"
+            "status" => "on"
         ];
         PricePackage::create($data_price_packages);
         $response = [
@@ -85,12 +88,14 @@ class ProdukController extends Controller
      */
     public function edit(Product $product)
     {
+        $user =  auth()->guard("sellers")->user();
         $kategoris = ProductCategory::orderBy("nama", "asc")->get();
         return view("das.seller.produk.form", [
             "title" => "Form Product",
             "kategoris" => $kategoris,
             "url" => route('sellers.product.update', $product->id),
-            "produk" => $product
+            "produk" => $product,
+            "user"=>$user
         ]);
     }
 
@@ -112,8 +117,13 @@ class ProdukController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        $response = [
+            "message" => "$product->nama Deleted Successfully",
+            "url" => route("sellers.product.index")
+        ];
+        $product->deleteOrFail();
+        echo json_encode($response);
     }
 }

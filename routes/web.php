@@ -8,11 +8,13 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductGaleryController;
 use App\Http\Controllers\Seller\DashboardController as SellerDashboardController;
 use App\Http\Controllers\Seller\PricePackageController;
 use App\Http\Controllers\Seller\ProdukController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\PricePackage;
+use App\Models\ProductGalery;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +29,12 @@ use App\Models\PricePackage;
 
 Route::get('/', [WelcomeController::class, "index"])->name("welcome");
 Route::get("/login/{params}", [AuthController::class, "index"])->name("login");
+Route::post("/auth/{params}", [AuthController::class, "auth"])->name("loginAuth");
+Route::get("/logout", [AuthController::class, "logOut"])->name("logOut");
 Route::get("/register/{params}", [AuthController::class, "register"])->name("register");
 Route::post("/create/{params}", [AuthController::class, "create"])->name("createaccount");
+Route::get("/toko/{toko}",[WelcomeController::class, "toko"])->name("toko");
+Route::get("/produk-detail/{produk}",[WelcomeController::class, "produkdetail"])->name("produk-detail");
 Route::group(["prefix" => "sellers"], function () {
     Route::get("/", [SellerDashboardController::class, "index"])->name("sellers");
     Route::resource("/product", ProdukController::class)->names([
@@ -43,7 +49,8 @@ Route::group(["prefix" => "sellers"], function () {
     Route::get("/product/{product}/price/action", [PricePackageController::class, "action"])->name("product.price.action");
     Route::post("/product/price", [PricePackageController::class, "store"])->name("product.price.store");
     Route::PUT("/product/price/{price}", [PricePackageController::class, "update"])->name("product.price.update");
-    Route::delete("/product/price/{price}",[PricePackageController::class,"destroy"])->name("product.price.destroy");
+    Route::delete("/product/price/{price}", [PricePackageController::class, "destroy"])->name("product.price.destroy");
+    Route::delete("/product/galery/{galery}", [ProductGaleryController::class, "destroy"])->name("product.galery.destroy");
 });
 //route get admin controller
 Route::group(["prefix" => "admin"], function () {

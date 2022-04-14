@@ -288,3 +288,7 @@ textarea.parsley-error:focus {
   overflow: hidden;
   margin-left: 5px;
 }
+
+.d {
+  text-align: justify;
+}

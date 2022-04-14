@@ -41,11 +41,10 @@ class PricePackageController extends Controller
         if (empty($id)) {
             abort(404);
         }
-        $price = PricePackage::first();
-        dd($price);
+        $price = PricePackage::with("produkgaleries")->find($id);
         return view("das.seller.priceproduk.form", [
             "title" => "Price Produk Form",
-            "url" => route("product.price.store"),
+            "url" => route("product.price.update", $id),
             "produk" => $product,
             "price" => $price
         ]);
@@ -83,6 +82,44 @@ class PricePackageController extends Controller
         $galery = new ProductGalery;
         $galery->where("entity_id", $price->id)->delete();
         $price->deleteOrFail();
+        echo json_encode($response);
+    }
+    public function update(PricePackage $price, Request $request)
+    {
+        $option = [
+            "nama" => "required",
+            "deskripsi" => "required",
+            "produk_id" => "required",
+            "harga" => "required",
+            "status"=>"required"
+        ];
+        if ($request->nama != $price->nama) {
+            $option["nama"] = "required|unique:price_packages,nama";
+        }
+
+        if ($request->old_image == null) {
+            $option["galerys"] = "required";
+        }
+
+        if ($request->nama == "Custom") {
+            unset($option["galerys"]);
+        }
+        $validate = $request->validate($option);
+        $price->update($validate);
+        $galerys = $request->file("galerys");
+        if ($galerys != null) {
+            foreach ($galerys as $key => $value) {
+                $value->store("public/produk-image");
+                ProductGalery::create([
+                    "nama" => $value->hashName(),
+                    "entity_id" => $price->id
+                ]);
+            }
+        }
+        $response = [
+            "message" => "Berhasil",
+            "url" => route("product.price", ["product" => $request->produk_id])
+        ];
         echo json_encode($response);
     }
 }
