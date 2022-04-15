@@ -31,6 +31,6 @@ class WelcomeController extends Controller
         if ($price->produk_id != $produk->id) {
             abort(404);
         }
-        return view("checkout", ["title" => "Checkout", "produk" => $produk, "price" => $price,"subtitle" => "checkout"]);
+        return view("checkout", ["title" => "Checkout", "produk" => $produk, "price" => $price->load("produkgaleries"),"subtitle" => "checkout ($price->nama)"]);
     }
 }

@@ -35,7 +35,7 @@
                         alt="Picture 1" height="150">
                     <div class="card-body text-center" style="overflow: hidden">
                         <span class="d-block" style="white-space: nowrap;overflow: hidden;
-                                                        text-overflow: ellipsis;">{{ $p->nama }}</span>
+                                                            text-overflow: ellipsis;">{{ $p->nama }}</span>
                         <span class="text-bold mb-4 d-block">{{ $p->seller->nama_toko }}</span>
                         <?php $price = []; ?>
                         @foreach ($p->priceproduk as $pc)
