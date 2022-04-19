@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 class SellerFactory extends Factory
 {
@@ -16,7 +17,7 @@ class SellerFactory extends Factory
         return [
             "nama" => $this->faker->name,
             "email" => $this->faker->unique()->safeEmail,
-            "password" => $this->faker->password,
+            "password" => Hash::make('123'),
             "alamat" => $this->faker->address,
             "no_telp" => $this->faker->phoneNumber,
             "nama_toko" => $this->faker->company,

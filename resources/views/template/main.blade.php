@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ isset($title) ? $title : 'BANBRAND' }}</title>
-    @include("template.head_include")
+    @include('template.head_include')
 </head>
 
 <body class="bg-light font-family-nunito-sans">
@@ -23,9 +23,8 @@
             </button>
             <div class="collapse navbar-collapse fs-6 fw-bold" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto">
-
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ route("login","sellers") }}">Become a Seller</a>
+                        <a class="nav-link active" href="{{ route('login', 'sellers') }}">Become a Seller</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -41,10 +40,25 @@
                         <a class="nav-link" href="#">About Banbrand</a>
                     </li>
                 </ul>
+                @php
+                    $customer = auth()
+                        ->guard('customers')
+                        ->user();
+                @endphp
+                @if(!$customer)
                 <div class="d-lg-flex">
-                    <a href="" class="nav-link link-light">LOGIN</a>
-                    <a href="" type="button" class="btn btn-outline-light fw-bold">SIGN UP</a>
+                    <a href="" class="nav-link link-light" data-bs-toggle="modal"
+                        data-bs-target="#loginModal">LOGIN</a>
+                    <a href="" type="button" class="btn btn-outline-light fw-bold" data-bs-toggle="modal"
+                        data-bs-target="#registerModal">SIGN UP</a>
                 </div>
+                @else
+                <div class="d-lg-flex">
+                    <a href="" class="nav-link link-light">
+                        <i class="fa-solid fa-user-crown"></i>
+                        {{ strtoupper($customer->nama) }}</a>
+                </div>
+                @endif
             </div>
         </div>
     </nav>
@@ -59,13 +73,99 @@
         <div class=" ">
             <div class="container-fluid">
                 <h1 class="display-4 pt-3 text-center font-family-cormorant-garamond">
-                    {{ isset($subtitle) ? strtoupper($subtitle): 'WELCOME' }}</h1>
+                    {{ isset($subtitle) ? strtoupper($subtitle) : 'WELCOME' }}</h1>
             </div>
         </div>
     </section>
+    <!-- Button trigger modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">LOGIN</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form novalidate class="form-ajax needs-validation"
+                    action="{{ route('loginAuth', ['params' => 'customer']) }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                placeholder="Enter email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input required type="password" class="form-control" id="password" name="password"
+                                placeholder="Enter password">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">SUBMIT</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">REGISTER</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form novalidate class="form-ajax needs-validation"
+                    action="{{ route('createaccount', ['params' => 'customer']) }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="nama" placeholder="Enter name"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                placeholder="Enter email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" required class="form-control" id="phone" name="phone"
+                                placeholder="Enter phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="Alamat">Alamat</label>
+                            <input type="text" class="form-control" id="Alamat" name="alamat"
+                                placeholder="Jln.Ikan Mas" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input required type="password" class="form-control" id="password" name="password"
+                                placeholder="Enter password">
+                        </div>
+                        <div class="form-group">
+                            <label for="password_confirmation">Confirm Password</label>
+                            <input required type="password" class="form-control" id="password_confirmation"
+                                name="password_confirmation" data-parsley-equalTo="#password"
+                                placeholder="Enter password">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">SUBMIT</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     @yield("content")
-    @include("template.footer_include")
+    @include('template.footer_include')
+
 </body>
 
 </html>

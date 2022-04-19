@@ -8,9 +8,11 @@ use App\Models\Seller;
 
 class WelcomeController extends Controller
 {
+
     public function index()
     {
         $produk = Product::orderBy("nama", "ASC")->with(["seller", "kategori"])->get();
+        // dd(auth()->user());
         return view("welcome", ["title" => "BANBRAND", "produk" => $produk]);
     }
     public function toko(Seller $toko)
@@ -24,13 +26,16 @@ class WelcomeController extends Controller
     public function produkdetail(Product $produk)
     {
         $produk = $produk->load(["seller", "kategori", "priceproduk", "priceproduk.produkgaleries"]);
-        return view("detail_produk", ["title" => $produk->nama, "produk" => $produk, "subtitle" => "produk"]);
+        $user = auth("customers")->user();
+        return view("detail_produk", ["title" => $produk->nama, "produk" => $produk, "subtitle" => "produk", "user" => $user]);
     }
     public function checkout(Product $produk, PricePackage $price)
     {
-        if ($price->produk_id != $produk->id) {
+        $user = auth("customers")->user();
+        if ($price->produk_id != $produk->id || $user == null) {
             abort(404);
         }
-        return view("checkout", ["title" => "Checkout", "produk" => $produk, "price" => $price->load("produkgaleries"),"subtitle" => "checkout ($price->nama)"]);
+
+        return view("checkout", ["title" => "Checkout", "produk" => $produk->load("seller"), "price" => $price->load("produkgaleries"), "subtitle" => "checkout ($price->nama)", "user" => $user]);
     }
 }

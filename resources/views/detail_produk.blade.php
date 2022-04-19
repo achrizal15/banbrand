@@ -74,9 +74,16 @@
                                         <a href="http://banbrand.test/produk-detail/5?nama=rendi">Tols Editor</a>
                                     @endif
                                     <div class="d-grid align-bottom">
-                                        <button class="btn btn-primary text-bold"
-                                            onclick="window.location='{{ route('checkout', ['produk' => $produk->id, 'price' => $m->id]) }}'"
-                                            type="button">Lanjutkan ({{ rupiah($m->harga) }})</button>
+                                        @if ($user != null)
+                                            <button class="btn btn-primary text-bold"
+                                                onclick="window.location='{{ route('checkout', ['produk' => $produk->id, 'price' => $m->id]) }}'"
+                                                type="button">Lanjutkan ({{ rupiah($m->harga) }})</button>
+                                        @else
+                                            <button class="btn btn-primary text-bold"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#loginModal"
+                                                type="button">Lanjutkan ({{ rupiah($m->harga) }})</button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

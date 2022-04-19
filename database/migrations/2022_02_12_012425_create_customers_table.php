@@ -16,16 +16,10 @@ class CreateCustomersTable extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->string("nama");
-            $table->string("username")->unique();
-            $table->string("no_telp");
+            $table->string("phone");
             $table->string("email");
             $table->string("password");
             $table->string("alamat");
-            $table->string("kode_pos");
-            $table->string("kota");
-            $table->string("kecamatan");
-            $table->string("kelurahan");
-            $table->string("gambar");
             $table->boolean("is_active")->default(false);
             $table->boolean("is_ban")->default(false);
             $table->timestamp("active_at")->nullable();

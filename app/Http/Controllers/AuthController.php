@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bank;
+use App\Models\Customers;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
 use App\Models\Seller;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -24,6 +26,7 @@ class AuthController extends Controller
             abort("404");
         }
         if ($params == "sellers") {
+          if( auth("sellers")->check())return redirect("/sellers");
             return view("auth.sellers.login", ["title" => "Login Seller", "kategori" => $this->kategori, "subtitle" => "Login Seller", "url" => Route("loginAuth", $params)]);
         }
     }
@@ -37,6 +40,26 @@ class AuthController extends Controller
             $banks = Bank::orderBy("nama", "ASC")->get();
             return view("auth.sellers.register", ["title" => "Register Seller", "kategori" => $this->kategori, "subtitle" => "Register Seller", "banks" => $banks]);
         }
+    }
+    private function __create_customer()
+    {
+        $request = Request();
+        $request->validate([
+            "email" => "unique:customers,email"
+        ]);
+        $customer = new Customers();
+        $customer->nama = $request->nama;
+        $customer->email = $request->email;
+        $customer->alamat = $request->alamat;
+        $customer->phone = $request->phone;
+        $customer->password = Hash::make($request->password);
+        $customer->save();
+        $response = [
+            "message" => "Akun berhasil dibuat, dan login sebagai customer",
+            "url" => "",
+        ];
+        $this->auth($customer[], "customer");
+        return $response;
     }
     public function auth(Request $request, $params)
     {
@@ -55,11 +78,33 @@ class AuthController extends Controller
                 return response()->json(["errors" => ["message" => ["Login failed"]]], 422);
             }
         }
+        if ($params == "customer") {
+            $response = $this->__authCustomer($validate);
+            if ($response == "error") {
+                return response()->json(["errors" => ["message" => ["Login failed"]]], 422);
+            }
+        }
         echo json_encode($response);
     }
-
+    private function __authCustomer($validate)
+    {
+        $request = Request();
+        $user = Customers::where("email", $request->email)->first();
+        if ($user) {
+            if (Auth::guard("customers")->attempt($validate)) {
+                $request->session()->regenerate();
+                $response = [
+                    "message" => "Login berhasil",
+                    "url" => '',
+                ];
+                return $response;
+            }
+        }
+        return "error";
+    }
     private function __authSeller($validate)
     {
+
         $request = Request();
         $user = Seller::where("email", $request->email)->first();
         if ($user) {
@@ -74,11 +119,11 @@ class AuthController extends Controller
         }
         return "error";
     }
-    public function logOut()
+    public function logOut($guard)
     {
         Auth::logout();
-        Auth::guard("sellers")->logout();
-        return redirect()->route("login", "sellers");
+        Auth::guard($guard)->logout();
+        return redirect("/");
     }
     public function create($params)
     {
@@ -90,8 +135,12 @@ class AuthController extends Controller
         if ($params == "sellers") {
             $response = $this->__create_seller();
         }
+        if ($params == "customer") {
+            $response = $this->__create_customer();
+        }
         echo json_encode($response);
     }
+
 
     private function __create_seller()
     {

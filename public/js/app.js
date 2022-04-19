@@ -535,7 +535,35 @@ const PagePriceProduk = () => {
         });
     })
 }
+//function convert rupiah
+const convertToRupiah = (angka) => {
+    let rupiah = '';
+    let angkarev = angka.toString().split('').reverse().join('');
+    for (let i = 0; i < angkarev.length; i++) {
+        if (i % 3 == 0) rupiah += angkarev.substr(i, 3) + '.';
+    }
+    return 'Rp. ' + rupiah.split('', rupiah.length - 1).reverse().join('');
+}
+const CheckoutPage = () => {
+    const form = $("#form-checkout-page")
+    if (form.length <= 0) return false;
+    $(document).on("change", "input[name='pengiriman']", function () {
+        const harga = $("input[name='harga']").val()
+        const ongkir = $("input[name='ongkir']").val()
+        const kode = $("input[name='kodetransfer']").val()
+        if ($(this).val() == "TAKE") {
+            $("#label-ongkir").text("Rp 0")
+            $("#label-total").text(convertToRupiah(parseInt(harga) + parseInt(kode)))
+            $("input[name='total']").val(parseInt(harga) + parseInt(kode))
+        } else {
+            $("#label-ongkir").text("Rp 10.000")
+            $("#label-total").text(convertToRupiah(parseInt(harga) + parseInt(kode) + parseInt(ongkir)))
+            $("input[name='total']").val(parseInt(harga) + parseInt(kode) + parseInt(ongkir))
+        }
+    })
+}
 $(document).ready(function () {
+    CheckoutPage()
     PagePriceProduk()
     initSelect2()
     categoryPage()
