@@ -144,13 +144,13 @@
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input required type="password" class="form-control" id="password" name="password"
+                            <input required type="password" class="form-control" id="passwordreg" name="password"
                                 placeholder="Enter password">
                         </div>
                         <div class="form-group">
                             <label for="password_confirmation">Confirm Password</label>
                             <input required type="password" class="form-control" id="password_confirmation"
-                                name="password_confirmation" data-parsley-equalTo="#password"
+                                name="password_confirmation" data-parsley-equalTo="#passwordreg"
                                 placeholder="Enter password">
                         </div>
 

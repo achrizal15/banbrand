@@ -544,6 +544,17 @@ const convertToRupiah = (angka) => {
     }
     return 'Rp. ' + rupiah.split('', rupiah.length - 1).reverse().join('');
 }
+//cowntdown timer update div
+const countDownTimer = () => {
+    const countdown = $("#countdown");
+    if ($("#countdown").length <= 0) return false;
+    const time = countdown.data("time");
+    countdown.countdown(time, function (param) {
+        $(this).html(param.strftime("%H jam %M menit %S detik"))
+    })
+
+}
+
 const CheckoutPage = () => {
     const form = $("#form-checkout-page")
     if (form.length <= 0) return false;
@@ -563,6 +574,7 @@ const CheckoutPage = () => {
     })
 }
 $(document).ready(function () {
+    countDownTimer()
     CheckoutPage()
     PagePriceProduk()
     initSelect2()

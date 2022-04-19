@@ -58,7 +58,6 @@ class AuthController extends Controller
             "message" => "Akun berhasil dibuat, dan login sebagai customer",
             "url" => "",
         ];
-        $this->auth($customer[], "customer");
         return $response;
     }
     public function auth(Request $request, $params)

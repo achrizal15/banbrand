@@ -20,6 +20,8 @@ class CreateCheckoutsTable extends Migration
             $table->unsignedBigInteger("seller_id");
             $table->unsignedBigInteger("price_id");
             $table->unsignedBigInteger("galery_id")->nullable();
+            $table->string("no_transaksi");
+            $table->string("pengiriman");
             $table->integer("kodetransfer");
             $table->bigInteger("ongkir");
             $table->string("file");
@@ -27,10 +29,9 @@ class CreateCheckoutsTable extends Migration
             $table->string("kontakdarurat");
             $table->integer("harga");
             $table->integer("total");
-            $table->text("pesan");
+            $table->text("pesan")->nullable();
             $table->timestamp("expired_at");
-            $table->string("kodetransfer");
-            $table->string("status");
+            $table->string("status")->default("Belum Dibayar");
             $table->timestamps();
         });
     }

@@ -1,6 +1,6 @@
 @extends('template.main')
 @section('content')
-    <form action="{{ route("checkout.store") }}" id="form-checkout-page" method="POST">
+    <form enctype="multipart/form-data" class="form-ajax needs-validation" action="{{ route('checkout.store') }}" id="form-checkout-page" method="POST">
         @csrf
         <section class="container mt-5 card">
             <div class="card-header text-gray">
@@ -19,14 +19,18 @@
                         <input type="hidden" name="seller_id" value="{{ $produk->seller->id }}">
                         <input type="hidden" name="produk_id" value="{{ $produk->id }}">
                         <input type="hidden" name="price_id" value="{{ $price->id }}">
+                        <input type="hidden" name="no_transaksi" value=" {{ 'TR' . date('Ymdhis') }}">
+
                     </div>
                     <div class="col-md-2">
                         <label class="form-label">Kontak Darurat</label>
-                        <input type="text" name="kontakdarurat" class="form-control text-bold" placeholder="081xxxx" required>
+                        <input type="text" name="kontakdarurat" class="form-control text-bold" placeholder="081xxxx"
+                            required>
                     </div>
                     <div class="col-md-8">
                         <label class="form-label">Alamat</label>
-                        <input type="text" class="form-control text-bold" name="alamat" value="{{ $user->alamat }}" required>
+                        <input type="text" class="form-control text-bold" name="alamat" value="{{ $user->alamat }}"
+                            required>
                     </div>
                 </div>
 
@@ -44,7 +48,8 @@
                     <div class="d-flex gap-3 mt-2">
                         @foreach ($price->produkgaleries as $galeri)
                             <div class="form-check ">
-                                <input class="form-check-input" type="radio" value="{{ $galeri->id }}" name="galery_id" id="{{ $galeri->nama }}" required>
+                                <input class="form-check-input" type="radio" value="{{ $galeri->id }}" name="galery_id"
+                                    id="{{ $galeri->nama }}" required>
                                 <label class="form-check-label" for="{{ $galeri->nama }}">
                                     <img src="{{ asset('storage/produk-image/' . $galeri->nama) }}"
                                         alt="{{ $galeri->nama }}"
@@ -74,7 +79,8 @@
                             </a></b> </p>
                 </article>
                 <div class="col-md-5">
-                    <input type="file" name="file" class="dropify" required>
+                    <input type="file" name="file" class="dropify" required data-allowed-file-extensions="zip rar"
+                        accept=".rar,.zip">
                 </div>
 
                 <div class="col-md-5 mt-3">
@@ -95,7 +101,8 @@
                     <div class="col-md-7">
                         Opsi Pengiriman
                         <div class="form-check">
-                            <input required class="form-check-input" type="radio" name="pengiriman" id="deliver" value="DELIVERY"
+                            <input required class="form-check-input" type="radio" name="pengiriman" id="deliver"
+                                value="DELIVERY"
                                 checked>
                             <label class="form-check-label" for="deliver">
                                 <b>DELIVERY</b>
@@ -137,8 +144,9 @@
                         </div>
                         <div class="d-flex justify-content-between text-lg text-bold">
                             <span>Total :</span>
-                            <span class="text-primary" id="label-total">{{ rupiah($price->harga + $kodetransaksi +10000) }}</span>
-                            <input type="text" name="total" value="{{ $price->harga + $kodetransaksi+10000 }}" hidden>
+                            <span class="text-primary"
+                                id="label-total">{{ rupiah($price->harga + $kodetransaksi + 10000) }}</span>
+                            <input type="text" name="total" value="{{ $price->harga + $kodetransaksi + 10000 }}" hidden>
                         </div>
                     </div>
                 </div>

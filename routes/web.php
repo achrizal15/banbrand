@@ -58,8 +58,10 @@ Route::group([
     Route::delete("/product/price/{price}", [PricePackageController::class, "destroy"])->name("product.price.destroy");
     Route::delete("/product/galery/{galery}", [ProductGaleryController::class, "destroy"])->name("product.galery.destroy");
 });
+
 Route::group(["middleware"=>"is.customer"],function(){
     Route::post("/checkout",[CheckoutController::class,"store"])->name("checkout.store");
+    Route::get('/pembayaran/{id_transaksi}',[CheckoutController::class,"pembayaran"])->name("pembayaran");
 });
 //route get admin controller
 Route::group(["prefix" => "admin"], function () {
