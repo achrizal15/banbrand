@@ -21,8 +21,7 @@ class DashboardController extends Controller
     public function permintaan(){
         $permintaan=new checkout();
         $permintaan=$permintaan->where("seller_id",auth()->guard("sellers")->user()->id);
-        $permintaan=$permintaan->with(["produk","customer","price_product","galery"])->get();
-        
+        $permintaan=$permintaan->with(["produk","customer","price_product","galery"])->get();        
         return view("das.seller.permintaan.index",["title"=>"Permintaan","permintaan"=>$permintaan]);
     }
 }

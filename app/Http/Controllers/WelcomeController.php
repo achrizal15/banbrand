@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\checkout;
 use App\Models\PricePackage;
 use App\Models\Product;
 use App\Models\Seller;
@@ -13,6 +14,9 @@ class WelcomeController extends Controller
     {
         $produk = Product::orderBy("nama", "ASC")->with(["seller", "kategori"])->get();
         // dd(auth()->user());
+        $checkout =  new checkout();
+        // $checkout->update(["status" => "Expired"], ["expired_at <=" => now()]);
+       $checkout->where("status","Belum Dibayar")->where("expired_at","<=",now())->update(["status"=>"Expired"]);
         return view("welcome", ["title" => "BANBRAND", "produk" => $produk]);
     }
     public function toko(Seller $toko)

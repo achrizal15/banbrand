@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Customer\CheckoutController;
+use App\Http\Controllers\DetailPembayaranController;
 use App\Http\Controllers\ProductGaleryController;
 use App\Http\Controllers\Seller\DashboardController as SellerDashboardController;
 use App\Http\Controllers\Seller\PricePackageController;
@@ -37,6 +38,7 @@ Route::post("/create/{params}", [AuthController::class, "create"])->name("create
 Route::get("/toko/{toko}", [WelcomeController::class, "toko"])->name("toko");
 Route::get("/produk-detail/{produk}", [WelcomeController::class, "produkdetail"])->name("produk-detail");
 Route::get("/checkout/{produk}/{price}", [WelcomeController::class, "checkout"])->name("checkout");
+Route::get("/checkout/{produk}/{price}", [WelcomeController::class, "checkout"])->name("checkout");
 //login auth:sellers
 Route::group([
     "prefix" => "sellers",
@@ -57,12 +59,14 @@ Route::group([
     Route::PUT("/product/price/{price}", [PricePackageController::class, "update"])->name("product.price.update");
     Route::delete("/product/price/{price}", [PricePackageController::class, "destroy"])->name("product.price.destroy");
     Route::delete("/product/galery/{galery}", [ProductGaleryController::class, "destroy"])->name("product.galery.destroy");
-    Route::get("/permintaan",[SellerDashboardController::class, "permintaan"])->name("sellers.permintaan");
+    Route::get("/permintaan", [SellerDashboardController::class, "permintaan"])->name("sellers.permintaan");
 });
 
-Route::group(["middleware"=>"is.customer"],function(){
-    Route::post("/checkout",[CheckoutController::class,"store"])->name("checkout.store");
-    Route::get('/pembayaran/{id_transaksi}',[CheckoutController::class,"pembayaran"])->name("pembayaran");
+Route::group(["middleware" => "is.customer"], function () {
+    Route::post("/checkout", [CheckoutController::class, "store"])->name("checkout.store");
+    Route::get('/pembayaran/', [DetailPembayaranController::class, "index"])->name("detail_pembayaran.index");
+    Route::get('/pembayaran/{id_transaksi}', [CheckoutController::class, "pembayaran"])->name("pembayaran");
+    Route::get('/pembayaran/batal/{checkout}', [DetailPembayaranController::class, "batal_pesanan"])->name("customer.batal.pesanan");
 });
 //route get admin controller
 Route::group(["prefix" => "admin"], function () {

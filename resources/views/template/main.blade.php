@@ -54,7 +54,7 @@
                 </div>
                 @else
                 <div class="d-lg-flex">
-                    <a href="" class="nav-link link-light">
+                    <a href="{{ route('detail_pembayaran.index') }}" class="nav-link link-light">
                         <i class="fa-solid fa-user-crown"></i>
                         {{ strtoupper($customer->nama) }}</a>
                 </div>

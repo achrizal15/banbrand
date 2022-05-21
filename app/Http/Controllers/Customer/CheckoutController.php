@@ -51,4 +51,5 @@ class CheckoutController extends Controller
         }
         return view('pembayaran', ["title" => "Pembayaran", "checkout" => $checkout, "subtitle" => "Pembayaran", "user" => $user]);
     }
+    
 }

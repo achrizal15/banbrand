@@ -29,8 +29,7 @@
                                       <td><a href="{{ asset("/storage/checkout/$p->file") }}">Download</a></td>
                                       <td>{{ $p->pengiriman }}</td>
                                       <td>{{ $p->harga }}</td>
-                                      <td>{{ $p->status }}</td>                                    
-                                     
+                                      <td>{{ $p->status }}</td>                                   
                                     </tr>
                                 @endforeach
                             </tbody>

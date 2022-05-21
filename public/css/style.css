@@ -72,6 +72,18 @@ nav div.d-lg-flex .btn-outline-light {
   overflow: hidden;
 }
 
+.nav-pembayaran .nav-link {
+  color: #161616;
+}
+
+.nav-pembayaran .nav-link:hover {
+  background-color: #727175;
+}
+
+.nav-pembayaran .nav-link.active {
+  color: blue;
+}
+
 .carousel-wrapper {
   width: 100%;
   margin: auto;
@@ -287,8 +299,4 @@ textarea.parsley-error:focus {
   align-items: center;
   overflow: hidden;
   margin-left: 5px;
-}
-
-.d {
-  text-align: justify;
 }

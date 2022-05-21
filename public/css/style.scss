@@ -77,7 +77,19 @@ nav div.d-lg-flex {
     width: 150px;
     overflow: hidden;
 }
+.nav-pembayaran{
+    .nav-link{
+        color:#161616;
+        &:hover{
+           background-color: rgb(114, 113, 117);
+        }
+    }
 
+   
+    .nav-link.active{
+        color:blue
+    }
+}
 .carousel-wrapper {
     width: 100%;
     margin: auto;
