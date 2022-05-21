@@ -19,7 +19,7 @@ class ProdukController extends Controller
     public function index()
     {
         $user =  auth()->guard("sellers")->user();
-        $produk = Product::where("seller_id",$user->id)->with(["seller", "kategori"])->get();
+        $produk = Product::where("seller_id", $user->id)->with(["seller", "kategori"])->get();
         return view("das.seller.produk.index", ["title" => "Produk", "produks" => $produk]);
     }
 
@@ -32,7 +32,7 @@ class ProdukController extends Controller
     {
         $user =  auth()->guard("sellers")->user();
         $kategoris = ProductCategory::orderBy("nama", "asc")->get();
-        return view("das.seller.produk.form", ["title" => "Form produk", "url" => route('sellers.product.store'), "kategoris" => $kategoris,"user"=>$user]);
+        return view("das.seller.produk.form", ["title" => "Form produk", "url" => route('sellers.product.store'), "kategoris" => $kategoris, "user" => $user]);
     }
 
     /**
@@ -95,7 +95,7 @@ class ProdukController extends Controller
             "kategoris" => $kategoris,
             "url" => route('sellers.product.update', $product->id),
             "produk" => $product,
-            "user"=>$user
+            "user" => $user
         ]);
     }
 
@@ -106,9 +106,29 @@ class ProdukController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $validate = $request->validate([
+            "nama" => "required",
+            "seller_id" => "required",
+            "category_id" => "required",
+            "deskripsi" => "required",
+            "thumnail-edit" => "required"
+        ]);
+        $nameThumnail = $validate["thumnail-edit"];
+        // unset($validate["thumnail-edit"]);
+        if ($request->hasFile("thumnail")) {
+            $request->file("thumnail")->store("public/produk-image");
+            $nameThumnail = $request->file("thumnail")->hashName();
+        }
+        $validate["thumnail"] = $nameThumnail;
+        unset($validate["thumnail-edit"]);
+     $product->update($validate);
+        $response = [
+            "message" => "Berhasil",
+            "url" => route("sellers.product.index")
+        ];
+        echo json_encode($response);
     }
 
     /**

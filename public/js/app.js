@@ -153,6 +153,15 @@ const initUploadFileDropify = () => {
             remove: "Remove"
         }
     };
+    $(document).on("click", "button.dropify-clear", function () {
+        $("#dropify-thumnail-edit").val("")
+    })
+    $(document).on("change", "input.dropify", function () {
+
+        if ($("#dropify-thumnail-edit").length == 0) return false;
+        $("#dropify-thumnail-edit").val($(this).val())
+    })
+
     if ($(".upload-avatar").length > 0) {
         options = {
             messages: {
@@ -550,7 +559,7 @@ const countDownTimer = () => {
     if ($("#countdown").length <= 0) return false;
     const time = countdown.data("time");
     countdown.countdown(time, function (param) {
-        $(this).html(param.strftime("%H jam %M menit %S detik"))
+        $(this).html(param.strftime("%H jam %M menit F%S detik"))
     })
 
 }

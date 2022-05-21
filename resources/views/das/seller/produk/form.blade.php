@@ -1,4 +1,4 @@
-@extends("template.das.seller.main")
+@extends('template.das.seller.main')
 @section('content')
     <section class="content">
         <div class="row">
@@ -51,25 +51,31 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Thumnail</label>
+                                @isset($produk)
+                                <input type="hidden" name="thumnail-edit" id="dropify-thumnail-edit"
+                                    value="{{ $produk->thumnail }} ">@endisset
                                 <input type="file" class="dropify"
-                                    name="thumnail" />
+                                    name="thumnail"
+                                    @isset($produk) data-default-file="{{ asset("storage/produk-image/$produk->thumnail") }}" @endisset />
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <input type="checkbox" name="status"
-                                    @isset($produk) @if ($produk->status == 'on') checked @endif @else checked @endisset
-                                    data-bootstrap-switch data-off-color="danger"
-                                    data-on-color="success">
-                            </div>
-                            <div class="col-md-6 mb-3 mt-5">
-                                <a href="{{ url()->previous() }}" class="btn btn-danger">BACK</a>
-                                <button type="submit"
-                                    class="btn btn-primary bg-gradient">SUBMIT</button>
-                            </div>
-                        </form>
-                    </div>
+                                    @isset($produk) @if ($produk->status == 'on') checked @endif
+                                @else
+                                checked @endisset
+                                data-bootstrap-switch data-off-color="danger"
+                                data-on-color="success">
+                        </div>
+                        <div class="col-md-6 mb-3 mt-5">
+                            <a href="{{ url()->previous() }}" class="btn btn-danger">BACK</a>
+                            <button type="submit"
+                                class="btn btn-primary bg-gradient">SUBMIT</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 @endsection
