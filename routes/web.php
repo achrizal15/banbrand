@@ -57,6 +57,7 @@ Route::group([
     Route::PUT("/product/price/{price}", [PricePackageController::class, "update"])->name("product.price.update");
     Route::delete("/product/price/{price}", [PricePackageController::class, "destroy"])->name("product.price.destroy");
     Route::delete("/product/galery/{galery}", [ProductGaleryController::class, "destroy"])->name("product.galery.destroy");
+    Route::get("/permintaan",[SellerDashboardController::class, "permintaan"])->name("sellers.permintaan");
 });
 
 Route::group(["middleware"=>"is.customer"],function(){

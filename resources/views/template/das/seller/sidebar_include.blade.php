@@ -27,8 +27,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('sellers.product.index') }}"
-                        class="nav-link {{ request()->is('/sellers/product*') ? 'active' : '' }}">
+                    <a href="{{ route('sellers.permintaan') }}"
+                        class="nav-link {{ request()->is('/sellers/permintaan*') ? 'active' : '' }}">
                         <i class="nav-icon fa-light fa-store"></i>
                         <p>
                             Permintaan
