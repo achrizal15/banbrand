@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\checkout;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
@@ -12,7 +13,25 @@ class CheckoutController extends Controller
     {
         abort(404);
     }
-
+    public function bukti_bayar(checkout $checkout, Request $request)
+    {
+        $request->validate([
+            'docx' => 'required|image',
+        ]);
+        $user = auth("customers")->user();
+        $request->file('docx')->store("public/bukti_bayar");
+        $checkout->update(["bukti_bayar" => $request->file('docx')->hashName(), "status" => "Dibayar"]);
+        $response = [
+            "message" => "Pembayaran berhasil diupload",
+            "url" => route("detail_pembayaran.index"),
+        ];
+        Notification::create([
+            "user_id"=>$user->id,
+            "pesan"=>"Pembayaran berhasil diupload, silahkan tunggu konfirmasi dari admin",
+            "title"=>"Pembayaran",
+        ]);
+        echo json_encode($response);
+    }
     public function store(Request $request)
     {
         $checkout = new checkout();
@@ -45,11 +64,14 @@ class CheckoutController extends Controller
     public function pembayaran($id_transaksi)
     {
         $user = auth("customers")->user();
-        $checkout = checkout::where("customer_id", $user->id)->where("id", $id_transaksi)->where("expired_at",">=",date("Y-m-d H:i:s",strtotime("now")))->first();
-        if (!$checkout) {
+        $checkout = checkout::where("customer_id", $user->id)
+            ->where("id", $id_transaksi)
+            ->where("status", "Belum Dibayar")
+            ->where("expired_at", ">=", date("Y-m-d H:i:s", strtotime("now")))
+            ->first();
+        if (!$checkout || strtolower($checkout->status) != "belum dibayar") {
             abort(404);
         }
         return view('pembayaran', ["title" => "Pembayaran", "checkout" => $checkout, "subtitle" => "Pembayaran", "user" => $user]);
     }
-    
 }

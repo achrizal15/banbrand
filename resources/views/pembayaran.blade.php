@@ -14,7 +14,7 @@
                 <span class="text-primary" id="countdown"
                     data-time="{{ $checkout->expired_at }}">{{ $checkout->expired_at }}</span>
             </div>
-            <div class="mx-auto col-md-5  ">
+            <div class="mx-auto col-md-5">
                 <div class="d-flex text-md text-bold py-3 justify-content-between border-bottom collapsed"
                     data-bs-toggle="collapse"
                     data-bs-target="#flush-collapseOne"
@@ -42,12 +42,16 @@
                 </div>
 
             </div>
-            <div class="mx-auto col-md-5 py-3">
-                <input type="file" name="file" class="dropify" required>
-            </div>
-            <div class="mx-auto col-md-5 py-3">
-                <button class="btn btn-primary btn-block text-bold">Konfirmasi Pembayaran</button>
-            </div>
+            <form action="{{ route('checkout.bayar', $checkout->id) }}" class="form-ajax needs-validation" method="post" enctype="multipart/form-data">
+                @csrf
+                @method("POST")
+                <div class="mx-auto col-md-5 py-3">
+                    <input type="file" name="docx" class="dropify" required>
+                </div>
+                <div class="mx-auto col-md-5 py-3">
+                    <button type="submit" class="btn btn-primary btn-block text-bold">Konfirmasi Pembayaran</button>
+                </div>
+            </form>
         </div>
         </div>
     </section>

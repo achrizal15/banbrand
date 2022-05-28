@@ -30,6 +30,7 @@ class CreateCheckoutsTable extends Migration
             $table->integer("harga");
             $table->integer("total");
             $table->text("pesan")->nullable();
+            $table->text("bukti_bayar")->nullable();
             $table->timestamp("expired_at");
             $table->string("status")->default("Belum Dibayar");
             $table->timestamps();

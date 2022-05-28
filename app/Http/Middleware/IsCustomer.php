@@ -19,6 +19,6 @@ class IsCustomer
         if (auth("customers")->check()) {
             return $next($request);
         }
-        redirect()->back();
+        return  redirect("/");
     }
 }

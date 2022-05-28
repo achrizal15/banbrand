@@ -559,7 +559,7 @@ const countDownTimer = () => {
     if ($("#countdown").length <= 0) return false;
     const time = countdown.data("time");
     countdown.countdown(time, function (param) {
-        $(this).html(param.strftime("%H jam %M menit F%S detik"))
+        $(this).html(param.strftime("%H jam %M menit %S detik"))
     })
 
 }

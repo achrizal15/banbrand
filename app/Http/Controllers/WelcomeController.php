@@ -16,7 +16,9 @@ class WelcomeController extends Controller
         // dd(auth()->user());
         $checkout =  new checkout();
         // $checkout->update(["status" => "Expired"], ["expired_at <=" => now()]);
-       $checkout->where("status","Belum Dibayar")->where("expired_at","<=",now())->update(["status"=>"Expired"]);
+        $checkout->where("status", "Belum Dibayar")
+            ->where("expired_at", "<=", now())
+            ->update(["status" => "Expired"]);
         return view("welcome", ["title" => "BANBRAND", "produk" => $produk]);
     }
     public function toko(Seller $toko)

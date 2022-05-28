@@ -38,7 +38,6 @@ Route::post("/create/{params}", [AuthController::class, "create"])->name("create
 Route::get("/toko/{toko}", [WelcomeController::class, "toko"])->name("toko");
 Route::get("/produk-detail/{produk}", [WelcomeController::class, "produkdetail"])->name("produk-detail");
 Route::get("/checkout/{produk}/{price}", [WelcomeController::class, "checkout"])->name("checkout");
-Route::get("/checkout/{produk}/{price}", [WelcomeController::class, "checkout"])->name("checkout");
 //login auth:sellers
 Route::group([
     "prefix" => "sellers",
@@ -64,9 +63,13 @@ Route::group([
 
 Route::group(["middleware" => "is.customer"], function () {
     Route::post("/checkout", [CheckoutController::class, "store"])->name("checkout.store");
-    Route::get('/pembayaran/', [DetailPembayaranController::class, "index"])->name("detail_pembayaran.index");
+    Route::get("/pembayaran", [DetailPembayaranController::class, "index"])->name("detail_pembayaran.index");
+    Route::post("/pembayaran/bayar/{checkout}", [CheckoutController::class, 'bukti_bayar'])->name("checkout.bayar");
     Route::get('/pembayaran/{id_transaksi}', [CheckoutController::class, "pembayaran"])->name("pembayaran");
     Route::get('/pembayaran/batal/{checkout}', [DetailPembayaranController::class, "batal_pesanan"])->name("customer.batal.pesanan");
+    Route::get('/notifikasi', [DetailPembayaranController::class, "notifikasi"])->name("customer.notifikasi");
+    Route::put("/notifikasi/{notifikasi}", [DetailPembayaranController::class, "dibaca"])->name("customer.notifikasi.dibaca");
+    Route::delete("/notifikasi/{notifikasi}", [DetailPembayaranController::class, "delete_notifikasi"])->name("customer.notifikasi.hapuse");
 });
 //route get admin controller
 Route::group(["prefix" => "admin"], function () {
