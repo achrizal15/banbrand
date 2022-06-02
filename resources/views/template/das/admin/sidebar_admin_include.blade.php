@@ -76,6 +76,42 @@
                 </ul>
 
             </li>
+            <li
+                class="nav-item has-treeview {{ request()->is('admin/transaksi*') ? 'menu-open' : 'a' }}">
+                <a href="#"
+                    class="nav-link {{ request()->is('admin/transaksi*')  ? 'active' : '' }}">
+      
+                    <i class="nav-icon fa-solid fa-money-from-bracket"></i>
+                    <p>
+                     Transaksi
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.transaksi') }}"
+                            class="nav-link {{ request()->is('admin/transaksi') ? 'active' : '' }}">
+                            <i class="nav-icon far fa-folder"></i>
+                            <p>Verifikasi Pembayaran</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.transaksi.ordering') }}"
+                            class="nav-link {{ request()->is('admin/transaksi/ordering*') ? 'active' : '' }}">
+                            <i class="nav-icon far fa-folder"></i>
+                            <p>Ordering</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.categorys.index') }}"
+                            class="nav-link {{ request()->is('admin/categorys*') ? 'active' : '' }}">
+                            <i class="nav-icon far fa-folder"></i>
+                            <p>Rekber Saldo</p>
+                        </a>
+                    </li>
+                </ul>
+
+            </li>
 
 
         </ul>

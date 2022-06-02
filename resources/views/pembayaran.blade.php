@@ -46,7 +46,8 @@
                 @csrf
                 @method("POST")
                 <div class="mx-auto col-md-5 py-3">
-                    <input type="file" name="docx" class="dropify" required>
+
+                    <input type="file" name="docx" class="dropify" accept="image/png, image/jpeg"  required>
                 </div>
                 <div class="mx-auto col-md-5 py-3">
                     <button type="submit" class="btn btn-primary btn-block text-bold">Konfirmasi Pembayaran</button>

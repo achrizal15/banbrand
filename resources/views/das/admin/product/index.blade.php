@@ -9,37 +9,34 @@
                     </div> --}}
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <a href="{{ route('admin.categorys.create') }}" class="btn btn-primary">Tambah</a>
                         <table class="dataTable table table-bordered table-hover" id="table-category">
                             <thead>
                                 <tr>
-                                    <th data-priority="1">NAMA</th>
-                                    <th class="text-nowrap" data-priority="2">PRODUK</th>
-                                    <th width="150px">DESKRIPSI</th>
+                                    <th data-priority="1" width="60px">GAMBAR</th>
+                                    <th class="text-nowrap" data-priority="2">NAMA</th>
+                                    <th width="150px">KATEGORI</th>
+                                    <th class="text-nowrap">SELLER</th>
                                     <th class="text-nowrap">STATUS</th>
                                     <th class="text-nowrap" data-priority="3">ACTION</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categorys as $category)
+                                @foreach ($products as $item)
                                     <tr class="text-capitalize">
-                                        <td>{{ $category->nama }}</td>
-                                        <td><a href="">VIEW(12)</a></td>
-                                        <td ><p class="text-truncate" style="max-width: 300px;">{{ $category->deskripsi }} </p> 
-                                          <a href="#" data-bs-toggle="modal" id="btn-deskripsi-category" data-bs-target="#deskripsiModal" data-category="{{ $category }}">Show All</a>
-                                       </td>
-                                        <td>{{ $category->status }}</td>
-                                        <td class="text-nowrap text-center">
-                                          <a href="{{ route('admin.categorys.edit', ['category' => $category->id]) }}"
-                                              class="btn btn-sm btn-warning"><i class="fas fa-pencil text-white"></i></a>
-                                          <form id="form-delete-item" data-remove="true" data-refresh="true" class="d-inline"
-                                              action="{{ route('admin.categorys.destroy', $category->id) }}" method="post">
-                                              @csrf
-                                              @method("delete")
-                                              <button type="submit" class="btn btn-sm btn-danger"><i
-                                                      class="fas fa-trash"></i></button>
-                                          </form>
-                                      </td>
+                                        <td class="text-center"><img   width="60px"
+                                            height="60px" src="{{ asset('storage/produk-image/'.$item->thumnail) }}" alt=""></td>
+                                        <td>{{ $item->nama }}</td>
+                                        <td>
+                                            {{ $item->kategori->nama }}
+                                        </td>
+                                        <td>
+                                            {{ $item->seller->nama }}
+                                        </td>
+                                        <td>{{ $item->status }}</td>
+                                        <td class="text-nowrap " style="width: 20px">
+                                            <a href="{{ route("admin.products.show",$item->id) }}" class="btn btn-sm btn-info"><i
+                                                class="fas fa-eye"></i></a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -56,18 +53,18 @@
     {{-- modal --}}
     <div class="modal fade" id="deskripsiModal" tabindex="-1" aria-labelledby="deskripsiModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="deskripsiModalLabel">Modal title</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deskripsiModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
-            <div class="modal-body">
-    
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
 @endsection

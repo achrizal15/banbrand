@@ -25,7 +25,7 @@ class SellerFactory extends Factory
             "no_telp_toko" => $this->faker->phoneNumber,
             "logo" => "default.jpg",
             "no_rekening" => $this->faker->bankAccountNumber,
-            "is_active" => $this->faker->boolean,
+            "is_active" => 0,
             "tentang" => $this->faker->text,
             "kode_pos" => $this->faker->postcode,
             "kota" => $this->faker->city,

@@ -19,12 +19,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        Seller::factory(10)->create();
+        Seller::factory(5)->create();
         $this->call(TagSeeder::class);
         $this->call(BankSeeder::class);
         $tags = \app\Models\Tag::all();
         $sellers = \App\Models\Seller::all();
-        ProductCategory::factory(10)->create();
+        ProductCategory::factory(1)->create();
         Customers::factory(100)->create();
         foreach ($sellers as $seller) {
             $seller->tags()->attach($tags->random(rand(1, 3)));

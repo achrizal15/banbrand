@@ -582,7 +582,46 @@ const CheckoutPage = () => {
         }
     })
 }
+const VerifPage = () => {
+    const table = $("#table-verif");
+    if (table.length <= 0) return false;
+    $(document).on("click", "#btn-view-bukti", function () {
+        const data = $(this).data('checkout');
+        const gambar = $(this).data('gambar');
+        const href=$(this).data("route")
+        $("#verifModalLabel").text(data.no_transaksi)
+        $("#kode_bayar").val(data.kodetransfer)
+        $("#total_bayar").val(convertToRupiah(data.total))
+        $("#bukti").attr("src", gambar)
+        $("#bukti-id").val(data.id)
+        $("#btn-bukti").attr("href",href)
+    })
+    $(document).on("click", "#btn-bukti", function (e) {
+        e.preventDefault()
+        const status = $(this).data("status")
+        const href = $(this).attr("href")
+        let pesan = "Jika anda mengkonfirmasi pembayaran, maka transaksi akan segera dilanjutkan ke proses selanjutnya."
+        if (status == "tolak") {
+            pesan = "Jika anda menolak pembayaran, maka transaksi akan segera dibatalkan dan akan dihapus permanen."
+        }
+       
+        Swal.fire({
+            title: 'Are you sure?',
+            text: pesan,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: status.toUpperCase()
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = `${href}?status=${status}`
+            }
+        })
+    })
+}
 $(document).ready(function () {
+    VerifPage()
     countDownTimer()
     CheckoutPage()
     PagePriceProduk()

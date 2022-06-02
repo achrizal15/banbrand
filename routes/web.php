@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductCategoryController;
+use App\Http\Controllers\Admin\TransaksiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Customer\CheckoutController;
 use App\Http\Controllers\DetailPembayaranController;
@@ -104,6 +105,11 @@ Route::group(["prefix" => "admin"], function () {
         "update" => "admin.categorys.update",
         "destroy" => "admin.categorys.destroy",
     ]);
+    Route::group(["prefix"=>"transaksi"],function(){
+        Route::get("/",[TransaksiController::class,"index"])->name("admin.transaksi");
+        Route::get("/ordering",[TransaksiController::class,"ordering"])->name("admin.transaksi.ordering");
+        Route::get("/verifikasi/{transaksi}",[TransaksiController::class,"verifikasi"])->name("admin.transaksi.verifikasi");
+    });
     Route::resource("/customers", CustomerController::class)->names([
         "index" => "admin.customers.index",
         "create" => "admin.customers.create",

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Seller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\SellerLogBookSaldo;
 use App\Models\Useractivitylog;
 use Illuminate\Support\Facades\Hash;
 
@@ -92,6 +93,13 @@ class SellerController extends Controller
                     "ip" => request()->ip(),
                     "icon" =>"fa-solid fa-check",
                     "bg_color" => "bg-info"
+                ]);
+                SellerLogBookSaldo::create([
+                    "seller_id" => $seller->id,
+                    "saldo" => 0,
+                    "keterangan" => "Aktivasi akun",
+                    "jumlah" => 0,
+                    "jenis" => "debit"
                 ]);
                 echo json_encode($seller->saveOrFail());
             } else {
