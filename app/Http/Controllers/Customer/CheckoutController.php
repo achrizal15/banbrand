@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bank;
 use App\Models\checkout;
 use App\Models\Notification;
 use Illuminate\Http\Request;
@@ -20,7 +21,10 @@ class CheckoutController extends Controller
         ]);
         $user = auth("customers")->user();
         $request->file('docx')->store("public/bukti_bayar");
-        $checkout->update(["bukti_bayar" => $request->file('docx')->hashName(), "status" => "Dibayar"]);
+        $checkout->update(["bukti_bayar" => $request->file('docx')->hashName(),
+        "bank_id" => $request->bank_id,
+        "no_rekening" => $request->no_rekening,
+         "status" => "Dibayar"]);
         $response = [
             "message" => "Pembayaran berhasil diupload",
             "url" => route("detail_pembayaran.index"),
@@ -64,6 +68,7 @@ class CheckoutController extends Controller
     public function pembayaran($id_transaksi)
     {
         $user = auth("customers")->user();
+        $bank = Bank::all();
         $checkout = checkout::where("customer_id", $user->id)
             ->where("id", $id_transaksi)
             ->where("status", "Belum Dibayar")
@@ -72,6 +77,6 @@ class CheckoutController extends Controller
         if (!$checkout || strtolower($checkout->status) != "belum dibayar") {
             abort(404);
         }
-        return view('pembayaran', ["title" => "Pembayaran", "checkout" => $checkout, "subtitle" => "Pembayaran", "user" => $user]);
+        return view('pembayaran', ["title" => "Pembayaran",'bank'=>$bank, "checkout" => $checkout, "subtitle" => "Pembayaran", "user" => $user]);
     }
 }

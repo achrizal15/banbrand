@@ -33,6 +33,8 @@ class CreateCheckoutsTable extends Migration
             $table->text("bukti_bayar")->nullable();
             $table->timestamp("expired_at");
             $table->string("status")->default("Belum Dibayar");
+            $table->unsignedBigInteger("bank_id")->nullable();
+            $table->string("no_rekening")->nullable();
             $table->timestamps();
         });
     }

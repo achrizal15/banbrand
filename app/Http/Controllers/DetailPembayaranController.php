@@ -27,7 +27,7 @@ class DetailPembayaranController extends Controller
          abort(404);
         }
         $notif = new Notification();
-        $notif = $notif->where("user_id", $user->id)->get();
+        $notif = $notif->where("user_id", $user->id)->latest()->get();
         return view("notifikasi", ["title" => "Notif","notif"=>$notif, "user" => $user, "subtitle" => "Notifikasi"]);
     }
     public function dibaca(Request $request,Notification $notifikasi){

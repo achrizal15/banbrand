@@ -60,6 +60,9 @@ Route::group([
     Route::delete("/product/price/{price}", [PricePackageController::class, "destroy"])->name("product.price.destroy");
     Route::delete("/product/galery/{galery}", [ProductGaleryController::class, "destroy"])->name("product.galery.destroy");
     Route::get("/permintaan", [SellerDashboardController::class, "permintaan"])->name("sellers.permintaan");
+    Route::get("/ordering", [SellerDashboardController::class, "ordering"])->name("sellers.ordering");
+    Route::get("/permintaan/action/{permintaan}", [SellerDashboardController::class, "permintaanAction"])
+        ->name("sellers.permintaan.action");
 });
 
 Route::group(["middleware" => "is.customer"], function () {
@@ -105,10 +108,11 @@ Route::group(["prefix" => "admin"], function () {
         "update" => "admin.categorys.update",
         "destroy" => "admin.categorys.destroy",
     ]);
-    Route::group(["prefix"=>"transaksi"],function(){
-        Route::get("/",[TransaksiController::class,"index"])->name("admin.transaksi");
-        Route::get("/ordering",[TransaksiController::class,"ordering"])->name("admin.transaksi.ordering");
-        Route::get("/verifikasi/{transaksi}",[TransaksiController::class,"verifikasi"])->name("admin.transaksi.verifikasi");
+    Route::group(["prefix" => "transaksi"], function () {
+        Route::get("/", [TransaksiController::class, "index"])->name("admin.transaksi");
+        Route::get("/ordering", [TransaksiController::class, "ordering"])->name("admin.transaksi.ordering");
+        Route::get("/refund",[TransaksiController::class, "refund"])->name("admin.transaksi.refund");
+        Route::get("/verifikasi/{transaksi}", [TransaksiController::class, "verifikasi"])->name("admin.transaksi.verifikasi");
     });
     Route::resource("/customers", CustomerController::class)->names([
         "index" => "admin.customers.index",

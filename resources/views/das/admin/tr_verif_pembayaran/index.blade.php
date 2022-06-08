@@ -22,6 +22,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($transaksi as $item)
+                                <tr>
                                     <td>{{ $item->no_transaksi }}</td>
                                     <td>{{ $item->produk->nama }}</td>
                                     <td>{{ $item->seller->nama }}</td>
@@ -30,12 +31,13 @@
                                         <a href="#" class="text-decoration-underline" data-bs-toggle="modal"
                                             data-bs-target="#verifModal" id="btn-view-bukti"
                                             data-checkout="{{ $item }}"
-                                            data-route="{{ route('admin.transaksi.verifikasi', ['transaksi' => 1]) }}"
+                                            data-route="{{ route('admin.transaksi.verifikasi', ['transaksi' => $item->id]) }}"
                                             data-gambar="{{ asset('storage/bukti_bayar/' . $item->bukti_bayar) }}"">
-                                                    Tampilkan
-                                                </a>
-                                            </td>
-                                            <td>{{ $item->created_at }}</td>
+                                                        Tampilkan
+                                                    </a>
+                                                </td>
+                                                <td>{{ $item->created_at }}</td>
+                                                </tr>
      @endforeach
                             </tbody>
                         </table>
@@ -59,8 +61,8 @@
                 <div class="modal-body">
                     {{-- kode bayar --}}
                     <div class="form-group">
-                        <label for="kode_bayar">Kode Bayar</label>
-                        <input type="text" class="form-control" id="kode_bayar" readonly>
+                        <label for="kode_bayar">No Rekening</label>
+                        <input type="text" class="form-control" id="no_rekening" readonly>
                     </div>
                     <div class="form-group">
                         <label for="total_bayar">Total Transfer</label>

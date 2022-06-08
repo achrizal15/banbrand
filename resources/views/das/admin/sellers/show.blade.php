@@ -23,10 +23,13 @@
 
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Product</b> <a class="float-right">1,322</a>
+                                    <b>Product</b> <a class="float-right">{{ count($seller->products) }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Terjual</b> <a class="float-right">543</a>
+                                    <b>Terjual</b> <a class="float-right">{{ $seller->checkout->filter(function($idx){
+                                        return strtolower($idx->status) == 'selesai';
+                                    })->count() 
+                                    }}</a>
                                 </li>
                             </ul>
 
@@ -55,25 +58,12 @@
 
                             <hr>
 
-                            <strong><i class="fas fa-pencil-alt mr-1"></i> Tags</strong>
+                            <strong><i class="fas fa-pencil-alt mr-1"></i> Email</strong>
 
                             <p class="text-muted ">
-                                @foreach ($seller->tags as $tag)
-                                    @if ($loop->last)
-                                        <span class="badge badge-danger">{{ $tag->nama }}</span>
-                                    @elseif ($loop->index % 2 == 0)
-                                        <span class="badge badge-info">{{ $tag->nama }}</span>
-                                    @else
-                                        <span class="badge badge-warning">{{ $tag->nama }}</span>
-                                    @endif
-                                @endforeach
+                             {{$seller->email}}
                             </p>
 
-                            <hr>
-
-                            <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-                            <p class="text-muted">{{ $seller->tentang }}</p>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -87,13 +77,13 @@
                         <div class="card-header p-2 ">
                             @if ($seller->is_active)
                                 <ul class="nav nav-pills">
-                                    <li class="nav-item" role="presentation">
+                                    {{-- <li class="nav-item" role="presentation">
                                         <button class="nav-link active" id="pills-activity-tab" data-bs-toggle="pill"
                                             data-bs-target="#pills-activity" type="button" role="tab"
                                             aria-controls="pills-activity" aria-selected="true">Activity</button>
-                                    </li>
+                                    </li> --}}
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-timeline-tab" data-bs-toggle="pill"
+                                        <button class="nav-link active" id="pills-timeline-tab" data-bs-toggle="pill"
                                             data-bs-target="#pills-timeline" type="button" role="tab"
                                             aria-controls="pills-timeline" aria-selected="false">Timeline</button>
                                     </li>
@@ -116,7 +106,7 @@
                         </div><!-- /.card-header -->
                         <div class="card-body" id="pills-tabContent">
                             <div class="tab-content">
-                                <div class="tab-pane fade show active" id="pills-activity" role="tabpanel"
+                                {{-- <div class="tab-pane fade show active" id="pills-activity" role="tabpanel"
                                     aria-labelledby="pills-activity-tab">
                                     <!-- Post -->
                                     <div class="post">
@@ -188,9 +178,9 @@
                                     </div>
                                     <!-- /.post -->
 
-                                </div>
+                                </div> --}}
                                 <!-- /.tab-pane -->
-                                <div class="tab-pane fade" id="pills-timeline" role="tabpanel"
+                                <div class="tab-pane fade show active" id="pills-timeline" role="tabpanel"
                                     aria-labelledby="pills-timeline-tab">
                                     <div class="timeline timeline-inverse">
                                         <!-- timeline time label -->

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKasTable extends Migration
+class CreateRefundsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateKasTable extends Migration
      */
     public function up()
     {
-        Schema::create('kas', function (Blueprint $table) {
+        Schema::create('refunds', function (Blueprint $table) {
             $table->id();
-            $table->enum("jenis",["debit","kredit"]);
-            $table->string("keterangan");
-            $table->integer("jumlah");
-            $table->integer("saldo");
+            $table->unsignedBigInteger("checkout_id");
+            $table->string("no_rekening");
+            $table->enum("status",["Proses","Selesai"])->default("Proses");
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateKasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kas');
+        Schema::dropIfExists('refunds');
     }
 }

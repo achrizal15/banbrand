@@ -35,8 +35,8 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item has-treeview {{ request()->is('admin/sellers*') ? 'menu-open' : 'a' }}">
-                    <a href="#" class="nav-link {{ request()->is('admin/sellers*') ? 'active' : '' }}">
+                <li class="nav-item has-treeview {{ request()->is('sellers/ordering') ? 'menu-open' : 'a' }}">
+                    <a href="#" class="nav-link {{ request()->is('sellers/ordering') ? 'active' : '' }}">
                         <i class="nav-icon fa-light fa-money-from-bracket"></i>
                         <p>
                             Transaksi
@@ -52,8 +52,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/admin/sellers?condition=approval"
-                                class="nav-link {{ request()->is('admin/sellers*') ? 'active' : '' }}">
+                            <a href="{{ route("sellers.ordering") }}"
+                                class="nav-link {{ request()->is('sellers/ordering') ? 'active' : '' }}">
                                 <i class="nav-icon far fa-folder"></i>
                                 <p>Ordering</p>
                             </a>

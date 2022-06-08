@@ -22,7 +22,7 @@ class TransaksiController extends Controller
     public function verifikasi(Request $request, checkout $transaksi)
     {
         $status = $request->status;
-        $kasSeller = SellerLogBookSaldo::where("seller_id", "1")->orderBy('id', 'DESC')->first();
+        $kasSeller = SellerLogBookSaldo::where("seller_id", $transaksi->seller_id)->orderBy('id', 'DESC')->first();
         if ($status == "terima") {
             $transaksi->status = "Proses";
             $transaksi->expired_at = now()->addDays(7);

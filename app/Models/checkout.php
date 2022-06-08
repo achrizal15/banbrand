@@ -29,4 +29,7 @@ class checkout extends Model
     {
         return $this->belongsTo(ProductGalery::class, "galery_id");
     }
+    public function bank(){
+        return $this->belongsTo(Bank::class,"bank_id");
+    }
 }

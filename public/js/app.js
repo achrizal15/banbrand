@@ -590,7 +590,7 @@ const VerifPage = () => {
         const gambar = $(this).data('gambar');
         const href=$(this).data("route")
         $("#verifModalLabel").text(data.no_transaksi)
-        $("#kode_bayar").val(data.kodetransfer)
+        $("#no_rekening").val(data.no_rekening)
         $("#total_bayar").val(convertToRupiah(data.total))
         $("#bukti").attr("src", gambar)
         $("#bukti-id").val(data.id)

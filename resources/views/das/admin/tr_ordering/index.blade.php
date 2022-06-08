@@ -9,7 +9,7 @@
                     </div> --}}
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table class="dataTable table table-bordered table-hover" id="table-verif">
+                        <table class="dataTable table table-bordered table-hover" id="table-ordering">
                             <thead>
                                 <tr>
                                     <th data-priority="1">NO TRANSAKSI</th>
@@ -23,21 +23,22 @@
                             </thead>
                             <tbody>
                                 @foreach ($transaksi as $item)
-                                    <td>{{ $item->no_transaksi }}</td>
-                                    <td>{{ $item->produk->nama }}</td>
-                                    <td>{{ $item->seller->nama }}</td>
-                                    <td>{{ $item->customer->nama }}</td>
-                                    <td>{{ $item->status }}</td>
-                                    <td>
-                                        <a href="#" class="text-decoration-underline" data-bs-toggle="modal"
-                                            data-bs-target="#verifModal" id="btn-view-bukti"
-                                            data-checkout="{{ $item }}"
-                                            data-route="{{ route('admin.transaksi.verifikasi', ['transaksi' => 1]) }}"
-                                            data-gambar="{{ asset('storage/bukti_bayar/' . $item->bukti_bayar) }}"">
-                                                    Tampilkan
-                                                </a>
-                                            </td>
-                                            <td>{{ $item->created_at }}</td>
+                                    <tr>
+                                        <td>{{ $item->no_transaksi }}</td>
+                                        <td>{{ $item->produk->nama }}</td>
+                                        <td>{{ $item->seller->nama }}</td>
+                                        <td>{{ $item->customer->nama }}</td>
+                                        <td>{{ $item->status }}</td>
+                                        <td>
+                                            <a href="#" class="text-decoration-underline" data-bs-toggle="modal"
+                                                data-bs-target="#verifModal" id="btn-view-bukti"
+                                                data-checkout="{{ $item }}"
+                                                data-route="{{ route('admin.transaksi.verifikasi', ['transaksi' => 1]) }}"
+                                                data-gambar="{{ asset('storage/bukti_bayar/' . $item->bukti_bayar) }}"">
+                                                        Tampilkan
+                                                    </a>
+                                                </td>
+                                                <td>{{ $item->created_at }}</td></tr>
      @endforeach
                             </tbody>
                         </table>

@@ -45,10 +45,26 @@
             <form action="{{ route('checkout.bayar', $checkout->id) }}" class="form-ajax needs-validation" method="post" enctype="multipart/form-data">
                 @csrf
                 @method("POST")
+    
                 <div class="mx-auto col-md-5 py-3">
+                    <div class="mb-3">
+                        <label class="form-label">Nama Bank</label>
+                        <select id="select-kategori" class="form-control select2"
+                            style="width: 100%;" required name="bank_id">
+                            <option selected value="" disabled>Pilih Satu</option>
+                            @foreach ($bank as $item)
+                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">No Rekening</label>
+                        <input type="text" class="form-control" name="no_rekening">
+                    </div>
 
                     <input type="file" name="docx" class="dropify" accept="image/png, image/jpeg"  required>
                 </div>
+
                 <div class="mx-auto col-md-5 py-3">
                     <button type="submit" class="btn btn-primary btn-block text-bold">Konfirmasi Pembayaran</button>
                 </div>

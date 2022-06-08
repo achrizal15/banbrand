@@ -9,59 +9,41 @@
                             <thead>
                                 <tr>
                                     <th width="60px" data-priority="1">No Transaksi</th>
+                                    <th data-priority="2">Seller</th>
                                     <th data-priority="2">Customer</th>
                                     <th class="text-nowrap" data-priority="2">Product</th>
                                     <th width="150px">Design</th>
                                     <th width="150px">File</th>
                                     <th width="150px">Pengiriman</th>
-                                    <th width="150px">Pesan</th>
                                     <th width="150px">Harga</th>
                                     <th class="text-nowrap">STATUS</th>
+                                    <th>Paket</th>
+                                    <th>Tgl Order</th>
                                 </tr>
                             </thead>
                             <tbody class="text-uppercase">
                                 @foreach ($permintaan as $p)
                                     <tr>
                                         <td>{{ $p->no_transaksi }}</td>
+                                        <td>{{ $p->seller->nama }}</td>
                                         <td>{{ $p->customer->nama }}</td>
                                         <td>{{ $p->produk->nama }}</td>
                                         <td>
+                                            
                                             @isset($p->galery)
-                                                <img width="100"
-                                                    src="{{ asset('/storage/produk-image/'.$p->galery->nama) }}"
-                                                    alt="">
-                                            @endisset
-
+                                            <img width="100"
+                                                src="{{ asset('/storage/produk-image/'.$p->galery->nama) }}"
+                                                alt="">
+                                        @endisset
                                         </td>
                                         <td><a href="{{ asset("/storage/checkout/$p->file") }}">Download</a></td>
                                         <td>{{ $p->pengiriman }}</td>
-                                        <td>{{ $p->pesan }}</td>
                                         <td>{{ rupiah($p->harga) }}</td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <button id="btnGroupDrop1" type="button"
-                                                    class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    {{ $p->status }}
-                                                </button>
-                                                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                    <li>
-                                                        <form
-                                                            class="form-ajax" method="GET"
-                                                            action="{{ route('sellers.permintaan.action', $p->id) }}?status=tolak">
-                                                            <button type="submit" class="dropdown-item">Tolak</button>
-                                                        </form>
-                                                    </li>
-                                                    <li>
-                                                        <form
-                                                            class="form-ajax" method="GET"
-                                                            action="{{ route('sellers.permintaan.action', $p->id) }}?status=selesai">
-                                                            <button type="submit" class="dropdown-item">Selesai</button>
-                                                        </form>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                        <td class="text-muted">
+                                            {{ $p->status }}
                                         </td>
+                                        <td>{{ $p->price_product->nama }}</td>
+                                        <td>{{ $p->created_at }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

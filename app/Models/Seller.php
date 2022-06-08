@@ -29,4 +29,7 @@ class Seller extends Authenticatable
     {
         return $this->hasMany(Product::class);
     }
+    public function checkout(){
+        return $this->hasMany(checkout::class);
+    }
 }

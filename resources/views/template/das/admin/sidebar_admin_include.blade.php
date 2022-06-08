@@ -106,7 +106,7 @@
                         <a href="{{ route('admin.categorys.index') }}"
                             class="nav-link {{ request()->is('admin/categorys*') ? 'active' : '' }}">
                             <i class="nav-icon far fa-folder"></i>
-                            <p>Rekber Saldo</p>
+                            <p>Refund</p>
                         </a>
                     </li>
                 </ul>
