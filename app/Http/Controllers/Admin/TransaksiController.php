@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\checkout;
 use App\Models\Notification;
+use App\Models\Refund;
 use App\Models\SellerLogBookSaldo;
 use Illuminate\Http\Request;
 
@@ -56,6 +57,13 @@ class TransaksiController extends Controller
         return view("das.admin.tr_ordering.index", [
             "title" => "Verifikasi Pembayaran",
             "transaksi" => $transaksi
+        ]);
+    }
+    public function refund(){
+        $refund= new Refund();
+        return view("das.admin.tr_refund.index",[
+            "title"=>"Refund",
+            "refund"=>$refund->latest()->get()
         ]);
     }
 }

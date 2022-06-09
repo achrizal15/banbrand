@@ -2,44 +2,43 @@
 @section('content')
     <section class="content">
         <div class="row">
-            <div class="col-12">
+            <div class="col-md-12">
                 <div class="card">
-                    {{-- <div class="card-header">
-                        <h3 class="card-title">Data {{ $title }} </h3>
-                    </div> --}}
-                    <!-- /.card-header -->
                     <div class="card-body">
-                        <table class="dataTable table table-bordered table-hover" id="table-verif">
+                        <table class="dataTable table table-bordered table-hover" id="table-refund">
                             <thead>
                                 <tr>
                                     <th data-priority="1">NO TRANSAKSI</th>
-                                    <th class="text-nowrap" data-priority="2">PRODUK</th>
-                                    <th width="150px">SELLER</th>
                                     <th class="text-nowrap">CUSTOMER</th>
-                                    <th class="text-nowrap" data-priority="3">BUKTI</th>
-                                    <th class="text-nowrap" data-priority="3">STATUS</th>
-                                    <th class="text-nowrap" data-priority="3">CREATED AT</th>
+                                    <th class="text-nowrap">BANK</th>
+                                    <th class="text-nowrap">NO REKENING</th>
+                                    <th class="text-nowrap">STATUS</th>
+                                    <th class="text-nowrap">CREATED AT</th>
+                                    <th class="text-nowrap">ACTION</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($transaksi as $item)
+                                @foreach ($refund as $item)
                                     <tr>
-                                        <td>{{ $item->no_transaksi }}</td>
-                                        <td>{{ $item->produk->nama }}</td>
-                                        <td>{{ $item->seller->nama }}</td>
-                                        <td>{{ $item->customer->nama }}</td>
+                                        <td>{{ $item->transaksi->no_transaksi }}</td>
+                                        <td>{{ $item->transaksi->customer->nama }}</td>
+                                        <td>{{ $item->transaksi->bank->nama }}</td>
+                                        <td>{{ $item->transaksi->no_rekening }}</td>
                                         <td>{{ $item->status }}</td>
+                                        <td>{{ $item->created_at }}</td>
                                         <td>
-                                            <a href="#" class="text-decoration-underline" data-bs-toggle="modal"
-                                                data-bs-target="#verifModal" id="btn-view-bukti"
-                                                data-checkout="{{ $item }}"
-                                                data-route="{{ route('admin.transaksi.verifikasi', ['transaksi' => 1]) }}"
-                                                data-gambar="{{ asset('storage/bukti_bayar/' . $item->bukti_bayar) }}"">
-                                                        Tampilkan
-                                                    </a>
-                                                </td>
-                                                <td>{{ $item->created_at }}</td></tr>
-     @endforeach
+                                            @if ($item->status == 'selesai')
+                                                <span class="text-muted">Selesai</span>
+                                            @else
+                                                <form
+                                                    class="form-ajax" method="GET"
+                                                    action="{{ route('sellers.permintaan.action', $item->id) }}?status=selesai">
+                                                    <button type="submit" class="btn btn-success">Selesai</button>
+                                                </form>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -62,8 +61,8 @@
                 <div class="modal-body">
                     {{-- kode bayar --}}
                     <div class="form-group">
-                        <label for="kode_bayar">No Rek</label>
-                        <input type="text" class="form-control" id="no_rekening" readonly>
+                        <label for="kode_bayar">Kode Bayar</label>
+                        <input type="text" class="form-control" id="kode_bayar" readonly>
                     </div>
                     <div class="form-group">
                         <label for="total_bayar">Total Transfer</label>

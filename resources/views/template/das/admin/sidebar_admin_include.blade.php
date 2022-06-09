@@ -103,8 +103,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.categorys.index') }}"
-                            class="nav-link {{ request()->is('admin/categorys*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.transaksi.refund') }}"
+                            class="nav-link {{ request()->is('admin/transaksi/refund*') ? 'active' : '' }}">
                             <i class="nav-icon far fa-folder"></i>
                             <p>Refund</p>
                         </a>
