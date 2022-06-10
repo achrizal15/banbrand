@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\TransaksiController;
+use App\Http\Controllers\AdminSettingController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Customer\CheckoutController;
 use App\Http\Controllers\DetailPembayaranController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\Seller\ProdukController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\PricePackage;
 use App\Models\ProductGalery;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +65,8 @@ Route::group([
     Route::get("/ordering", [SellerDashboardController::class, "ordering"])->name("sellers.ordering");
     Route::get("/permintaan/action/{permintaan}", [SellerDashboardController::class, "permintaanAction"])
         ->name("sellers.permintaan.action");
+    Route::get("/penarikan", [SellerDashboardController::class, "penarikan"])->name("sellers.penarikan");
+    Route::post("/penarikan", [SellerDashboardController::class, "penarikanPost"])->name("sellers.penarikanPost");
 });
 
 Route::group(["middleware" => "is.customer"], function () {
@@ -79,6 +83,17 @@ Route::group(["middleware" => "is.customer"], function () {
 Route::group(["prefix" => "admin"], function () {
     //route get admin controller
     Route::get("/", [DashboardController::class, "index"])->name("admin");
+    Route::get("/kas", [DashboardController::class, "kas"])->name("admin.kas");
+    Route::resource("/setting", SettingController::class)->names(
+        [
+            'index' => 'admin.setting.index',
+            'create' => 'admin.setting.create',
+            'store' => 'admin.setting.store',
+            'edit' => 'admin.setting.edit',
+            'update' => 'admin.setting.update',
+            'destroy' => 'admin.setting.destroy'
+        ]
+    );
     //route sellers
     Route::put("/sellers/pw-reset/{seller}", [SellerController::class, "password_reset"])->name("admin.sellers.pw-reset");
     Route::resource("/sellers", SellerController::class)->names([
@@ -111,7 +126,8 @@ Route::group(["prefix" => "admin"], function () {
     Route::group(["prefix" => "transaksi"], function () {
         Route::get("/", [TransaksiController::class, "index"])->name("admin.transaksi");
         Route::get("/ordering", [TransaksiController::class, "ordering"])->name("admin.transaksi.ordering");
-        Route::get("/refund",[TransaksiController::class, "refund"])->name("admin.transaksi.refund");
+        Route::get("/refund", [TransaksiController::class, "refund"])->name("admin.transaksi.refund");
+        Route::post("/refund/{refund}", [TransaksiController::class, "refundUpdate"])->name("admin.transaksi.refund.update");
         Route::get("/verifikasi/{transaksi}", [TransaksiController::class, "verifikasi"])->name("admin.transaksi.verifikasi");
     });
     Route::resource("/customers", CustomerController::class)->names([

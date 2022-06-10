@@ -15,8 +15,12 @@ class CreateRefundsTable extends Migration
     {
         Schema::create('refunds', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("checkout_id");
+            $table->unsignedBigInteger("checkout_id")->nullable();
+            $table->unsignedBigInteger("seller_id")->nullable();
+            $table->string("keterangan");
+            $table->string("saldo");
             $table->string("no_rekening");
+            $table->enum("type",["penarikan","refund"]);
             $table->enum("status",["Proses","Selesai"])->default("Proses");
             $table->timestamps();
         });

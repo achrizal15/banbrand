@@ -15,5 +15,6 @@
 <link rel="stylesheet"
     href="{{ asset('vendor/adminLte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('vendor/adminLte/css/adminlte.css') }}">
+
 {{-- MY STYLES --}}
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">

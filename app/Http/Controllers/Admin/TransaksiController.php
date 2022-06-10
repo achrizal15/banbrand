@@ -59,11 +59,31 @@ class TransaksiController extends Controller
             "transaksi" => $transaksi
         ]);
     }
-    public function refund(){
-        $refund= new Refund();
-        return view("das.admin.tr_refund.index",[
-            "title"=>"Refund",
-            "refund"=>$refund->latest()->get()
+    public function refund()
+    {
+        $refund = new Refund();
+        return view("das.admin.tr_refund.index", [
+            "title" => "Refund & Penarikan Dana Seller",
+            "refund" => $refund->latest()->get()
         ]);
+    }
+    public function refundUpdate(Request $request, Refund $refund)
+    {
+        $refund->status = $request->status;
+        $refund->save();
+        if ($refund->seller_id != null && strtolower($request->status) == "selesai") {
+          
+            $kasSeller = SellerLogBookSaldo::where("seller_id", $refund->seller_id)->orderBy('id', 'DESC')->first();
+            $data = [
+                "jenis" => "kredit",
+                "seller_id" => $refund->seller_id,
+                "jumlah" => $refund->saldo,
+                "saldo" => intval($kasSeller->saldo) - intval($refund->saldo),
+                "keterangan" => "Penarikan dana",
+            ];
+            
+            SellerLogBookSaldo::create($data);
+        }
+        return redirect()->route("admin.transaksi.refund")->with("success", "Refund Berhasil Diupdate");
     }
 }

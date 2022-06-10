@@ -16,7 +16,7 @@
                     </p>
                 </a>
             </li>
-            @if ($user->is_active==1 && $user->is_ban==0)
+            @if ($user->is_active == 1 && $user->is_ban == 0)
                 <li class="nav-item">
                     <a href="{{ route('sellers.product.index') }}"
                         class="nav-link {{ request()->is('/sellers/product*') ? 'active' : '' }}">
@@ -35,8 +35,10 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item has-treeview {{ request()->is('sellers/ordering') ? 'menu-open' : 'a' }}">
-                    <a href="#" class="nav-link {{ request()->is('sellers/ordering') ? 'active' : '' }}">
+                <li
+                    class="nav-item has-treeview {{ request()->is('sellers/ordering') || request()->is('sellers/penarikan') ? 'menu-open' : 'a' }}">
+                    <a href="#"
+                        class="nav-link {{ request()->is('sellers/ordering') || request()->is('sellers/penarikan') ? 'active' : '' }}">
                         <i class="nav-icon fa-light fa-money-from-bracket"></i>
                         <p>
                             Transaksi
@@ -45,14 +47,14 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="/admin/sellers?condition=approved"
-                                class="nav-link {{ request()->is('admin/sellers*') ? 'active' : '' }}">
+                            <a href="{{ route('sellers.penarikan') }}"
+                                class="nav-link {{ request()->is('admin/penarikan*') ? 'active' : '' }}">
                                 <i class="nav-icon far fa-folder"></i>
-                                <p>Penarikan dana</p>
+                                <p>Penarikan  & Kas</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route("sellers.ordering") }}"
+                            <a href="{{ route('sellers.ordering') }}"
                                 class="nav-link {{ request()->is('sellers/ordering') ? 'active' : '' }}">
                                 <i class="nav-icon far fa-folder"></i>
                                 <p>Ordering</p>

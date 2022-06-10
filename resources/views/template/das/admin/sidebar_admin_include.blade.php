@@ -48,6 +48,16 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.kas') }}"
+                    class="nav-link {{ request()->is('admin/kas*') ? 'active' : '' }}">
+                    <i class="fa-solid nav-icon fa-file-chart-pie"></i>
+                    <p>
+                       Kas
+                    </p>
+                </a>
+            </li>
+        
             <li
                 class="nav-item has-treeview {{ request()->is('admin/products*') || request()->is('admin/categorys*') ? 'menu-open' : 'a' }}">
                 <a href="#"
@@ -112,7 +122,15 @@
                 </ul>
 
             </li>
-
+            <li class="nav-item">
+                <a href="{{ route('admin.setting.index') }}"
+                    class="nav-link {{ request()->is('admin/setting*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-folder-gear nav-icon"></i>
+                    <p>
+                       Setting
+                    </p>
+                </a>
+            </li>
 
         </ul>
     </nav>

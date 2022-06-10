@@ -8,32 +8,47 @@
                         <table class="dataTable table table-bordered table-hover" id="table-refund">
                             <thead>
                                 <tr>
-                                    <th data-priority="1">NO TRANSAKSI</th>
-                                    <th class="text-nowrap">CUSTOMER</th>
+                                    <th class="text-nowrap">USER</th>
+                                    <th>TYPE</th>
+                                    <th class="text-nowrap">TOTAL</th>
                                     <th class="text-nowrap">BANK</th>
                                     <th class="text-nowrap">NO REKENING</th>
+                                    <th class="text-nowrap">KETERANGAN</th>
                                     <th class="text-nowrap">STATUS</th>
                                     <th class="text-nowrap">CREATED AT</th>
-                                    <th class="text-nowrap">ACTION</th>
+                                    <th data-priority="1" class="text-nowrap">ACTION</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($refund as $item)
                                     <tr>
-                                        <td>{{ $item->transaksi->no_transaksi }}</td>
-                                        <td>{{ $item->transaksi->customer->nama }}</td>
-                                        <td>{{ $item->transaksi->bank->nama }}</td>
-                                        <td>{{ $item->transaksi->no_rekening }}</td>
+                                        <td>{{ $item->transaksi?$item->transaksi->customer->nama:$item->seller->nama }}</td>
+                                        <td>{{ ucwords($item->type) }}</td>
+                                        <td>{{ rupiah($item->saldo) }}</td>
+                                        <td>{{ $item->transaksi?$item->transaksi->bank->nama:$item->seller->bank->nama }}</td>
+                                        <td>{{ $item->no_rekening }}</td>
+                                        <td>{{ $item->keterangan }}</td>
                                         <td>{{ $item->status }}</td>
                                         <td>{{ $item->created_at }}</td>
                                         <td>
-                                            @if ($item->status == 'selesai')
-                                                <span class="text-muted">Selesai</span>
+                                            @if ($item->status == 'Selesai' || $item->status == 'Tolak')
+                                                <span class="text-muted">{{ $item->status }}</span>
                                             @else
                                                 <form
-                                                    class="form-ajax" method="GET"
-                                                    action="{{ route('sellers.permintaan.action', $item->id) }}?status=selesai">
+                                                     method="post"
+                                                    action="{{ route('admin.transaksi.refund.update', $item->id) }}">
+                                                    @method('post')
+                                                    @csrf
+                                                    <input type="hidden" name="status" value="selesai">
                                                     <button type="submit" class="btn btn-success">Selesai</button>
+                                                </form>
+                                                <form
+                                                     method="post"
+                                                    action="{{ route('admin.transaksi.refund.update', $item->id) }}">
+                                                    @method('post')
+                                                    @csrf
+                                                    <input type="hidden" name="status" value="tolak">
+                                                    <button type="submit" class="btn btn-danger">Tolak</button>
                                                 </form>
                                             @endif
                                         </td>
