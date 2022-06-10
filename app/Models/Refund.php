@@ -13,4 +13,8 @@ class Refund extends Model
     {
         return $this->belongsTo(checkout::class, "checkout_id");
     }
+    public function seller()
+    {
+        return $this->belongsTo(Seller::class, "seller_id");
+    }
 }

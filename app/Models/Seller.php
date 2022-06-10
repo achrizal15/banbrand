@@ -23,7 +23,7 @@ class Seller extends Authenticatable
     }
     public function bank()
     {
-        return $this->hasOne(Bank::class, "bank_id");
+        return $this->belongsTo(Bank::class, "bank_id");
     }
     public function products()
     {

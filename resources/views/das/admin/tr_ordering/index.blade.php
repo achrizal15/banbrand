@@ -17,6 +17,7 @@
                                     <th width="150px">SELLER</th>
                                     <th class="text-nowrap">CUSTOMER</th>
                                     <th class="text-nowrap" data-priority="3">BUKTI</th>
+                                    <th class="text-nowrap" data-priority="3">Kontak Darurat</th>
                                     <th class="text-nowrap" data-priority="3">STATUS</th>
                                     <th class="text-nowrap" data-priority="3">CREATED AT</th>
                                 </tr>
@@ -25,20 +26,28 @@
                                 @foreach ($transaksi as $item)
                                     <tr>
                                         <td>{{ $item->no_transaksi }}</td>
-                                        <td>{{ $item->produk->nama }}</td>
-                                        <td>{{ $item->seller->nama }}</td>
-                                        <td>{{ $item->customer->nama }}</td>
-                                        <td>{{ $item->status }}</td>
+                                        <td><a
+                                                href="{{ route('admin.products.show', $item->produk->id) }}">{{ $item->produk->nama }}</a>
+                                        </td>
+                                        <td><a
+                                                href="{{ route('admin.sellers.show', $item->seller->id) }}">{{ $item->seller->nama }}</a>
+                                        </td>
+                                        <td> <a
+                                                href="{{ route('admin.customers.show', $item->customer->id) }}">{{ $item->customer->nama }}</a>
+                                        </td>
+
                                         <td>
                                             <a href="#" class="text-decoration-underline" data-bs-toggle="modal"
                                                 data-bs-target="#verifModal" id="btn-view-bukti"
                                                 data-checkout="{{ $item }}"
                                                 data-route="{{ route('admin.transaksi.verifikasi', ['transaksi' => 1]) }}"
                                                 data-gambar="{{ asset('storage/bukti_bayar/' . $item->bukti_bayar) }}"">
-                                                        Tampilkan
-                                                    </a>
-                                                </td>
-                                                <td>{{ $item->created_at }}</td></tr>
+                                                                Tampilkan
+                                                            </a>
+                                                        </td>
+                                                        <td>{{ $item->kontakdarurat }}</td>
+                                                        <td>{{ $item->status }}</td>
+                                                        <td>{{ $item->created_at }}</td></tr>
      @endforeach
                             </tbody>
                         </table>
