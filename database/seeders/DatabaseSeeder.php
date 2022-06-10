@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         Seller::factory(5)->create();
         $this->call(TagSeeder::class);
         $this->call(BankSeeder::class);
+        $this->call(AdminSettingSeeder::class);
         $tags = \app\Models\Tag::all();
         $sellers = \App\Models\Seller::all();
         ProductCategory::factory(1)->create();
