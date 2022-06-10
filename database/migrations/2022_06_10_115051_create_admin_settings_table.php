@@ -15,6 +15,13 @@ class CreateAdminSettingsTable extends Migration
     {
         Schema::create('admin_settings', function (Blueprint $table) {
             $table->id();
+            $table->string("no_handphone");
+            $table->string("email");
+            $table->string("nama_bank");
+            $table->string("no_rekening");
+            $table->string("atas_nama_bank");
+            $table->string("harga_ongkir");
+            $table->text("about_us_web");
             $table->timestamps();
         });
     }
