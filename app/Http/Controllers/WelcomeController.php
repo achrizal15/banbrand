@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminSetting;
 use App\Models\checkout;
 use App\Models\PricePackage;
 use App\Models\Product;
@@ -41,7 +42,8 @@ class WelcomeController extends Controller
         if ($price->produk_id != $produk->id || $user == null) {
             abort(404);
         }
-
-        return view("checkout", ["title" => "Checkout", "produk" => $produk->load("seller"), "price" => $price->load("produkgaleries"), "subtitle" => "checkout ($price->nama)", "user" => $user]);
+        $setting=AdminSetting::latest()->get();
+        
+        return view("checkout", ["title" => "Checkout", "produk" => $produk->load("seller"), "price" => $price->load("produkgaleries"), "subtitle" => "checkout ($price->nama)", "user" => $user,'setting'=>$setting[0]]);
     }
 }

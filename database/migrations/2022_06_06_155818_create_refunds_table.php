@@ -21,7 +21,7 @@ class CreateRefundsTable extends Migration
             $table->string("saldo");
             $table->string("no_rekening");
             $table->enum("type",["penarikan","refund"]);
-            $table->enum("status",["Proses","Selesai"])->default("Proses");
+            $table->enum("status",["Proses","Selesai","Tolak"])->default("Proses");
             $table->timestamps();
         });
     }

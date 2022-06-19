@@ -22,16 +22,21 @@
                     @endphp
                     @if ($belum_dibaca > 0)
                         <i class="fa-solid fa-bell-on text-lg text-success"></i>
-                        @else
+                    @else
                         <i class="fa-solid fa-bell text-lg"></i>
-                    @endif                 
+                    @endif
                     <a href="{{ route('customer.notifikasi') }}" class="pt-1">
                         <span class="pt-1 text-bold ml-2 text-dark">Notifikasi
                             @if ($belum_dibaca > 0)
-                                <small class="badge badge-pill badge-success">{{ $belum_dibaca }}</small>                            
+                                <small class="badge badge-pill badge-success">{{ $belum_dibaca }}</small>
                             @endif
-                            </span>    
+                        </span>
                     </a>
+                </div>
+                <div class="d-flex mt-3">
+                    <i class="fa-solid fa-user text-lg text-yellow"></i>
+                    <a href="{{ route('customer.edit') }}" class="pt-1"><span
+                            class="pt-1 text-bold ml-2 text-dark">Profil</span></a>
                 </div>
                 <div class="d-flex mt-3">
                     <i class="fa-solid fa-right-from-bracket text-lg text-danger"></i>
@@ -52,14 +57,16 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link text-bold" id="BelumBayar-tab" data-bs-toggle="tab"
                             data-bs-target="#BelumBayar"
-                            type="button" role="tab" aria-controls="BelumBayar" aria-selected="true">Belum Bayar</button>
+                            type="button" role="tab" aria-controls="BelumBayar" aria-selected="true">Belum
+                            Bayar</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link text-bold" id="Proses-tab" data-bs-toggle="tab" data-bs-target="#Proses"
                             type="button" role="tab" aria-controls="Proses" aria-selected="true">Proses</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link text-bold" id="Selesai-tab" data-bs-toggle="tab" data-bs-target="#Selesai"
+                        <button class="nav-link text-bold" id="Selesai-tab" data-bs-toggle="tab"
+                            data-bs-target="#Selesai"
                             type="button" role="tab" aria-controls="Selesai" aria-selected="true">Selesai</button>
                     </li>
                     <li class="nav-item" role="presentation">
@@ -107,7 +114,8 @@
                                 <div class="text-end">
 
                                     @if (strtolower($p->status) == 'belum dibayar')
-                                        <a href="{{ route('customer.batal.pesanan', $p->id) }}" class="btn btn-primary">
+                                        <a href="{{ route('customer.batal.pesanan', $p->id) }}"
+                                            class="btn btn-primary">
                                             Batalkan Pesanan
                                         </a>
                                         @if ($p->expired_at > now())
@@ -164,7 +172,8 @@
                                 <div class="text-end">
 
                                     @if (strtolower($p->status) == 'belum dibayar')
-                                        <a href="{{ route('customer.batal.pesanan', $p->id) }}" class="btn btn-primary">
+                                        <a href="{{ route('customer.batal.pesanan', $p->id) }}"
+                                            class="btn btn-primary">
                                             Batalkan Pesanan
                                         </a>
                                         @if ($p->expired_at > now())
@@ -221,7 +230,8 @@
                                 <div class="text-end">
 
                                     @if (strtolower($p->status) == 'belum dibayar')
-                                        <a href="{{ route('customer.batal.pesanan', $p->id) }}" class="btn btn-primary">
+                                        <a href="{{ route('customer.batal.pesanan', $p->id) }}"
+                                            class="btn btn-primary">
                                             Batalkan Pesanan
                                         </a>
                                         @if ($p->expired_at > now())
@@ -278,7 +288,8 @@
                                 <div class="text-end">
 
                                     @if (strtolower($p->status) == 'belum dibayar')
-                                        <a href="{{ route('customer.batal.pesanan', $p->id) }}" class="btn btn-primary">
+                                        <a href="{{ route('customer.batal.pesanan', $p->id) }}"
+                                            class="btn btn-primary">
                                             Batalkan Pesanan
                                         </a>
                                         @if ($p->expired_at > now())
@@ -335,7 +346,8 @@
                                 <div class="text-end">
 
                                     @if (strtolower($p->status) == 'belum dibayar')
-                                        <a href="{{ route('customer.batal.pesanan', $p->id) }}" class="btn btn-primary">
+                                        <a href="{{ route('customer.batal.pesanan', $p->id) }}"
+                                            class="btn btn-primary">
                                             Batalkan Pesanan
                                         </a>
                                         @if ($p->expired_at > now())

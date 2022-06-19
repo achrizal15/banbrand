@@ -71,17 +71,16 @@ class TransaksiController extends Controller
     {
         $refund->status = $request->status;
         $refund->save();
-        if ($refund->seller_id != null && strtolower($request->status) == "selesai") {
-          
-            $kasSeller = SellerLogBookSaldo::where("seller_id", $refund->seller_id)->orderBy('id', 'DESC')->first();
+        if ( strtolower($request->status) == "selesai") {     
+            $seller=$refund->seller_id != null ?$refund->seller_id :$refund->transaksi->seller_id;
+            $kasSeller = SellerLogBookSaldo::where("seller_id",$seller)->orderBy('id', 'DESC')->first();
             $data = [
                 "jenis" => "kredit",
-                "seller_id" => $refund->seller_id,
+                "seller_id" => $seller,
                 "jumlah" => $refund->saldo,
                 "saldo" => intval($kasSeller->saldo) - intval($refund->saldo),
-                "keterangan" => "Penarikan dana",
-            ];
-            
+                "keterangan" => "$refund->type dana",
+            ];            
             SellerLogBookSaldo::create($data);
         }
         return redirect()->route("admin.transaksi.refund")->with("success", "Refund Berhasil Diupdate");

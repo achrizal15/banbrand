@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminSetting;
 use App\Models\checkout;
 use App\Models\Notification;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class DetailPembayaranController extends Controller
         $pesanan = $pesanan->orderBy("id", "desc")->where("customer_id", $user->id)->get();
         $notif = new Notification();
         $notif = $notif->where("user_id", $user->id)->get();
-        
+        $adminSetting=AdminSetting::latest()->get();
         return view("detail_pembayaran", ["title" => "Detail Pembayaran","notif"=>$notif, "user" => $user, 'pesanan' => $pesanan, "subtitle" => "Detail Pembayaran"]);
     }
     public function notifikasi(){

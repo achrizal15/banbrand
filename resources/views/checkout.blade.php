@@ -130,9 +130,9 @@
                         </div>
                         <div class="d-flex justify-content-between text-lg text-bold">
                             <span>Ongkir :</span>
-                            <span id="label-ongkir">{{ rupiah(10000) }}
+                            <span id="label-ongkir">{{ rupiah($setting->harga_ongkir) }}
                             </span>
-                            <input type="text" name="ongkir" value="10000" hidden>
+                            <input type="text" name="ongkir" value="{{ $setting->harga_ongkir }}" hidden>
                         </div>
                         <div class="d-flex justify-content-between text-lg text-bold">
                             @php

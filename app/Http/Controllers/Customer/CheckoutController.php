@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminSetting;
 use App\Models\Bank;
 use App\Models\checkout;
 use App\Models\Notification;
@@ -21,18 +22,20 @@ class CheckoutController extends Controller
         ]);
         $user = auth("customers")->user();
         $request->file('docx')->store("public/bukti_bayar");
-        $checkout->update(["bukti_bayar" => $request->file('docx')->hashName(),
-        "bank_id" => $request->bank_id,
-        "no_rekening" => $request->no_rekening,
-         "status" => "Dibayar"]);
+        $checkout->update([
+            "bukti_bayar" => $request->file('docx')->hashName(),
+            "bank_id" => $request->bank_id,
+            "no_rekening" => $request->no_rekening,
+            "status" => "Dibayar"
+        ]);
         $response = [
             "message" => "Pembayaran berhasil diupload",
             "url" => route("detail_pembayaran.index"),
         ];
         Notification::create([
-            "user_id"=>$user->id,
-            "pesan"=>"Pembayaran berhasil diupload, silahkan tunggu konfirmasi dari admin",
-            "title"=>"Pembayaran",
+            "user_id" => $user->id,
+            "pesan" => "Pembayaran berhasil diupload, silahkan tunggu konfirmasi dari admin",
+            "title" => "Pembayaran",
         ]);
         echo json_encode($response);
     }
@@ -77,6 +80,7 @@ class CheckoutController extends Controller
         if (!$checkout || strtolower($checkout->status) != "belum dibayar") {
             abort(404);
         }
-        return view('pembayaran', ["title" => "Pembayaran",'bank'=>$bank, "checkout" => $checkout, "subtitle" => "Pembayaran", "user" => $user]);
+        $adminSetting = AdminSetting::latest()->get();
+        return view('pembayaran', ["title" => "Pembayaran", 'bank' => $bank, "checkout" => $checkout, "subtitle" => "Pembayaran", "user" => $user, "setting" => $adminSetting[0]]);
     }
 }

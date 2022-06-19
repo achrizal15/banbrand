@@ -28,7 +28,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ route('login', 'sellers') }}">Become a Seller</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    {{-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Help
@@ -40,7 +40,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">About Banbrand</a>
-                    </li>
+                    </li> --}}
                 </ul>
                 @php
                     $customer = auth()

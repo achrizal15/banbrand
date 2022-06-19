@@ -52,21 +52,14 @@ class DashboardController extends Controller
                 "checkout_id" => $permintaan->id,
                 "no_rekening" => $permintaan->no_rekening,
                 "keterangan" => "Pembatalan pesanan",
-                "saldo" => $permintaan->total, "type" => "refund"
+                "saldo" => $permintaan->harga, "type" => "refund"
             ]);
             Notification::create([
                 "user_id" => $permintaan->customer_id,
                 "pesan" => "Pesanan anda ditolak pesanan anda telah dibatalkan oleh penjual, uang anda akan dikembalikan ke rekening anda",
                 "title" => "Pesanan Ditolak",
             ]);
-            SellerLogBookSaldo::create([
-                "seller_id" => $permintaan->seller_id,
-                "jumlah" => $permintaan->harga,
-                "jenis" => "kredit",
-                "keterangan" => "Pembatalan pesanan dengan nomor transaksi " . $permintaan->no_transaksi,
-                "saldo" => $kasSeller->saldo - $permintaan->harga,
-            ]);
-        }
+             }
         $response = [
             "message" => "Proses diperbarui",
             "url" => route("sellers.permintaan")

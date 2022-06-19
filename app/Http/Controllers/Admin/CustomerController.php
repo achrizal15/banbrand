@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\checkout;
 use App\Models\Customers;
+use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
@@ -58,9 +61,15 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        $user = auth()->guard("customers")->user();
+        if (!$user) {
+         abort(404);
+        }
+        $notif = new Notification();
+        $notif = $notif->where("user_id", $user->id)->get();
+        return view("profil", ["title" => "Profil","notif"=>$notif, "user" => $user, "subtitle" => "Profil"]);
     }
 
     /**
@@ -70,9 +79,20 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Customers $customer)
     {
-        //
+        $customer->nama=$request->nama;
+        $customer->alamat=$request->alamat;
+        $customer->phone=$request->phone;
+        if($request->password!=""){
+            $customer->password=Hash::make($request->password);
+        }
+        $customer->save();
+        $response = [
+            "message" => "Customer $customer->nama updated Successfully",
+            "url" => route("customer.edit")
+        ];
+        echo json_encode($response);
     }
 
     /**

@@ -71,6 +71,8 @@ Route::group([
 
 Route::group(["middleware" => "is.customer"], function () {
     Route::post("/checkout", [CheckoutController::class, "store"])->name("checkout.store");
+    Route::get("/customer/profile",[CustomerController::class,"edit"])->name("customer.edit");
+    Route::put("/customer/profile/{customer}",[CustomerController::class,"update"])->name("customer.update");
     Route::get("/pembayaran", [DetailPembayaranController::class, "index"])->name("detail_pembayaran.index");
     Route::post("/pembayaran/bayar/{checkout}", [CheckoutController::class, 'bukti_bayar'])->name("checkout.bayar");
     Route::get('/pembayaran/{id_transaksi}', [CheckoutController::class, "pembayaran"])->name("pembayaran");

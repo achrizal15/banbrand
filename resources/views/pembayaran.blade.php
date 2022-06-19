@@ -23,15 +23,14 @@
                     <span>Petunjuk Transfer</span>
                     <i class="fas fa-chevron-down"></i>
                 </div>
-
                 <div class="accordion-item" style="border:none !important;">
                     <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne"
                         data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">
                             <ul>
-                                <li>Transfer ke rekening BCA</li>
-                                <li>Nomor Rekening : 0987654321</li>
-                                <li>Atas Nama : PT. Banbran Abadi</li>
+                                <li>Transfer ke rekening {{ $setting->nama_bank }}</li>
+                                <li>Nomor Rekening : {{ $setting->no_rekening }}</li>
+                                <li>Atas Nama : {{ $setting->atas_nama_bank }}</li>
                                 <li>Simpan bukti transfer</li>
                                 <li>Foto bukti transfer</li>
                                 <li>Upload gambar pada form dibawah ini</li>
