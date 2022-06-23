@@ -14,7 +14,7 @@
                     <div class="col-md-2">
 
                         <label class="form-label">Customer</label>
-                        <input type="text" class="form-control text-bold" value="Rizal 0812188271" readonly>
+                        <input type="text" class="form-control text-bold" value="{{ $user->nama }}" readonly>
                         <input type="text" hidden name="customer_id" value="{{ $user->id }}">
                         <input type="hidden" name="seller_id" value="{{ $produk->seller->id }}">
                         <input type="hidden" name="produk_id" value="{{ $produk->id }}">
