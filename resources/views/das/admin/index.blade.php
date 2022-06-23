@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row">
          
-            <div class="col-lg-6">
+            <!-- <div class="col-lg-6">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
                         <h5 class="m-0">Featured</h5>
@@ -17,7 +17,7 @@
                         <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- /.col-md-6 -->
         </div>
         <!-- /.row -->

@@ -13,9 +13,9 @@
                         <table class="dataTable table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th data-priority="1">GAMBAR</th>
+                                    <!-- <th data-priority="1">GAMBAR</th> -->
                                     <th class="text-nowrap" data-priority="2">NAMA</th>
-                                    <th>USERNAME</th>
+                                    <!-- <th>USERNAME</th> -->
                                     <th class="text-nowrap">NO HANDPHONE</th>
                                     <th class="text-nowrap">NO EMAIL</th>
                                     <th class="text-nowrap" data-priority="3">ACTION</th>
@@ -24,12 +24,7 @@
                             <tbody>
                                 @foreach ($customer as $value)
                                     <tr>
-                                        <td class="text-center"> <img
-                                                src="{{ asset('storage/images-customer/' . $value->gambar) }}" alt=""
-                                                width="60px"
-                                                height="60px"></td>
                                         <td>{{ $value->nama }}</td>
-                                        <td>{{ $value->username }}</td>
                                         <td>{{ $value->no_telp }}</td>
                                         <td>{{ $value->email }}</td>
                                         <td class="text-nowrap text-center">

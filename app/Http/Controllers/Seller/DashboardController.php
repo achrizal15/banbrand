@@ -82,6 +82,9 @@ class DashboardController extends Controller
             ->get();
             $lastKas=SellerLogBookSaldo::where("seller_id", auth()->guard("sellers")->user()->id)->orderBy('id', 'DESC')->first();
             $kas=SellerLogBookSaldo::where("seller_id", auth()->guard("sellers")->user()->id)->orderBy('id', 'DESC')->get();
+            if(!$lastKas){
+                return abort(404);
+            }
         return view("das.seller.penarikan.index", ["title" => "Penarikan & Kas", "penarikan" => $penarikan,"lastKas"=>$lastKas,"kas"=>$kas]);
     }
     public function penarikanPost(Request $request){
