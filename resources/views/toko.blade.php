@@ -8,7 +8,7 @@
         <div class="text-bold d-flex" style="text-transform: capitalize">
             <i class="fa-solid fa-newspaper"></i>
             <div class="ml-3">
-                {{ $toko->tentang}})
+                {{ $toko->tentang}}
             </div>
         </div>
         <br>

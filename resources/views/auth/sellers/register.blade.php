@@ -169,13 +169,6 @@
                                                 id="password"
                                                 class="form-control mb-3" required>
                                         </div>
-
-                                        <div class="col-md-6">
-                                            <label class="form-label">Ulangi Password</label>
-                                            <input tabindex="-1" data-parsley-group="block-3" type="password" name="password_confirmation"
-                                                class="form-control mb-3" data-parsley-equalTo="#password" required>
-                                        </div>
-                                        
                                     </div>
                                     <br /><br />
                                     <br /><br />

@@ -656,6 +656,7 @@ const CheckoutPage = () => {
     const form = $("#form-checkout-page");
     if (form.length <= 0) return false;
     $(document).on("change", "input[name='pengiriman']", function () {
+        $('#qty').val(1);
         const harga = $("input[name='harga']").val();
         const ongkir = $("input[name='ongkir']").val();
         const kode = $("input[name='kodetransfer']").val();
@@ -677,7 +678,7 @@ const CheckoutPage = () => {
             );
         }
     });
-    $(document).on("keyup", "#qty", function () {
+    $(document).on("change keyup", "#qty", function () {
         const jumlah_qty = $(this).val();
         if (jumlah_qty == "0") {
             $(this).val(1);
