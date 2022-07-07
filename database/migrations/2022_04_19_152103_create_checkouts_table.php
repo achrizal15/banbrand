@@ -26,6 +26,7 @@ class CreateCheckoutsTable extends Migration
             $table->bigInteger("ongkir");
             $table->string("file");
             $table->string("alamat");
+            $table->integer('qty')->nullable();
             $table->string("kontakdarurat");
             $table->integer("harga");
             $table->integer("total");
