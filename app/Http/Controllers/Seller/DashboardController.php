@@ -36,7 +36,6 @@ class DashboardController extends Controller
         if (strtolower($permintaan->status) == "selesai") {
             return abort(404);
         }
-        $kasSeller = SellerLogBookSaldo::where("seller_id", $permintaan->seller_id)->orderBy('id', 'DESC')->first();
         if ($request->status == "selesai") {
             $permintaan->status = "selesai";
             $permintaan->save();
@@ -52,14 +51,14 @@ class DashboardController extends Controller
                 "checkout_id" => $permintaan->id,
                 "no_rekening" => $permintaan->no_rekening,
                 "keterangan" => "Pembatalan pesanan",
-                "saldo" => $permintaan->harga, "type" => "refund"
+                "saldo" => $permintaan->harga * $permintaan->qty, "type" => "refund"
             ]);
             Notification::create([
                 "user_id" => $permintaan->customer_id,
                 "pesan" => "Pesanan anda ditolak pesanan anda telah dibatalkan oleh penjual, uang anda akan dikembalikan ke rekening anda",
                 "title" => "Pesanan Ditolak",
             ]);
-             }
+        }
         $response = [
             "message" => "Proses diperbarui",
             "url" => route("sellers.permintaan")
@@ -70,25 +69,26 @@ class DashboardController extends Controller
     {
         $permintaan = new checkout();
         $permintaan = $permintaan->latest()
-        ->where("seller_id", auth()->guard("sellers")->user()->id);
+            ->where("seller_id", auth()->guard("sellers")->user()->id);
         $permintaan = $permintaan->with(["produk", "customer", "price_product", "galery"])
             ->get();
         return view("das.seller.ordering.index", ["title" => "ordering", "permintaan" => $permintaan]);
     }
-    public function penarikan(){
+    public function penarikan()
+    {
         $penarikan = new Refund();
         $penarikan = $penarikan->where("seller_id", auth()->guard("sellers")->user()->id);
-        $penarikan = $penarikan->with(["seller.bank"])
-            ->get();
-            $lastKas=SellerLogBookSaldo::where("seller_id", auth()->guard("sellers")->user()->id)->orderBy('id', 'DESC')->first();
-            $kas=SellerLogBookSaldo::where("seller_id", auth()->guard("sellers")->user()->id)->orderBy('id', 'DESC')->get();
-            if(!$lastKas){
-                return abort(404);
-            }
-        return view("das.seller.penarikan.index", ["title" => "Penarikan & Kas", "penarikan" => $penarikan,"lastKas"=>$lastKas,"kas"=>$kas]);
+        $penarikan = $penarikan->with(["seller.bank"])->get();
+        $lastKas = SellerLogBookSaldo::where("seller_id", auth()->guard("sellers")->user()->id)->orderBy('id', 'DESC')->first();
+        $kas = SellerLogBookSaldo::where("seller_id", auth()->guard("sellers")->user()->id)->orderBy('id', 'DESC')->get();
+        if (!$lastKas) {
+            return abort(404);
+        }
+        return view("das.seller.penarikan.index", ["title" => "Penarikan & Kas", "penarikan" => $penarikan, "lastKas" => $lastKas, "kas" => $kas]);
     }
-    public function penarikanPost(Request $request){
-     $request->validate([
+    public function penarikanPost(Request $request)
+    {
+        $request->validate([
             "saldo" => "required|min:50000|numeric",
             "keterangan" => "required",
         ]);
@@ -97,7 +97,7 @@ class DashboardController extends Controller
             "saldo" => $request->saldo,
             "keterangan" => $request->keterangan,
             "type" => "penarikan",
-            "no_rekening"=> auth()->guard("sellers")->user()->no_rekening
+            "no_rekening" => auth()->guard("sellers")->user()->no_rekening
         ]);
         $response = [
             "message" => "Berhasil",

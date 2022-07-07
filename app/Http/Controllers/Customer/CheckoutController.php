@@ -59,6 +59,7 @@ class CheckoutController extends Controller
         $checkout->ongkir = $request->ongkir;
         $checkout->kodetransfer = $request->kodetransfer;
         $checkout->total = $request->total;
+        $checkout->qty = $request->qty;
         $checkout->expired_at = date("Y-m-d H:i:s", strtotime("12 hours"));
         $checkout->status = "Belum Dibayar";
         $checkout->saveOrFail();

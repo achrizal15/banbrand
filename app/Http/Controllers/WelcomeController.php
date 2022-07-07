@@ -6,6 +6,7 @@ use App\Models\AdminSetting;
 use App\Models\checkout;
 use App\Models\PricePackage;
 use App\Models\Product;
+use App\Models\Refund;
 use App\Models\Seller;
 
 class WelcomeController extends Controller
@@ -20,6 +21,15 @@ class WelcomeController extends Controller
         $checkout->where("status", "Belum Dibayar")
             ->where("expired_at", "<=", now())
             ->update(["status" => "Expired"]);
+        $checkoutDibayar = checkout::latest()->where("status", "Proses")->where("expired_at", "<=", now())->get();
+        foreach ($checkoutDibayar as $item) {
+            Refund::create([
+                "checkout_id" => $item->id,
+                "no_rekening" => $item->no_rekening,
+                "keterangan" => "Pembatalan pesanan",
+                "saldo" => $item->harga * $item->qty, "type" => "refund"
+            ]);
+        }
         return view("welcome", ["title" => "BANBRAND", "produk" => $produk]);
     }
     public function toko(Seller $toko)

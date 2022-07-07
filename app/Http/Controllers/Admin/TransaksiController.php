@@ -35,9 +35,9 @@ class TransaksiController extends Controller
             ]);
             SellerLogBookSaldo::create([
                 "seller_id" => $transaksi->seller_id,
-                "saldo" => $kasSeller->saldo + $transaksi->harga,
+                "saldo" => $kasSeller->saldo + ($transaksi->harga * $transaksi->qty),
                 "keterangan" => "Penjualan " . $transaksi->produk->nama . " dengan nomor transaksi " . $transaksi->no_transaksi,
-                "jumlah" => $transaksi->harga,
+                "jumlah" =>$transaksi->harga * $transaksi->qty,
                 "jenis" => "debit"
             ]);
             return redirect()->route("admin.transaksi")->with("success", "Transaksi Berhasil Proses");
@@ -71,16 +71,16 @@ class TransaksiController extends Controller
     {
         $refund->status = $request->status;
         $refund->save();
-        if ( strtolower($request->status) == "selesai") {     
-            $seller=$refund->seller_id != null ?$refund->seller_id :$refund->transaksi->seller_id;
-            $kasSeller = SellerLogBookSaldo::where("seller_id",$seller)->orderBy('id', 'DESC')->first();
+        if (strtolower($request->status) == "selesai") {
+            $seller = $refund->seller_id != null ? $refund->seller_id : $refund->transaksi->seller_id;
+            $kasSeller = SellerLogBookSaldo::where("seller_id", $seller)->orderBy('id', 'DESC')->first();
             $data = [
                 "jenis" => "kredit",
                 "seller_id" => $seller,
                 "jumlah" => $refund->saldo,
                 "saldo" => intval($kasSeller->saldo) - intval($refund->saldo),
                 "keterangan" => "$refund->type dana",
-            ];            
+            ];
             SellerLogBookSaldo::create($data);
         }
         return redirect()->route("admin.transaksi.refund")->with("success", "Refund Berhasil Diupdate");
