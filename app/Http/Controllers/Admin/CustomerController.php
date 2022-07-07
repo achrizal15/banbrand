@@ -18,7 +18,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customer = Customers::latest()->get();
+        $customer = Customers::latest()->where('is_ban', '!=', '1')->get();
         return view("das.admin.customer.index", ["title" => "Customer", "customer" => $customer]);
     }
 
@@ -65,11 +65,11 @@ class CustomerController extends Controller
     {
         $user = auth()->guard("customers")->user();
         if (!$user) {
-         abort(404);
+            abort(404);
         }
         $notif = new Notification();
         $notif = $notif->where("user_id", $user->id)->get();
-        return view("profil", ["title" => "Profil","notif"=>$notif, "user" => $user, "subtitle" => "Profil"]);
+        return view("profil", ["title" => "Profil", "notif" => $notif, "user" => $user, "subtitle" => "Profil"]);
     }
 
     /**
@@ -79,13 +79,13 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Customers $customer)
+    public function update(Request $request, Customers $customer)
     {
-        $customer->nama=$request->nama;
-        $customer->alamat=$request->alamat;
-        $customer->phone=$request->phone;
-        if($request->password!=""){
-            $customer->password=Hash::make($request->password);
+        $customer->nama = $request->nama;
+        $customer->alamat = $request->alamat;
+        $customer->phone = $request->phone;
+        if ($request->password != "") {
+            $customer->password = Hash::make($request->password);
         }
         $customer->save();
         $response = [
@@ -107,7 +107,9 @@ class CustomerController extends Controller
             "message" => "Customer $customer->nama Deleted Successfully",
             "url" => route("admin.customers.index")
         ];
-        $customer->deleteOrFail();
+        $customer->is_ban = 1;
+        $customer->ban_at = date('Y-m-d');
+        $customer->saveOrFail();
         echo json_encode($response);
     }
 }

@@ -13,7 +13,7 @@ class WelcomeController extends Controller
 
     public function index()
     {
-        $produk = Product::orderBy("nama", "ASC")->with(["seller", "kategori"])->get();
+        $produk = Product::orderBy("nama", "ASC")->with(["seller", "kategori", "checkout"])->get();
         // dd(auth()->user());
         $checkout =  new checkout();
         // $checkout->update(["status" => "Expired"], ["expired_at <=" => now()]);
@@ -42,8 +42,8 @@ class WelcomeController extends Controller
         if ($price->produk_id != $produk->id || $user == null) {
             abort(404);
         }
-        $setting=AdminSetting::latest()->get();
-        
-        return view("checkout", ["title" => "Checkout", "produk" => $produk->load("seller"), "price" => $price->load("produkgaleries"), "subtitle" => "checkout ($price->nama)", "user" => $user,'setting'=>$setting[0]]);
+        $setting = AdminSetting::latest()->get();
+
+        return view("checkout", ["title" => "Checkout", "produk" => $produk->load("seller"), "price" => $price->load("produkgaleries"), "subtitle" => "checkout ($price->nama)", "user" => $user, 'setting' => $setting[0]]);
     }
 }

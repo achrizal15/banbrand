@@ -7,13 +7,14 @@ use App\Models\Customers;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
 use App\Models\Seller;
+use App\Models\User;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    private $ROLE = ["admin-bb", "sellers", "customer"];
+    private $ROLE = ["admin", "sellers", "customer"];
     private $kategori = [];
     public function __construct()
     {
@@ -26,8 +27,12 @@ class AuthController extends Controller
             abort("404");
         }
         if ($params == "sellers") {
-          if( auth("sellers")->check())return redirect("/sellers");
-            return view("auth.sellers.login", ["title" => "Login Seller", "kategori" => $this->kategori, "subtitle" => "Login Seller", "url" => Route("loginAuth", $params)]);
+            if (auth("sellers")->check()) return redirect("/sellers");
+            return view("auth.sellers.login", ["title" => "Login Seller", "kategori" => $this->kategori, "subtitle" => "Login Seller", "url" => Route("loginAuth", $params), 'type' => 'seller']);
+        }
+        if ($params == "admin") {
+            if (auth("admin")->check()) return redirect("/admin");
+            return view("auth.sellers.login", ["title" => "Login Admin", "kategori" => $this->kategori, "subtitle" => "Login Admin", "url" => Route("loginAuth", $params), 'type' => 'admin']);
         }
     }
     public function register($params)
@@ -77,6 +82,12 @@ class AuthController extends Controller
                 return response()->json(["errors" => ["message" => ["Login failed"]]], 422);
             }
         }
+        if ($params == "admin") {
+            $response = $this->__authAdmin($validate);
+            if ($response == "error") {
+                return response()->json(["errors" => ["message" => ["Login failed"]]], 422);
+            }
+        }
         if ($params == "customer") {
             $response = $this->__authCustomer($validate);
             if ($response == "error") {
@@ -84,6 +95,22 @@ class AuthController extends Controller
             }
         }
         echo json_encode($response);
+    }
+    private function __authAdmin($data)
+    {
+        $request = Request();
+        $user = User::where("email", $request->email)->first();
+        if ($user) {
+            if (Auth::guard("admin")->attempt($data)) {
+                $request->session()->regenerate();
+                $response = [
+                    "message" => "Berhasil login.",
+                    "url" => route("admin"),
+                ];
+                return $response;
+            }
+        }
+        return "error";
     }
     private function __authCustomer($validate)
     {
@@ -103,14 +130,13 @@ class AuthController extends Controller
     }
     private function __authSeller($validate)
     {
-
         $request = Request();
         $user = Seller::where("email", $request->email)->first();
         if ($user) {
             if (Auth::guard("sellers")->attempt($validate)) {
                 $request->session()->regenerate();
                 $response = [
-                    "message" => "Akun berhasil dibuat.",
+                    "message" => "Berhasil login.",
                     "url" => route("sellers"),
                 ];
                 return $response;

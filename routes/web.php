@@ -17,9 +17,7 @@ use App\Http\Controllers\Seller\DashboardController as SellerDashboardController
 use App\Http\Controllers\Seller\PricePackageController;
 use App\Http\Controllers\Seller\ProdukController;
 use App\Http\Controllers\WelcomeController;
-use App\Models\PricePackage;
-use App\Models\ProductGalery;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,8 +69,8 @@ Route::group([
 
 Route::group(["middleware" => "is.customer"], function () {
     Route::post("/checkout", [CheckoutController::class, "store"])->name("checkout.store");
-    Route::get("/customer/profile",[CustomerController::class,"edit"])->name("customer.edit");
-    Route::put("/customer/profile/{customer}",[CustomerController::class,"update"])->name("customer.update");
+    Route::get("/customer/profile", [CustomerController::class, "edit"])->name("customer.edit");
+    Route::put("/customer/profile/{customer}", [CustomerController::class, "update"])->name("customer.update");
     Route::get("/pembayaran", [DetailPembayaranController::class, "index"])->name("detail_pembayaran.index");
     Route::post("/pembayaran/bayar/{checkout}", [CheckoutController::class, 'bukti_bayar'])->name("checkout.bayar");
     Route::get('/pembayaran/{id_transaksi}', [CheckoutController::class, "pembayaran"])->name("pembayaran");
@@ -81,13 +79,13 @@ Route::group(["middleware" => "is.customer"], function () {
     Route::put("/notifikasi/{notifikasi}", [DetailPembayaranController::class, "dibaca"])->name("customer.notifikasi.dibaca");
     Route::delete("/notifikasi/{notifikasi}", [DetailPembayaranController::class, "delete_notifikasi"])->name("customer.notifikasi.hapuse");
 });
-//route get admin controller
-Route::group(["prefix" => "admin"], function () {
+
+Route::group(["prefix" => "admin", "middleware" => 'is.admin'], function () {
     //route get admin controller
     Route::get("/", [DashboardController::class, "index"])->name("admin");
     Route::get("/kas", [DashboardController::class, "kas"])->name("admin.kas");
-    Route::get("/setting",[ AdminSettingController::class,"index"])->name("admin.setting.index");
-    Route::put("/setting/{adminsetting}",[ AdminSettingController::class,"update"])->name("admin.setting.update");
+    Route::get("/setting", [AdminSettingController::class, "index"])->name("admin.setting.index");
+    Route::put("/setting/{adminsetting}", [AdminSettingController::class, "update"])->name("admin.setting.update");
     //route sellers
     Route::put("/sellers/pw-reset/{seller}", [SellerController::class, "password_reset"])->name("admin.sellers.pw-reset");
     Route::resource("/sellers", SellerController::class)->names([
@@ -98,6 +96,15 @@ Route::group(["prefix" => "admin"], function () {
         "edit" => "admin.sellers.edit",
         "update" => "admin.sellers.update",
         "destroy" => "admin.sellers.destroy",
+    ]);
+    Route::resource('/users', UserController::class)->names([
+        'index' => 'admin.users.index',
+        'create' => 'admin.users.create',
+        'store' => 'admin.users.store',
+        'show' => 'admin.users.show',
+        'edit' => 'admin.users.edit',
+        'update' => 'admin.users.update',
+        'destroy' => 'admin.users.destroy',
     ]);
     Route::resource('/products', ProductController::class)->names([
         "index" => "admin.products.index",

@@ -19,6 +19,10 @@ class Product extends Model
     }
     public function priceproduk()
     {
-        return $this->hasMany(PricePackage::class,"produk_id","id");
+        return $this->hasMany(PricePackage::class, "produk_id", "id");
+    }
+    public function checkout()
+    {
+        return $this->hasMany(checkout::class, "produk_id", 'id');
     }
 }

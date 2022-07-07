@@ -20,9 +20,11 @@
                                 <label for="pass" class="input-group-text"><i class="fa-solid fa-key"></i></label>
                                 <input type="password" name="password" class="form-control" id="pass">
                             </div>
+                            @if ($type=='seller')
                             <div class="text-end">
                                 <a href="{{ route('register', 'sellers') }}">Register</a>
-                            </div>
+                            </div>      
+                            @endif
                         </div>
                         <button class="btn btn-primary">Login</button>
 

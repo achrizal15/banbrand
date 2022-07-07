@@ -22,10 +22,18 @@
                             <tbody>
                                 @foreach ($refund as $item)
                                     <tr>
-                                        <td>{{ $item->transaksi?$item->transaksi->customer->nama:$item->seller->nama }}</td>
+                                        {{-- {{ $item->transaksi?$item->transaksi->customer->nama:$item->seller->nama }} --}}
+                                        <td>
+                                            @isset($item->transaksi)
+                                                @isset($item->transaksi->customer)
+                                                    {{ $item->transaksi->customer->nama }}
+                                                @endisset
+                                            @endisset
+                                        </td>
                                         <td>{{ ucwords($item->type) }}</td>
                                         <td>{{ rupiah($item->saldo) }}</td>
-                                        <td>{{ $item->transaksi?$item->transaksi->bank->nama:$item->seller->bank->nama }}</td>
+                                        <td>{{ $item->transaksi ? $item->transaksi->bank->nama : $item->seller->bank->nama }}
+                                        </td>
                                         <td>{{ $item->no_rekening }}</td>
                                         <td>{{ $item->keterangan }}</td>
                                         <td>{{ $item->status }}</td>
@@ -35,7 +43,7 @@
                                                 <span class="text-muted">{{ $item->status }}</span>
                                             @else
                                                 <form
-                                                     method="post"
+                                                    method="post"
                                                     action="{{ route('admin.transaksi.refund.update', $item->id) }}">
                                                     @method('post')
                                                     @csrf
@@ -43,7 +51,7 @@
                                                     <button type="submit" class="btn btn-success">Selesai</button>
                                                 </form>
                                                 <form
-                                                     method="post"
+                                                    method="post"
                                                     action="{{ route('admin.transaksi.refund.update', $item->id) }}">
                                                     @method('post')
                                                     @csrf

@@ -131,6 +131,15 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.users.index') }}"
+                    class="nav-link {{ request()->is('admin/users*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-user-gear nav-icon"></i>
+                    <p>
+                      User
+                    </p>
+                </a>
+            </li>
 
         </ul>
     </nav>

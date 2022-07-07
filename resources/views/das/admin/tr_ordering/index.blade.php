@@ -26,14 +26,24 @@
                                 @foreach ($transaksi as $item)
                                     <tr>
                                         <td>{{ $item->no_transaksi }}</td>
-                                        <td><a
-                                                href="{{ route('admin.products.show', $item->produk->id) }}">{{ $item->produk->nama }}</a>
+                                        <td>
+                                            @isset($item->produk)
+                                                <a
+                                                    href="{{ route('admin.products.show', $item->produk->id) }}">{{ $item->produk->nama }}</a>
+                                            @endisset
                                         </td>
-                                        <td><a
-                                                href="{{ route('admin.sellers.show', $item->seller->id) }}">{{ $item->seller->nama }}</a>
+
+                                        <td>
+                                            @isset($item->seller)
+                                                <a
+                                                    href="{{ route('admin.sellers.show', $item->seller->id) }}">{{ $item->seller->nama }}</a>
+                                            @endisset
                                         </td>
-                                        <td> <a
-                                                href="{{ route('admin.customers.show', $item->customer->id) }}">{{ $item->customer->nama }}</a>
+                                        <td>
+                                            @isset($item->customer)
+                                                <a
+                                                    href="{{ route('admin.customers.show', $item->customer->id) }}">{{ $item->customer->nama }}</a>
+                                            @endisset
                                         </td>
 
                                         <td>
@@ -42,13 +52,14 @@
                                                 data-checkout="{{ $item }}"
                                                 data-route="{{ route('admin.transaksi.verifikasi', ['transaksi' => 1]) }}"
                                                 data-gambar="{{ asset('storage/bukti_bayar/' . $item->bukti_bayar) }}"">
-                                                                Tampilkan
-                                                            </a>
-                                                        </td>
-                                                        <td>{{ $item->kontakdarurat }}</td>
-                                                        <td>{{ $item->status }}</td>
-                                                        <td>{{ $item->created_at }}</td></tr>
-     @endforeach
+                                                Tampilkan
+                                            </a>
+                                        </td>
+                                        <td>{{ $item->kontakdarurat }}</td>
+                                        <td>{{ $item->status }}</td>
+                                        <td>{{ $item->created_at }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
