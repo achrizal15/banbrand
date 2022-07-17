@@ -65,7 +65,7 @@
             <br>
             <i class="fa-solid fa-bags-shopping text-green"></i> Terjual {{count($p->checkout)}}
             <br>
-            <i class="fa-solid fa-map-pin text-red"></i> Banyuwangi, Kalipuro ketapang
+            <i class="fa-solid fa-map-pin text-red"></i> Banyuwangi, Kalipuro
             <br>
             <div class="d-grid">
                 <a href="{{ route('produk-detail', ['produk' => $p->id]) }}" class="btn mt-3 btn-outline-success fw-bold">Order</a>
